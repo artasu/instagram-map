@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>グループに参加</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #f5f5f5; color: #333;
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: #fff; border-radius: 14px; padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1); width: 100%; max-width: 420px;
+      text-align: center;
+    }
+    .logo { font-size: 40px; margin-bottom: 16px; }
+    .card h1 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .card .subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+
+    .group-info {
+      background: #f8f8f8; border-radius: 10px; padding: 16px; margin-bottom: 24px; text-align: left;
+    }
+    .group-info .group-name { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+    .group-info .group-meta { font-size: 13px; color: #888; }
+    .group-info .expiry { font-size: 12px; color: #e65100; margin-top: 8px; }
+
+    .user-preview {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+      background: #e8f5e9; border-radius: 8px; padding: 10px 14px;
+    }
+    .user-preview img { width: 36px; height: 36px; border-radius: 50%; }
+    .user-preview .user-text { text-align: left; }
+    .user-preview .user-name { font-size: 14px; font-weight: 600; }
+    .user-preview .user-email { font-size: 12px; color: #555; }
+
+    .btn {
+      width: 100%; padding: 12px; border: none; border-radius: 8px;
+      font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 10px;
+    }
+    .btn-join { background: #1a73e8; color: #fff; }
+    .btn-join:hover { background: #1558b0; }
+    .btn-join:disabled { background: #bbb; cursor: default; }
+    .btn-secondary { background: #f0f0f0; color: #333; font-weight: 400; }
+    .btn-secondary:hover { background: #e0e0e0; }
+
+    .status-msg { font-size: 14px; margin-top: 8px; }
+    .status-error { color: #c62828; }
+    .status-ok { color: #2e7d32; }
+
+    #signin-area { margin-bottom: 16px; display: flex; justify-content: center; }
+
+    .spinner {
+      display: inline-block; width: 24px; height: 24px;
+      border: 3px solid #e0e0e0; border-top-color: #1a73e8;
+      border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <div class="spinner" style="width:40px;height:40px;border-width:4px"></div>
+  <p style="margin-top:16px; color:#888">読み込み中...</p>
+</div>
+
+<script src="/frontend/app.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+  const token = location.pathname.split("/").pop();
+  let groupInfo = null;
+  let loggedInUser = null;
+
+  const waitForGIS = () => new Promise(res => {
+    if (window.google && google.accounts) { res(); return; }
+    const id = setInterval(() => { if (window.google && google.accounts) { clearInterval(id); res(); } }, 100);
+  });
+
+  async function init() {
+    await waitForGIS();
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+
+    // 招待情報取得（認証不要）
+    let info;
+    try {
+      const r = await fetch(`/api/invite/${token}`);
+      if (!r.ok) { showError(r.status === 404 ? "この招待リンクは無効か期限切れです。" : "招待情報の取得に失敗しました。"); return; }
+      info = await r.json();
+    } catch (e) {
+      showError("ネットワークエラーが発生しました。");
+      return;
+    }
+    groupInfo = info;
+
+    // 認証状態確認
+    loggedInUser = await checkAuth();
+    renderCard();
+  }
+
+  function renderCard() {
+    const expiresAt = new Date(groupInfo.expires_at);
+    const expiryStr = expiresAt.toLocaleString("ja-JP");
+    const now = new Date();
+    const expired = expiresAt < now;
+
+    const groupHtml = `
+      <div class="group-info">
+        <div class="group-name">${escHtml(groupInfo.group_name)}</div>
+        <div class="group-meta">メンバー ${groupInfo.member_count}人</div>
+        ${expired
+          ? '<div class="expiry">⚠️ この招待リンクは期限切れです</div>'
+          : `<div class="expiry">有効期限: ${expiryStr}</div>`}
+      </div>`;
+
+    if (expired) {
+      document.getElementById("card").innerHTML = `
+        <div class="logo">🔒</div>
+        <h1>招待リンクの期限切れ</h1>
+        <div class="subtitle">グループのオーナーに新しい招待リンクを発行してもらってください。</div>
+        ${groupHtml}
+        <button class="btn btn-secondary" onclick="location.href='/'">トップへ戻る</button>`;
+      return;
+    }
+
+    if (!loggedInUser) {
+      // 未ログイン
+      document.getElementById("card").innerHTML = `
+        <div class="logo">👥</div>
+        <h1>グループに参加</h1>
+        <div class="subtitle">Google アカウントでログインして参加しましょう</div>
+        ${groupHtml}
+        <div id="signin-area"></div>
+        <p class="status-msg" id="status"></p>`;
+      google.accounts.id.renderButton(document.getElementById("signin-area"), { theme: "outline", size: "large", locale: "ja" });
+    } else {
+      // ログイン済み
+      document.getElementById("card").innerHTML = `
+        <div class="logo">👥</div>
+        <h1>グループに参加</h1>
+        <div class="subtitle">以下のグループへの招待です</div>
+        ${groupHtml}
+        <div class="user-preview">
+          ${loggedInUser.picture ? `<img src="${loggedInUser.picture}" alt="" />` : ''}
+          <div class="user-text">
+            <div class="user-name">${escHtml(loggedInUser.name)}</div>
+            <div class="user-email">${escHtml(loggedInUser.email || '')}</div>
+          </div>
+        </div>
+        <button class="btn btn-join" id="join-btn" onclick="joinGroup()">このグループに参加する</button>
+        <button class="btn btn-secondary" onclick="location.href='/groups'">キャンセル</button>
+        <p class="status-msg" id="status"></p>`;
+    }
+  }
+
+  async function joinGroup() {
+    const btn = document.getElementById("join-btn");
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>参加中...';
+    const st = document.getElementById("status");
+    try {
+      await apiFetch(`/api/invite/${token}/accept`, { method: "POST" });
+      st.className = "status-msg status-ok";
+      st.textContent = "グループに参加しました！";
+      btn.textContent = "参加済み";
+      setTimeout(() => { location.href = "/groups"; }, 1500);
+    } catch (e) {
+      st.className = "status-msg status-error";
+      st.textContent = e.message || "参加に失敗しました。";
+      btn.disabled = false;
+      btn.textContent = "このグループに参加する";
+    }
+  }
+
+  function showError(msg) {
+    document.getElementById("card").innerHTML = `
+      <div class="logo">⚠️</div>
+      <h1>エラー</h1>
+      <p class="subtitle status-error">${escHtml(msg)}</p>
+      <button class="btn btn-secondary" style="margin-top:16px" onclick="location.href='/'">トップへ戻る</button>`;
+  }
+
+  function escHtml(s) {
+    return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  window.addEventListener("load", init);
+</script>
+</body>
+</html>

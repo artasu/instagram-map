@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram お店マップ</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: #f4f6f8; color: #333; min-height: 100vh; }
+
+    header {
+      background: #1a1a2e; color: #fff;
+      padding: 0 24px; height: 52px;
+      display: flex; align-items: center; gap: 12px;
+      position: sticky; top: 0; z-index: 20;
+    }
+    header h1 { font-size: 16px; font-weight: 700; white-space: nowrap; }
+    header h1 a { color: inherit; text-decoration: none; }
+    .header-spacer { flex: 1; }
+    .nav-link {
+      font-size: 13px; color: #ccc; text-decoration: none;
+      white-space: nowrap; padding: 4px 8px; border-radius: 4px;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    #auth-area { display: flex; align-items: center; gap: 8px; }
+    #user-info { display: flex; align-items: center; gap: 8px; }
+    #user-avatar { width: 26px; height: 26px; border-radius: 50%; }
+    #user-name { font-size: 13px; color: #ddd; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #logout-btn {
+      font-size: 12px; color: #aaa; background: none; border: 1px solid #444;
+      border-radius: 4px; cursor: pointer; padding: 3px 8px;
+    }
+    #logout-btn:hover { border-color: #aaa; color: #fff; }
+
+    /* ── ハンバーガーメニュー ── */
+    header { position: relative; }
+    #hamburger-btn {
+      display: none; background: none; border: none;
+      color: #fff; font-size: 22px; cursor: pointer;
+      padding: 4px 6px; line-height: 1; flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      header { padding: 0 12px; }
+      #header-nav {
+        display: none; position: absolute; top: 52px; left: 0; right: 0;
+        background: #1a1a2e; flex-direction: column;
+        z-index: 30; border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+      #header-nav.open { display: flex; }
+      #header-nav .nav-link {
+        padding: 12px 16px; border-radius: 0; font-size: 14px; color: #ddd;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      #hamburger-btn { display: block; }
+      #user-name { display: none; }
+      #logout-btn { font-size: 11px; padding: 3px 6px; }
+      .hero { padding: 28px 14px 24px; }
+      .hero h2 { font-size: 20px; }
+      main { padding: 16px 12px 40px; }
+      .ranking-grid { gap: 16px; }
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff; padding: 48px 24px 40px; text-align: center;
+    }
+    .hero h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .hero p  { font-size: 14px; color: #aac4e0; }
+
+    main { max-width: 1080px; margin: 0 auto; padding: 32px 20px 60px; }
+
+    .ranking-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .genre-card {
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08); overflow: hidden;
+    }
+    .genre-card-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; color: #fff;
+    }
+    .genre-card-icon { font-size: 22px; line-height: 1; }
+    .genre-card-name { font-size: 14px; font-weight: 700; flex: 1; }
+    .genre-card-count { font-size: 12px; opacity: 0.85; }
+
+    .shop-rank-list { list-style: none; padding: 8px 0; }
+    .shop-rank-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 16px; border-bottom: 1px solid #f5f5f5;
+    }
+    .shop-rank-item:last-child { border-bottom: none; }
+    .rank-num {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; margin-top: 1px;
+      background: #f0f0f0; color: #555;
+    }
+    .rank-num.gold   { background: #ffd700; color: #5a4000; }
+    .rank-num.silver { background: #c0c0c0; color: #444; }
+    .rank-num.bronze { background: #cd7f32; color: #fff; }
+    .shop-rank-body { flex: 1; min-width: 0; }
+    .shop-rank-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .shop-rank-stars { font-size: 13px; color: #ffc107; letter-spacing: -1px; margin-bottom: 2px; }
+    .shop-rank-google { font-size: 11px; color: #7b5800; margin-bottom: 2px; }
+    .shop-rank-addr { font-size: 11px; color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .shop-rank-hours { font-size: 11px; color: #2e7d32; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .shop-rank-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 3px; }
+    .shop-rank-badge {
+      font-size: 10px; padding: 1px 7px; border-radius: 9px;
+      background: #f5f5f5; color: #555; border: 1px solid #e0e0e0; white-space: nowrap;
+    }
+    .shop-rank-links { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+    .rank-link {
+      font-size: 11px; padding: 2px 9px; border-radius: 4px;
+      text-decoration: none; display: inline-block;
+    }
+    .rank-link-map    { background: #e8f5e9; color: #388e3c; }
+    .rank-link-detail { background: #e3f2fd; color: #1565c0; }
+
+    .empty-msg {
+      text-align: center; color: #aaa; padding: 64px 0;
+      font-size: 15px; grid-column: 1 / -1;
+    }
+    .empty-msg a { color: #1976d2; text-decoration: none; }
+
+    #overlay {
+      position: fixed; inset: 0; background: rgba(255,255,255,0.95);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px; z-index: 100;
+    }
+    #overlay h2 { font-size: 18px; color: #333; }
+    #overlay p  { font-size: 14px; color: #666; }
+    #overlay.hidden { display: none; }
+    .spinner {
+      width: 36px; height: 36px; border: 4px solid #e0e0e0;
+      border-top-color: #1a73e8; border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><a href="/">📍 Instagram お店マップ</a></h1>
+  <div class="header-spacer"></div>
+  <nav id="header-nav">
+    <a class="nav-link" href="/map">MAP</a>
+    <a class="nav-link" href="/list">店舗一覧</a>
+    <a class="nav-link" href="/groups">グループ管理</a>
+    <a class="nav-link" href="/settings">設定</a>
+  </nav>
+  <div id="auth-area">
+    <div id="user-info" style="display:none">
+      <img id="user-avatar" src="" alt="" />
+      <span id="user-name"></span>
+      <button id="logout-btn" onclick="logout()">ログアウト</button>
+    </div>
+    <div id="header-signin"></div>
+  </div>
+  <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
+</header>
+
+<div class="hero">
+  <h2>⭐ ジャンル別 Best 5</h2>
+  <p>訪問済みのお店の中から評価の高い 5 件をジャンルごとに表示します</p>
+</div>
+
+<main>
+  <div class="ranking-grid" id="ranking-grid">
+    <div class="empty-msg">読み込み中...</div>
+  </div>
+</main>
+
+<div id="overlay">
+  <div class="spinner"></div>
+  <h2>読み込み中...</h2>
+</div>
+
+<script src="/frontend/app.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+  async function init() {
+    const waitForGIS = () => new Promise(res => {
+      if (window.google && google.accounts) { res(); return; }
+      const id = setInterval(() => { if (window.google && google.accounts) { clearInterval(id); res(); } }, 100);
+    });
+    await waitForGIS();
+
+    const user = await checkAuth();
+    if (!user) {
+      showLoginOverlay();
+      return;
+    }
+    showUserInfo(user);
+    document.getElementById("overlay").classList.add("hidden");
+
+    let locations = [], genres = [];
+    try {
+      [locations, genres] = await Promise.all([loadLocations(), fetchGenres()]);
+    } catch (e) {
+      document.getElementById("ranking-grid").innerHTML =
+        `<div class="empty-msg">データの取得に失敗しました: ${e.message}</div>`;
+      return;
+    }
+
+    // 訪問済み・評価ありのみ対象
+    const rated = locations.filter(l => l.visited && l.rating > 0);
+
+    // ジャンルごとにグループ化
+    const byGenre = {};
+    for (const loc of rated) {
+      const gc = resolveGenre(loc, genres);
+      if (!byGenre[gc.name]) byGenre[gc.name] = { genre: gc, shops: [] };
+      byGenre[gc.name].shops.push(loc);
+    }
+
+    // 各ジャンル: 評価降順→店名昇順、top 5 に絞る
+    for (const key of Object.keys(byGenre)) {
+      byGenre[key].shops.sort(
+        (a, b) => b.rating - a.rating || (a.shop_name || "").localeCompare(b.shop_name || "")
+      );
+      byGenre[key].shops = byGenre[key].shops.slice(0, 5);
+    }
+
+    renderRanking(byGenre);
+  }
+
+  function renderRanking(byGenre) {
+    const grid = document.getElementById("ranking-grid");
+
+    const entries = Object.entries(byGenre)
+      .sort((a, b) => b[1].shops[0].rating - a[1].shops[0].rating); // 1位の評価が高いジャンル順
+
+    if (entries.length === 0) {
+      grid.innerHTML = `<div class="empty-msg">
+        まだ評価済みのお店がありません。<br>
+        <a href="/list">リストで見る</a> からレビューを投稿してください。
+      </div>`;
+      return;
+    }
+
+    const rankClass = i => i === 0 ? "gold" : i === 1 ? "silver" : i === 2 ? "bronze" : "";
+
+    grid.innerHTML = entries.map(([name, { genre: gc, shops }]) => `
+      <div class="genre-card">
+        <div class="genre-card-header" style="background:${gc.color}">
+          <span class="genre-card-icon">${gc.icon}</span>
+          <span class="genre-card-name">${gc.name}</span>
+          <span class="genre-card-count">${shops.length}件</span>
+        </div>
+        <ol class="shop-rank-list">
+          ${shops.map((s, i) => {
+            const stars = "★".repeat(s.rating) + "☆".repeat(5 - s.rating);
+            const rc    = rankClass(i);
+            const todayIdx = (new Date().getDay() + 6) % 7;
+            const bh = Array.isArray(s.business_hours) && s.business_hours.length
+              ? s.business_hours[todayIdx] || "" : "";
+            const todayHours = bh.replace(/^[^:]+:\s*/, "");
+            const gRating = s.google_rating != null
+              ? `<div class="shop-rank-google">⭐ Google ${s.google_rating.toFixed(1)}${s.google_ratings_total ? ` (${s.google_ratings_total.toLocaleString()}件)` : ""}</div>` : "";
+            const hoursHtml = todayHours ? `<div class="shop-rank-hours">🕐 ${todayHours}</div>` : "";
+            const badges = [];
+            if (Array.isArray(s.payment_methods) && s.payment_methods.length)
+              badges.push(`<span class="shop-rank-badge">💳 ${s.payment_methods.join("・")}</span>`);
+            if (s.has_parking === 1) badges.push(`<span class="shop-rank-badge">🅿️ 駐車場あり</span>`);
+            else if (s.has_parking === 0) badges.push(`<span class="shop-rank-badge">🅿️ 駐車場なし</span>`);
+            const metaHtml = badges.length ? `<div class="shop-rank-meta">${badges.join("")}</div>` : "";
+            return `
+              <li class="shop-rank-item">
+                <span class="rank-num ${rc}">${i + 1}</span>
+                <div class="shop-rank-body">
+                  <div class="shop-rank-name">${s.shop_name || "（名称不明）"}</div>
+                  <div class="shop-rank-stars">${stars}</div>
+                  ${gRating}
+                  <div class="shop-rank-addr">${s.address || ""}</div>
+                  ${hoursHtml}${metaHtml}
+                  <div class="shop-rank-links">
+                    <a class="rank-link rank-link-map"
+                       href="/map?focus=${encodeURIComponent(s.instagram_url)}" target="_blank">📍 地図</a>
+                    <a class="rank-link rank-link-detail"
+                       href="/list?open=${s.id}">詳細</a>
+                  </div>
+                </div>
+              </li>`;
+          }).join("")}
+        </ol>
+      </div>`
+    ).join("");
+  }
+
+  function showLoginOverlay() {
+    const ov = document.getElementById("overlay");
+    ov.innerHTML = `
+      <h2>ログインが必要です</h2>
+      <p>Google アカウントでログインしてください</p>
+      <div id="overlay-signin"></div>`;
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+    google.accounts.id.renderButton(document.getElementById("overlay-signin"), { theme: "outline", size: "large", locale: "ja" });
+  }
+
+  function showUserInfo(user) {
+    document.getElementById("user-info").style.display = "flex";
+    document.getElementById("user-name").textContent = user.name;
+    if (user.picture) document.getElementById("user-avatar").src = user.picture;
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+  }
+
+  window.addEventListener("load", init);
+</script>
+</body>
+</html>

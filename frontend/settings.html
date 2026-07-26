@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ピンアイコン設定</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: #f5f5f5; color: #333; min-height: 100vh; }
+
+    /* ── ヘッダー ── */
+    header {
+      background: #1a1a2e; color: #fff;
+      padding: 0 24px; height: 52px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    header h1 { font-size: 16px; font-weight: 700; }
+    .header-spacer { flex: 1; }
+    .nav-link {
+      font-size: 13px; color: #ccc; text-decoration: none;
+      padding: 4px 8px; border-radius: 4px; white-space: nowrap;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .nav-link-current {
+      font-size: 13px; color: #666; text-decoration: none;
+      white-space: nowrap; padding: 4px 8px; border-radius: 4px;
+      pointer-events: none; cursor: default;
+    }
+    #user-info { display: flex; align-items: center; gap: 8px; }
+    #user-avatar { width: 26px; height: 26px; border-radius: 50%; }
+    #user-name  { font-size: 13px; color: #ddd; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #logout-btn {
+      font-size: 12px; color: #aaa; background: none; border: 1px solid #444;
+      border-radius: 4px; cursor: pointer; padding: 3px 8px;
+    }
+    #logout-btn:hover { border-color: #aaa; color: #fff; }
+
+    /* ── ハンバーガーメニュー ── */
+    header { position: relative; }
+    #hamburger-btn {
+      display: none; background: none; border: none;
+      color: #fff; font-size: 22px; cursor: pointer;
+      padding: 4px 6px; line-height: 1; flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      header { padding: 0 12px; }
+      #header-nav {
+        display: none; position: absolute; top: 52px; left: 0; right: 0;
+        background: #1a1a2e; flex-direction: column;
+        z-index: 30; border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+      #header-nav.open { display: flex; }
+      #header-nav .nav-link, #header-nav .nav-link-current {
+        padding: 12px 16px; border-radius: 0; font-size: 14px; color: #ddd;
+        border-bottom: 1px solid rgba(255,255,255,0.06); display: block;
+      }
+      #hamburger-btn { display: block; }
+      #user-name { display: none; }
+      #logout-btn { font-size: 11px; padding: 3px 6px; }
+      .page { padding: 16px 12px 40px; }
+      .page-header { flex-direction: column; gap: 8px; }
+      .page-header-actions { margin-left: 0; }
+    }
+
+    /* ── 本文 ── */
+    .page { max-width: 860px; margin: 0 auto; padding: 24px 16px 48px; }
+    .page-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+    .page-header h2 { font-size: 20px; font-weight: 700; }
+    .page-header p  { font-size: 13px; color: #888; margin-top: 3px; line-height: 1.5; }
+    .page-header-actions { margin-left: auto; display: flex; gap: 8px; flex-shrink: 0; }
+
+    /* ── ジャンルカード ── */
+    .genre-card {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      margin-bottom: 10px; overflow: hidden;
+      border: 2px solid transparent; transition: border-color 0.15s;
+    }
+    .genre-card:focus-within { border-color: #1a73e8; }
+
+    .card-head {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; cursor: pointer; user-select: none;
+    }
+    .card-head:hover { background: #fafafa; }
+
+    .pin-preview-wrap {
+      width: 48px; height: 52px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    .genre-title { flex: 1; min-width: 0; }
+    .genre-title strong { font-size: 14px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .genre-title small  { font-size: 11px; color: #999; display: block; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .card-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .toggle-arrow { font-size: 16px; color: #bbb; transition: transform 0.2s; }
+    .genre-card.open .toggle-arrow { transform: rotate(180deg); }
+    .delete-btn {
+      background: none; border: none; font-size: 15px; font-weight: 700; cursor: pointer;
+      color: #222; padding: 4px 6px; border-radius: 4px; line-height: 1; flex-shrink: 0;
+    }
+    .delete-btn:hover { color: #d32f2f; background: #ffebee; }
+
+    /* ── 展開エリア ── */
+    .card-body { display: none; padding: 0 16px 16px; border-top: 1px solid #f0f0f0; }
+    .genre-card.open .card-body { display: block; }
+
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    @media (max-width: 520px) { .fields { grid-template-columns: 1fr; } }
+
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 11px; color: #888; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* アイコン入力 */
+    .icon-row { display: flex; align-items: center; gap: 8px; }
+    .icon-input {
+      width: 54px; text-align: center; font-size: 22px; padding: 5px;
+      border: 1px solid #ddd; border-radius: 8px; cursor: text;
+    }
+    .icon-input:focus { outline: 2px solid #1a73e8; }
+    .picker-btn {
+      font-size: 12px; padding: 6px 10px; border: 1px solid #ddd;
+      border-radius: 8px; background: #f5f5f5; cursor: pointer;
+    }
+    .picker-btn:hover { background: #eee; }
+
+    /* 絵文字グリッド */
+    .emoji-picker {
+      margin-top: 8px; background: #fff; border: 1px solid #e0e0e0;
+      border-radius: 10px; padding: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12); max-height: 280px; overflow-y: auto;
+    }
+    .emoji-category { font-size: 11px; color: #888; margin: 8px 0 4px; font-weight: 700; }
+    .emoji-grid { display: flex; flex-wrap: wrap; gap: 3px; }
+    .emoji-btn {
+      width: 34px; height: 34px; font-size: 19px; border: none; background: none;
+      cursor: pointer; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    }
+    .emoji-btn:hover { background: #f0f0f0; }
+
+    /* 色 */
+    .color-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .color-swatch {
+      width: 34px; height: 34px; border-radius: 8px; border: 1px solid #ccc;
+      cursor: pointer; padding: 0; flex-shrink: 0;
+    }
+    .color-swatch::-webkit-color-swatch-wrapper { padding: 3px; }
+    .color-swatch::-webkit-color-swatch { border: none; border-radius: 5px; }
+    .rgb-inputs { display: flex; gap: 6px; align-items: center; }
+    .rgb-field { display: flex; align-items: center; gap: 3px; }
+    .rgb-label { font-size: 11px; font-weight: 700; color: #888; width: 12px; flex-shrink: 0; }
+    .rgb-num {
+      width: 54px; padding: 5px 6px; border: 1px solid #ddd;
+      border-radius: 6px; font-size: 13px; text-align: center; font-family: monospace;
+    }
+    .rgb-num:focus { outline: 2px solid #1a73e8; border-color: transparent; }
+    .color-presets { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    .color-preset {
+      width: 20px; height: 20px; border-radius: 50%; cursor: pointer;
+      border: 2px solid transparent; flex-shrink: 0;
+    }
+    .color-preset:hover { border-color: #333; }
+
+    /* サイズ */
+    .size-row { display: flex; align-items: center; gap: 8px; }
+    .size-slider {
+      flex: 1; -webkit-appearance: none; height: 4px; border-radius: 2px;
+      outline: none; cursor: pointer;
+    }
+    .size-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+      background: #1a73e8; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+    .size-label { font-size: 11px; color: #aaa; }
+    .size-value { font-size: 13px; font-weight: 700; min-width: 30px; text-align: center; }
+
+    /* キーワード */
+    .keywords-field { grid-column: 1 / -1; }
+    .keywords-input {
+      width: 100%; padding: 7px 10px; border: 1px solid #ddd; border-radius: 8px;
+      font-size: 13px; resize: vertical; min-height: 58px; font-family: inherit;
+    }
+    .keywords-input:focus { outline: 2px solid #1a73e8; border-color: transparent; }
+    .keywords-hint { font-size: 11px; color: #aaa; margin-top: 2px; }
+    .no-keywords-note { font-size: 12px; color: #aaa; font-style: italic; grid-column: 1 / -1; }
+
+    /* 追加ボタン */
+    .add-genre-btn {
+      width: 100%; padding: 14px; border: 2px dashed #ccc;
+      border-radius: 12px; background: none; cursor: pointer;
+      font-size: 14px; color: #888; transition: all 0.15s; margin-top: 4px;
+    }
+    .add-genre-btn:hover { border-color: #1a73e8; color: #1a73e8; background: #f0f5ff; }
+
+    /* ボタン */
+    .btn { padding: 8px 18px; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600; }
+    .btn-outline { background: #fff; border: 1px solid #ddd; color: #555; }
+    .btn-outline:hover { background: #f5f5f5; }
+
+    /* トースト */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #333; color: #fff; padding: 10px 22px; border-radius: 8px;
+      font-size: 13px; z-index: 200; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    #toast.show { opacity: 1; }
+
+    /* オーバーレイ */
+    #overlay {
+      position: fixed; inset: 0; background: rgba(255,255,255,0.95);
+      display: flex; align-items: center; justify-content: center; z-index: 100;
+    }
+    #overlay.hidden { display: none; }
+    .spinner {
+      width: 36px; height: 36px; border: 4px solid #e0e0e0;
+      border-top-color: #1a73e8; border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><a href="/" style="color:inherit;text-decoration:none;">📍 Instagram お店マップ</a></h1>
+  <div class="header-spacer"></div>
+  <nav id="header-nav">
+    <a class="nav-link" href="/map">MAP</a>
+    <a class="nav-link" href="/list">店舗一覧</a>
+    <a class="nav-link" href="/groups">グループ管理</a>
+    <span class="nav-link-current">設定</span>
+  </nav>
+  <div id="user-info" style="display:none">
+    <img id="user-avatar" src="" alt="" />
+    <span id="user-name"></span>
+    <button id="logout-btn" onclick="logout()">ログアウト</button>
+  </div>
+  <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
+  <div id="header-signin"></div>
+</header>
+
+<div id="overlay"><div class="spinner"></div></div>
+
+<div class="page" id="page" style="display:none">
+  <div class="page-header">
+    <div>
+      <h2>ピンアイコン設定</h2>
+      <p>ジャンルごとに絵文字・色・サイズを設定します。<br>
+         キーワードが店名に含まれると自動でジャンル判定されます。設定は自動保存されます。</p>
+    </div>
+    <div class="page-header-actions">
+      <button class="btn btn-outline" onclick="resetAll()">すべてリセット</button>
+    </div>
+  </div>
+
+  <div id="genre-list"></div>
+
+  <button class="add-genre-btn" onclick="addGenre()">＋ ジャンルを追加</button>
+</div>
+
+<div id="toast"></div>
+
+<script src="/frontend/app.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+  // genres は編集中の配列。currentUser は app.js 側で宣言済み。
+  let genres = [];
+
+  const COLOR_PRESETS = [
+    "#5D4037","#37474F","#4E342E","#E65100","#2E7D32",
+    "#FF8F00","#AD1457","#7B1FA2","#C62828","#1A237E",
+    "#B71C1C","#0277BD","#00838F","#4527A0","#558B2F",
+    "#00695C","#D32F2F","#F57F17","#0288D1","#FF6D00",
+    "#F9A825","#6D4C41","#006064","#1B5E20","#546E7A",
+    "#BF360C","#880E4F","#757575","#1565C0","#6A1B9A",
+  ];
+
+  const EMOJI_GROUPS = [
+    { label: "☕ カフェ・飲み物", emojis: "☕🍵🧋🍶🫖🥤🍺🍻🍷🥂🥃🍸🍹🍾".split("") },
+    { label: "🍜 食事", emojis: "🍜🍝🍣🍱🍛🍲🥘🍗🥩🍖🍔🍕🌮🌯🥗🍙🍘🥚🥓🫕🥞🧇🥟🍢🥐".split("") },
+    { label: "🍰 スイーツ・パン", emojis: "🍰🎂🧁🍩🍪🍫🍬🍭🍦🍧🍨🍡🍮🥐🍞🥖".split("") },
+    { label: "🏨 施設・観光", emojis: "🏨🏩🏪🏬🏛️🏢🏕️🏟️🎡🎢🎠🎪🎭🛍️🌸🌺🌳🌊🗾".split("") },
+    { label: "🎵 エンタメ・体験", emojis: "🎵🎶🎤🎸🎹🎯🎳🎲🃏🎰🎮🕹️🏄🚵🧖🏋️".split("") },
+    { label: "📍 マーカー・その他", emojis: "🍽️🥄🍴📍📌⭐🌟❤️🏠🦀🦞🐟🐾🌿🍁".split("") },
+  ];
+
+  const waitForGIS = () => new Promise(res => {
+    if (window.google && google.accounts) { res(); return; }
+    const id = setInterval(() => { if (window.google && google.accounts) { clearInterval(id); res(); } }, 100);
+  });
+
+  async function init() {
+    await waitForGIS();
+    const user = await checkAuth();
+    if (user) {
+      document.getElementById("user-info").style.display = "flex";
+      document.getElementById("user-name").textContent = user.name;
+      if (user.picture) document.getElementById("user-avatar").src = user.picture;
+      google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+    }
+    document.getElementById("overlay").classList.add("hidden");
+    document.getElementById("page").style.display = "block";
+    genres = await fetchGenres();
+    renderAll();
+  }
+
+  // ─── レンダリング ────────────────────────────────────────────────────────────
+
+  function renderAll() {
+    const container = document.getElementById("genre-list");
+    container.innerHTML = "";
+    genres.forEach(g => container.appendChild(buildCard(g)));
+  }
+
+  function buildCard(g) {
+    const isOther  = g.id === "other";
+    const kwText   = (g.keywords || []).join(", ");
+    const subtitleText = isOther
+      ? "上記に該当しないすべての店舗"
+      : (kwText ? kwText.slice(0, 60) + (kwText.length > 60 ? "…" : "") : "キーワード未設定");
+
+    const card = document.createElement("div");
+    card.className = "genre-card";
+    card.id = `card-${g.id}`;
+    card.innerHTML = `
+      <div class="card-head" onclick="toggleCard('${g.id}')">
+        ${isOther ? "" : `<button class="delete-btn" title="削除" onclick="deleteGenre('${g.id}', event)">✕</button>`}
+        <div class="pin-preview-wrap" id="preview-${g.id}"></div>
+        <div class="genre-title">
+          <strong id="gtitle-${g.id}">${esc(g.name)}</strong>
+          <small id="gsubtitle-${g.id}">${esc(subtitleText)}</small>
+        </div>
+        <div class="card-actions">
+          <span class="toggle-arrow">▼</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="fields">
+
+          <!-- ジャンル名 -->
+          <div class="field">
+            <label>ジャンル名</label>
+            <input type="text" class="color-hex" style="width:100%;font-family:inherit;text-transform:none;padding:6px 10px;border:1px solid #ddd;border-radius:8px;font-size:13px;"
+              value="${esc(g.name)}"
+              oninput="onNameInput('${g.id}', this.value)" />
+          </div>
+
+          <!-- アイコン -->
+          <div class="field">
+            <label>アイコン（絵文字）</label>
+            <div class="icon-row">
+              <input type="text" class="icon-input" id="icon-${g.id}"
+                value="${esc(g.icon)}" maxlength="4"
+                oninput="onFieldChange('${g.id}', 'icon', this.value)" />
+              <button class="picker-btn" type="button" onclick="togglePicker('${g.id}')">絵文字 ▾</button>
+            </div>
+            <div id="epicker-${g.id}"></div>
+          </div>
+
+          <!-- 色 -->
+          <div class="field">
+            <label>ピンの色</label>
+            <div class="color-row" id="crow-${g.id}">
+              <input type="color" class="color-swatch" id="cswatch-${g.id}" value="${g.color}"
+                oninput="onColorSwatch('${g.id}', this.value)" />
+              <div class="rgb-inputs">
+                <div class="rgb-field">
+                  <span class="rgb-label">R</span>
+                  <input type="number" class="rgb-num" id="crgbr-${g.id}" min="0" max="255"
+                    value="${parseInt(g.color.slice(1,3),16)}" oninput="onColorRgb('${g.id}')" />
+                </div>
+                <div class="rgb-field">
+                  <span class="rgb-label">G</span>
+                  <input type="number" class="rgb-num" id="crgbg-${g.id}" min="0" max="255"
+                    value="${parseInt(g.color.slice(3,5),16)}" oninput="onColorRgb('${g.id}')" />
+                </div>
+                <div class="rgb-field">
+                  <span class="rgb-label">B</span>
+                  <input type="number" class="rgb-num" id="crgbb-${g.id}" min="0" max="255"
+                    value="${parseInt(g.color.slice(5,7),16)}" oninput="onColorRgb('${g.id}')" />
+                </div>
+              </div>
+            </div>
+            <div class="color-presets">
+              ${COLOR_PRESETS.map(c => `<div class="color-preset" style="background:${c}" title="${c}" onclick="setColor('${g.id}','${c}')"></div>`).join("")}
+            </div>
+          </div>
+
+          <!-- サイズ -->
+          <div class="field">
+            <label>サイズ</label>
+            <div class="size-row">
+              <span class="size-label">小</span>
+              <input type="range" class="size-slider" id="sslider-${g.id}"
+                min="0.5" max="1.8" step="0.1" value="${g.size}"
+                oninput="onSize('${g.id}', this.value)" />
+              <span class="size-label">大</span>
+              <span class="size-value" id="sval-${g.id}">${Number(g.size).toFixed(1)}x</span>
+            </div>
+          </div>
+
+          <!-- キーワード -->
+          ${isOther
+            ? `<p class="no-keywords-note">「その他」は上記ジャンルに該当しない店舗のデフォルトカテゴリです。</p>`
+            : `<div class="field keywords-field">
+                <label>キーワード（カンマ区切り）</label>
+                <textarea class="keywords-input" id="kw-${g.id}"
+                  oninput="onKeywords('${g.id}', this.value)">${esc(kwText)}</textarea>
+                <div class="keywords-hint">店名にこれらのキーワードが含まれると自動でこのジャンルに分類されます。</div>
+              </div>`}
+
+        </div>
+      </div>`;
+
+    requestAnimationFrame(() => refreshPreview(g.id));
+    requestAnimationFrame(() => updateSliderTrack(g.id));
+    return card;
+  }
+
+  // ─── カード操作 ─────────────────────────────────────────────────────────────
+
+  function toggleCard(id) {
+    const card = document.getElementById(`card-${id}`);
+    card.classList.toggle("open");
+  }
+
+  function deleteGenre(id, event) {
+    event.stopPropagation();
+    const g = genres.find(x => x.id === id);
+    if (!confirm(`「${g ? g.name : "このジャンル"}」を削除しますか？`)) return;
+    genres = genres.filter(x => x.id !== id);
+    document.getElementById(`card-${id}`).remove();
+    autoSave();
+    toast("ジャンルを削除しました");
+  }
+
+  function addGenre() {
+    const newId = `custom_${Date.now()}`;
+    const newGenre = { id: newId, name: "新しいジャンル", icon: "🍽️", color: "#757575", size: 1.0, keywords: [] };
+    const otherIdx = genres.findIndex(g => g.id === "other");
+    if (otherIdx >= 0) genres.splice(otherIdx, 0, newGenre);
+    else genres.push(newGenre);
+    autoSave();
+
+    const newCard = buildCard(newGenre);
+    newCard.classList.add("open");
+    const addBtn   = document.querySelector(".add-genre-btn");
+    const otherCard = document.getElementById("card-other");
+    document.getElementById("genre-list").insertBefore(newCard, otherCard || null);
+    toast("ジャンルを追加しました");
+    newCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  // ─── フィールド変更 ──────────────────────────────────────────────────────────
+
+  function onNameInput(id, value) {
+    const g = genres.find(x => x.id === id);
+    if (!g) return;
+    g.name = value;
+    document.getElementById(`gtitle-${id}`).textContent = value || "（名称未設定）";
+    autoSave();
+  }
+
+  function onFieldChange(id, key, value) {
+    const g = genres.find(x => x.id === id);
+    if (!g) return;
+    g[key] = value;
+    refreshPreview(id);
+    autoSave();
+  }
+
+  function onKeywords(id, value) {
+    const g = genres.find(x => x.id === id);
+    if (!g) return;
+    g.keywords = value.split(",").map(s => s.trim()).filter(Boolean);
+    const subtitle = g.keywords.join(", ");
+    const sub = document.getElementById(`gsubtitle-${id}`);
+    if (sub) sub.textContent = subtitle ? subtitle.slice(0, 60) + (subtitle.length > 60 ? "…" : "") : "キーワード未設定";
+    autoSave();
+  }
+
+  // ─── 色 ─────────────────────────────────────────────────────────────────────
+
+  function hexToRgb(hex) {
+    const h = hex.replace("#", "");
+    return {
+      r: parseInt(h.slice(0, 2), 16),
+      g: parseInt(h.slice(2, 4), 16),
+      b: parseInt(h.slice(4, 6), 16),
+    };
+  }
+
+  function rgbToHex(r, g, b) {
+    return "#" + [r, g, b].map(v => Math.max(0, Math.min(255, v)).toString(16).padStart(2, "0")).join("");
+  }
+
+  function _syncRgbInputs(id, hex) {
+    const { r, g, b } = hexToRgb(hex);
+    const ri = document.getElementById(`crgbr-${id}`);
+    const gi = document.getElementById(`crgbg-${id}`);
+    const bi = document.getElementById(`crgbb-${id}`);
+    if (ri) ri.value = r;
+    if (gi) gi.value = g;
+    if (bi) bi.value = b;
+  }
+
+  function onColorSwatch(id, value) {
+    const g = genres.find(x => x.id === id);
+    if (!g) return;
+    g.color = value;
+    _syncRgbInputs(id, value);
+    refreshPreview(id);
+    autoSave();
+  }
+
+  function onColorRgb(id) {
+    const ri = document.getElementById(`crgbr-${id}`);
+    const gi = document.getElementById(`crgbg-${id}`);
+    const bi = document.getElementById(`crgbb-${id}`);
+    if (!ri || !gi || !bi) return;
+    const hex = rgbToHex(parseInt(ri.value) || 0, parseInt(gi.value) || 0, parseInt(bi.value) || 0);
+    const g = genres.find(x => x.id === id);
+    if (!g) return;
+    g.color = hex;
+    const sw = document.getElementById(`cswatch-${id}`);
+    if (sw) sw.value = hex;
+    refreshPreview(id);
+    autoSave();
+  }
+
+  function setColor(id, color) {
+    const g = genres.find(x => x.id === id);
+    if (!g) return;
+    g.color = color;
+    const sw = document.getElementById(`cswatch-${id}`);
+    if (sw) sw.value = color;
+    _syncRgbInputs(id, color);
+    refreshPreview(id);
+    autoSave();
+  }
+
+  // ─── サイズ ─────────────────────────────────────────────────────────────────
+
+  function onSize(id, value) {
+    const g = genres.find(x => x.id === id);
+    if (!g) return;
+    g.size = Number(value);
+    const sv = document.getElementById(`sval-${id}`);
+    if (sv) sv.textContent = Number(value).toFixed(1) + "x";
+    refreshPreview(id);
+    updateSliderTrack(id);
+    autoSave();
+  }
+
+  function updateSliderTrack(id) {
+    const slider = document.getElementById(`sslider-${id}`);
+    if (!slider) return;
+    const pct = ((slider.value - slider.min) / (slider.max - slider.min) * 100).toFixed(1);
+    slider.style.background = `linear-gradient(to right,#1a73e8 ${pct}%,#e0e0e0 ${pct}%)`;
+  }
+
+  // ─── プレビュー ──────────────────────────────────────────────────────────────
+
+  function refreshPreview(id) {
+    const g = genres.find(x => x.id === id);
+    const wrap = document.getElementById(`preview-${id}`);
+    if (!g || !wrap) return;
+    wrap.innerHTML = "";
+    wrap.appendChild(createPinElement(g));
+  }
+
+  // ─── 絵文字ピッカー ──────────────────────────────────────────────────────────
+
+  function togglePicker(id) {
+    const container = document.getElementById(`epicker-${id}`);
+    if (container.innerHTML) { container.innerHTML = ""; return; }
+
+    const picker = document.createElement("div");
+    picker.className = "emoji-picker";
+    EMOJI_GROUPS.forEach(group => {
+      const catEl = document.createElement("div");
+      catEl.className = "emoji-category";
+      catEl.textContent = group.label;
+      picker.appendChild(catEl);
+
+      const grid = document.createElement("div");
+      grid.className = "emoji-grid";
+      group.emojis.forEach(emoji => {
+        const btn = document.createElement("button");
+        btn.className = "emoji-btn";
+        btn.type = "button";
+        btn.textContent = emoji;
+        btn.onclick = () => {
+          const inp = document.getElementById(`icon-${id}`);
+          if (inp) inp.value = emoji;
+          onFieldChange(id, "icon", emoji);
+          container.innerHTML = "";
+        };
+        grid.appendChild(btn);
+      });
+      picker.appendChild(grid);
+    });
+
+    container.appendChild(picker);
+  }
+
+  // ─── 保存・リセット ─────────────────────────────────────────────────────────
+
+  let saveTimer = null;
+  function autoSave() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(async () => {
+      await saveGenres(genres);
+      toast("設定を保存しました ✓");
+    }, 600);
+  }
+
+  async function resetAll() {
+    if (!confirm("すべての設定をデフォルトに戻しますか？\n追加したジャンルも削除されます。")) return;
+    await apiFetch("/api/genres/reset", { method: "POST" });
+    genres = await fetchGenres();
+    renderAll();
+    toast("デフォルトに戻しました");
+  }
+
+  // ─── ユーティリティ ─────────────────────────────────────────────────────────
+
+  function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    setTimeout(() => el.classList.remove("show"), 2000);
+  }
+
+  function esc(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  window.addEventListener("load", init);
+</script>
+</body>
+</html>

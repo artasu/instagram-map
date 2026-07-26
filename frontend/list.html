@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>保存済み店舗リスト</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: #f7f7f7; color: #333; }
+
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header h1 { font-size: 16px; font-weight: 700; white-space: nowrap; }
+    #header-subtitle { font-size: 12px; color: #aaa; white-space: nowrap; }
+    .header-spacer { flex: 1; }
+    .nav-link {
+      font-size: 13px; color: #ccc; text-decoration: none;
+      white-space: nowrap; padding: 4px 8px; border-radius: 4px;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .nav-link-current {
+      font-size: 13px; color: #666; text-decoration: none;
+      white-space: nowrap; padding: 4px 8px; border-radius: 4px;
+      pointer-events: none; cursor: default;
+    }
+
+    /* 認証UI */
+    #auth-area { display: flex; align-items: center; gap: 8px; }
+    #user-info { display: flex; align-items: center; gap: 8px; }
+    #user-avatar { width: 26px; height: 26px; border-radius: 50%; }
+    #user-name { font-size: 13px; color: #ddd; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #logout-btn {
+      font-size: 12px; color: #aaa; background: none; border: 1px solid #444;
+      border-radius: 4px; cursor: pointer; padding: 3px 8px;
+    }
+    #logout-btn:hover { border-color: #aaa; color: #fff; }
+
+    /* ── ハンバーガーメニュー ── */
+    header { position: relative; }
+    #hamburger-btn {
+      display: none; background: none; border: none;
+      color: #fff; font-size: 22px; cursor: pointer;
+      padding: 4px 6px; line-height: 1; flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      header { padding: 0 12px; }
+      #header-nav {
+        display: none; position: absolute; top: 52px; left: 0; right: 0;
+        background: #1a1a2e; flex-direction: column;
+        z-index: 30; border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+      #header-nav.open { display: flex; }
+      #header-nav .nav-link, #header-nav .nav-link-current {
+        padding: 12px 16px; border-radius: 0; font-size: 14px; color: #ddd;
+        border-bottom: 1px solid rgba(255,255,255,0.06); display: block;
+      }
+      #hamburger-btn { display: block; }
+      #user-name { display: none; }
+      #logout-btn { font-size: 11px; padding: 3px 6px; }
+
+      /* ツールバー */
+      .toolbar { padding: 8px 10px; }
+      .toolbar input, .toolbar select { font-size: 16px; }
+      .filter-row:nth-child(2) {
+        flex-wrap: nowrap; overflow-x: auto; padding-bottom: 3px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .filter-row:nth-child(2) select { flex-shrink: 0; }
+
+      /* メインコンテンツ */
+      main { padding: 8px 10px 40px; }
+
+      /* 店舗アイテム: アクション部を下部に */
+      .shop-body { flex-direction: column; }
+      .shop-actions {
+        flex-direction: row; flex-wrap: wrap; width: 100%; gap: 6px; padding-top: 0;
+      }
+      .shop-links { justify-content: flex-start; }
+      .review-btn { flex: 0 1 auto; }
+      .refresh-place-btn { flex: 1 0 100%; }
+
+      /* スレッドパネル */
+      .thread-shop-links { flex-wrap: wrap; gap: 5px; }
+    }
+
+    .btn {
+      padding: 6px 14px; border: none; border-radius: 6px;
+      font-size: 13px; cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+    .btn-white { background: #fff; color: #1a1a2e; }
+    .btn-green { background: #4caf50; color: #fff; }
+    .btn:hover { opacity: 0.85; }
+
+    .toolbar {
+      padding: 10px 24px; background: #fff; border-bottom: 1px solid #e0e0e0;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .filter-row {
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    }
+    .toolbar input {
+      flex: 1; padding: 7px 12px;
+      border: 1px solid #ddd; border-radius: 6px; font-size: 13px;
+    }
+    .toolbar select {
+      padding: 7px 12px; border: 1px solid #ddd; border-radius: 6px;
+      font-size: 13px; background: #fff;
+    }
+    #clear-filters-btn {
+      padding: 7px 14px; border: 1px solid #e57373; border-radius: 6px;
+      font-size: 13px; background: #fff; color: #e57373; cursor: pointer; white-space: nowrap;
+    }
+    #clear-filters-btn:hover { background: #ffebee; }
+    #total-label { font-size: 13px; color: #888; margin-left: auto; }
+
+    main { padding: 16px 24px; max-width: 960px; margin: 0 auto; }
+
+    .pref-section { margin-bottom: 16px; }
+    .pref-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; background: #fff; border-radius: 8px;
+      cursor: pointer; border-left: 5px solid #999;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07); user-select: none;
+    }
+    .pref-header:hover { background: #f5f5f5; }
+    .pref-name { font-weight: 700; font-size: 15px; }
+    .pref-count { font-size: 13px; color: #888; }
+    .toggle-icon { margin-left: auto; font-size: 16px; color: #aaa; }
+
+    .city-section { margin-top: 4px; display: none; }
+    .city-section.open { display: block; }
+    .city-header {
+      padding: 7px 14px 7px 28px; font-weight: 600; font-size: 13px; color: #555;
+      background: #fafafa; border-bottom: 1px solid #eee;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .city-count { font-weight: 400; color: #aaa; }
+
+    .shop-item {
+      display: flex; flex-direction: column; align-items: stretch;
+      padding: 10px 14px 0 32px; background: #fff;
+      border-bottom: 1px solid #f0f0f0; font-size: 13px;
+    }
+    .shop-item:hover { background: #f9f9f9; }
+    .shop-item[data-want-again="1"] { background: rgba(233,30,99,0.07); }
+    .shop-item[data-want-again="1"]:hover { background: rgba(233,30,99,0.12); }
+    .shop-body { display: flex; align-items: flex-start; gap: 12px; padding-bottom: 10px; }
+    .shop-main { flex: 1; min-width: 0; cursor: pointer; border-radius: 6px; padding: 2px 4px; }
+    .shop-main:hover { background: rgba(0,0,0,0.03); }
+    .shop-main.thread-open { background: #e8f0fe; border-radius: 6px; }
+
+    /* スレッドパネル */
+    .thread-panel { display: none; border-top: 1px solid #f0f0f0; padding: 0 0 14px 0; }
+    .thread-panel.open { display: block; }
+    .thread-loading { font-size: 12px; color: #aaa; padding: 12px 0; }
+    .thread-header { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0 0; }
+    .thread-genre-icon {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 19px;
+    }
+    .thread-shop-info { flex: 1; min-width: 0; }
+    .thread-shop-name { font-weight: 700; font-size: 14px; }
+    .thread-shop-address { font-size: 12px; color: #777; margin-top: 1px; }
+    .thread-shop-links { display: flex; gap: 6px; margin-top: 6px; }
+    .thread-link {
+      font-size: 11px; padding: 3px 10px; border-radius: 4px;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 3px;
+    }
+    .thread-map-link { background: #e8f5e9; color: #388e3c; }
+    .thread-ig-link {
+      background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      color: #fff;
+    }
+    .thread-connector { width: 2px; background: #e0e0e0; height: 18px; margin: 8px 0 8px 18px; }
+    .thread-reply {
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 14px;
+    }
+    .thread-no-review {
+      background: #fafafa; border: 1px dashed #ddd; border-radius: 10px;
+      padding: 11px 14px; color: #999; font-size: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .thread-reply-top {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+    }
+    .thread-reply-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .thread-edit-btn {
+      font-size: 11px; padding: 3px 10px; border-radius: 6px;
+      border: 1px solid #90caf9; background: #e3f2fd; color: #1565c0;
+      cursor: pointer; font-weight: 600;
+    }
+    .thread-status { font-size: 13px; font-weight: 600; color: #2e7d32; margin-bottom: 6px; letter-spacing: -0.5px; }
+    .thread-status.unvisited { color: #aaa; font-weight: 400; }
+    .thread-impression {
+      font-size: 13px; color: #333; line-height: 1.65; margin-bottom: 8px;
+      white-space: pre-wrap;
+    }
+    .thread-img-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+    .thread-img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; display: block; }
+    .thread-want-again { font-size: 13px; color: #e91e63; margin-top: 6px; font-weight: 600; }
+    .thread-next-comment { font-weight: 400; color: #555; }
+    .shop-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px; }
+    .shop-name { font-weight: 600; }
+    .genre-chip {
+      font-size: 11px; padding: 1px 8px 1px 5px; border-radius: 10px;
+      color: #fff; display: inline-flex; align-items: center; gap: 3px;
+      white-space: nowrap; flex-shrink: 0; line-height: 1.6;
+    }
+    .genre-chip.editable { cursor: pointer; }
+    .genre-chip.editable:hover { filter: brightness(1.12); }
+    .edit-pencil { font-size: 9px; opacity: 0.8; margin-left: 2px; }
+
+    /* ジャンル選択ドロップダウン */
+    .genre-dropdown {
+      position: fixed; z-index: 9999;
+      background: #fff; border-radius: 12px; padding: 6px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18); min-width: 210px;
+      max-height: 320px; overflow-y: auto;
+    }
+    .genre-dd-header {
+      font-size: 11px; color: #888; font-weight: 700;
+      padding: 4px 8px 6px; text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .genre-dd-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 10px; border-radius: 8px; cursor: pointer; font-size: 13px;
+    }
+    .genre-dd-item:hover { background: #f5f5f5; }
+    .genre-dd-item.active { background: #e8f0fe; }
+    .genre-dd-dot {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 15px;
+    }
+    .genre-dd-name { flex: 1; }
+    .genre-dd-check { color: #1a73e8; font-weight: 700; font-size: 14px; }
+    .shop-address { font-size: 12px; color: #777; margin-top: 1px; }
+    .menu-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+    .menu-tag {
+      font-size: 11px; padding: 2px 9px; border-radius: 10px;
+      background: #f5f5f5; color: #555; border: 1px solid #e8e8e8; white-space: nowrap;
+    }
+    .shop-actions { display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; padding-top: 2px; }
+    .shop-links { display: flex; gap: 6px; justify-content: flex-end; }
+    .shop-link {
+      padding: 3px 10px; border-radius: 4px; font-size: 11px;
+      text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 3px;
+    }
+    .link-map { background: #e8f5e9; color: #388e3c; border: 1px solid #2e7d32; }
+    .link-ig {
+      background: #fff;
+      color: #c13584;
+      border: 1px solid #c13584;
+    }
+    .shop-link:hover { opacity: 0.82; }
+    .review-btn {
+      width: 100%; padding: 5px 0; border-radius: 6px;
+      border: 1px solid #90caf9; background: #e3f2fd; color: #1565c0;
+      cursor: pointer; font-size: 11px; font-weight: 600;
+    }
+    .review-btn:hover { background: #bbdefb; }
+    .want-heart { font-size: 13px; flex-shrink: 0; }
+    .visit-status-line { margin: 3px 0; }
+    .visit-status { font-size: 11px; color: #2e7d32; font-weight: 600; letter-spacing: -0.5px; }
+    .place-info { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+    .place-tag {
+      font-size: 11px; padding: 2px 4px;
+      background: none; border: none; white-space: nowrap;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .place-tag.google         { color: #7b5800; }
+    .place-tag.google-popular { }
+    @keyframes star-sparkle {
+      0%, 100% { filter: brightness(1) drop-shadow(0 0 0px #ffc107); }
+      50%       { filter: brightness(1.6) drop-shadow(0 0 4px #ffc107); }
+    }
+    .star-sparkle { display: inline-block; animation: star-sparkle 1.4s ease-in-out infinite; }
+    .place-tag.hours          { color: #1b5e20; }
+    .place-tag.payment        { color: #0d47a1; }
+    .place-tag.parking        { color: #880e4f; }
+    .refresh-place-btn {
+      font-size: 11px; padding: 4px 0; border-radius: 6px;
+      border: 1px solid #e0e0e0; background: #fafafa; color: #888;
+      cursor: pointer; width: 100%; margin-top: 2px;
+      display: flex; flex-direction: column; align-items: center; gap: 1px;
+    }
+    .refresh-place-btn:hover { border-color: #bdbdbd; color: #555; }
+    .refresh-time { font-size: 10px; color: #aaa; }
+    .official-links { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+    .official-link {
+      font-size: 11px; padding: 3px 9px; border-radius: 4px; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 3px; white-space: nowrap;
+    }
+    .link-official-hp { background: #e8f5e9; color: #2e7d32; border: 1px solid #2e7d32; }
+    .link-official-x  { background: #e8eaf6; color: #1a237e; }
+    .link-official-ig {
+      background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      color: #fff;
+    }
+    .official-link:hover { opacity: 0.82; }
+    .links-edit-btn {
+      font-size: 11px; padding: 4px 0; border-radius: 6px;
+      border: 1px solid #e0e0e0; background: #fafafa; color: #888;
+      cursor: pointer; width: 100%; margin-top: 2px;
+    }
+    .links-edit-btn:hover { border-color: #bdbdbd; color: #555; }
+
+    /* 公式リンク編集モーダル */
+    #links-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+      display: flex; align-items: center; justify-content: center; z-index: 200;
+    }
+    #links-modal-overlay.hidden { display: none; }
+    #links-modal {
+      background: #fff; border-radius: 14px; padding: 22px 24px 18px;
+      width: min(420px, 94vw); box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    }
+    #links-modal h3 { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+    .lm-row { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+    .lm-label { font-size: 12px; color: #555; font-weight: 600; }
+    .lm-input {
+      padding: 7px 10px; border: 1px solid #ddd; border-radius: 7px;
+      font-size: 13px; width: 100%;
+    }
+    .lm-input:focus { border-color: #90caf9; outline: none; }
+    .lm-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 6px; }
+    .lm-cancel {
+      padding: 7px 16px; border-radius: 7px; border: 1px solid #ddd;
+      background: #fff; color: #555; cursor: pointer; font-size: 13px;
+    }
+    .lm-save {
+      padding: 7px 20px; border-radius: 7px; border: none;
+      background: #1a73e8; color: #fff; cursor: pointer; font-size: 13px; font-weight: 600;
+    }
+    .lm-save:hover { background: #1557b0; }
+
+    /* オーバーレイ */
+    #overlay {
+      position: fixed; inset: 0; background: rgba(255,255,255,0.95);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px; z-index: 100;
+    }
+    #overlay h2 { font-size: 18px; color: #333; }
+    #overlay p  { font-size: 14px; color: #666; }
+    #overlay.hidden { display: none; }
+    .spinner {
+      width: 36px; height: 36px; border: 4px solid #e0e0e0;
+      border-top-color: #1a73e8; border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #empty-msg { text-align: center; color: #aaa; padding: 60px 0; font-size: 15px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><a href="/" style="color:inherit;text-decoration:none;">📍 Instagram お店マップ</a></h1>
+  <div class="header-spacer"></div>
+  <nav id="header-nav">
+    <a class="nav-link" href="/map">MAP</a>
+    <span class="nav-link-current">店舗一覧</span>
+    <a class="nav-link" href="/groups">グループ管理</a>
+    <a class="nav-link" href="/settings">設定</a>
+  </nav>
+  <div id="auth-area">
+    <div id="user-info" style="display:none">
+      <img id="user-avatar" src="" alt="" />
+      <span id="user-name"></span>
+      <button id="logout-btn" onclick="logout()">ログアウト</button>
+    </div>
+    <div id="header-signin"></div>
+  </div>
+  <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
+</header>
+
+<div class="toolbar">
+  <div class="filter-row">
+    <input id="search-input" type="text" placeholder="店名・住所・メニューで検索..." />
+    <select id="pref-filter">
+      <option value="">都道府県（すべて）</option>
+    </select>
+  </div>
+  <div class="filter-row">
+    <select id="genre-filter">
+      <option value="">ジャンル（すべて）</option>
+    </select>
+    <select id="google-rating-filter">
+      <option value="">Google評価（すべて）</option>
+      <option value="3.0">3.0 以上</option>
+      <option value="3.5">3.5 以上</option>
+      <option value="4.0">4.0 以上</option>
+      <option value="4.5">4.5 以上</option>
+    </select>
+    <select id="open-filter">
+      <option value="">営業状況（すべて）</option>
+      <option value="open">営業中のみ</option>
+    </select>
+    <select id="payment-filter">
+      <option value="">支払方法（すべて）</option>
+      <option value="クレジットカード">クレジットカード可</option>
+      <option value="電子マネー">電子マネー可</option>
+      <option value="現金のみ">現金のみ</option>
+    </select>
+    <select id="parking-filter">
+      <option value="">駐車場（すべて）</option>
+      <option value="1">駐車場あり</option>
+      <option value="0">駐車場なし</option>
+    </select>
+  </div>
+  <div class="filter-row">
+    <button id="clear-filters-btn" onclick="clearFilters()">✕ クリア</button>
+    <span id="total-label"></span>
+  </div>
+</div>
+
+<main id="main-content">
+  <div id="empty-msg">データを読み込んでいます...</div>
+</main>
+
+<div id="overlay">
+  <div class="spinner"></div>
+  <h2>読み込み中...</h2>
+</div>
+
+<!-- 公式リンク編集モーダル -->
+<div id="links-modal-overlay" class="hidden">
+  <div id="links-modal">
+    <h3 id="links-modal-title">公式リンクを編集</h3>
+    <div class="lm-row">
+      <label class="lm-label">🌐 公式ホームページ URL</label>
+      <input class="lm-input" id="lm-hp"  type="url" placeholder="https://..." />
+    </div>
+    <div class="lm-row">
+      <label class="lm-label">𝕏 公式 X（旧Twitter）URL</label>
+      <input class="lm-input" id="lm-x"   type="url" placeholder="https://x.com/..." />
+    </div>
+    <div class="lm-row">
+      <label class="lm-label">📸 公式 Instagram URL</label>
+      <input class="lm-input" id="lm-ig"  type="url" placeholder="https://www.instagram.com/..." />
+    </div>
+    <div class="lm-actions">
+      <button class="lm-cancel" onclick="closeLinksModal()">キャンセル</button>
+      <button class="lm-save"   onclick="saveLinksModal()">保存</button>
+    </div>
+  </div>
+</div>
+
+<script src="/frontend/app.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+  let allLocations = [];
+
+  const IG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`;
+
+  async function init() {
+    // 認証確認（GIS ライブラリ読み込み後に実施）
+    const waitForGIS = () => new Promise(res => {
+      if (window.google && google.accounts) { res(); return; }
+      const id = setInterval(() => { if (window.google && google.accounts) { clearInterval(id); res(); } }, 100);
+    });
+    await waitForGIS();
+
+    const user = await checkAuth();
+    if (!user) {
+      showLoginOverlay();
+      return;
+    }
+    showUserInfo(user);
+    document.getElementById("overlay").classList.add("hidden");
+    await loadData();
+  }
+
+  function showLoginOverlay() {
+    const ov = document.getElementById("overlay");
+    ov.innerHTML = `
+      <h2>ログインが必要です</h2>
+      <p>Google アカウントでログインしてください</p>
+      <div id="overlay-signin"></div>`;
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+    google.accounts.id.renderButton(document.getElementById("overlay-signin"), { theme: "outline", size: "large", locale: "ja" });
+  }
+
+  function showUserInfo(user) {
+    document.getElementById("user-info").style.display = "flex";
+    document.getElementById("user-name").textContent = user.name;
+    if (user.picture) document.getElementById("user-avatar").src = user.picture;
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+  }
+
+  async function loadData() {
+    try {
+      allLocations = await loadLocations();
+    } catch (e) {
+      document.getElementById("empty-msg").textContent = "ロケーションの取得に失敗しました: " + e.message;
+      return;
+    }
+    // 各ロケーションにジャンル情報をキャッシュ
+    const genreSettings = await fetchGenres();
+    allLocations.forEach(l => {
+      l._genreConf  = resolveGenre(l, genreSettings);
+      l._genreLabel = l.genre || l._genreConf.name;
+    });
+    populatePrefFilter();
+    populateGenreFilter();
+    renderList(allLocations);
+    document.getElementById("search-input").addEventListener("input", applyFilters);
+    document.getElementById("pref-filter").addEventListener("change", applyFilters);
+    document.getElementById("genre-filter").addEventListener("change", applyFilters);
+    document.getElementById("google-rating-filter").addEventListener("change", applyFilters);
+    document.getElementById("open-filter").addEventListener("change", applyFilters);
+    document.getElementById("payment-filter").addEventListener("change", applyFilters);
+    document.getElementById("parking-filter").addEventListener("change", applyFilters);
+
+    // URLパラメータ ?open=<locId> でスレッドを自動展開
+    const openId = parseInt(new URLSearchParams(location.search).get("open") || "");
+    if (openId) {
+      // 該当店舗の都道府県でフィルターを絞り込む
+      const openLoc = allLocations.find(l => l.id === openId);
+      if (openLoc && openLoc.prefecture) {
+        document.getElementById("pref-filter").value = openLoc.prefecture;
+        applyFilters();
+      }
+      await toggleThread(openId);
+      setTimeout(() => {
+        const el = document.querySelector(`.shop-item[data-loc-id="${openId}"]`);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 80);
+    }
+  }
+
+  function populatePrefFilter() {
+    const prefs = [...new Set(allLocations.map(l => l.prefecture).filter(Boolean))]
+      .sort((a, b) => prefOrder(a) - prefOrder(b));
+    const sel = document.getElementById("pref-filter");
+    prefs.forEach(p => {
+      const opt = document.createElement("option");
+      opt.value = p; opt.textContent = p;
+      sel.appendChild(opt);
+    });
+  }
+
+  function populateGenreFilter() {
+    const labels = [...new Set(allLocations.map(l => l._genreLabel).filter(Boolean))].sort();
+    const sel = document.getElementById("genre-filter");
+    labels.forEach(g => {
+      const opt = document.createElement("option");
+      opt.value = g; opt.textContent = g;
+      sel.appendChild(opt);
+    });
+  }
+
+  const PREF_ORDER = [
+    "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+    "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+    "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県",
+    "三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県",
+    "鳥取県","島根県","岡山県","広島県","山口県",
+    "徳島県","香川県","愛媛県","高知県",
+    "福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県",
+  ];
+  function prefOrder(pref) {
+    const i = PREF_ORDER.indexOf(pref);
+    return i === -1 ? PREF_ORDER.length : i;
+  }
+
+  // 戻り値: true=営業中 / false=営業時間外または定休日 / null=情報なし
+  function isOpenNow(loc) {
+    if (!Array.isArray(loc.business_hours) || !loc.business_hours.length) return null;
+    const todayIdx = (new Date().getDay() + 6) % 7; // JS: 0=日→変換後 0=月
+    const h = loc.business_hours[todayIdx] || "";
+    const timeStr = h.replace(/^[^:]+:\s*/, "").trim();
+    if (!timeStr) return null;
+    if (/定休日|休業/.test(timeStr)) return false;
+    if (/24\s*時間営業/.test(timeStr)) return true;
+    const nowMin = new Date().getHours() * 60 + new Date().getMinutes();
+    // "9:00〜21:00" や "9:00〜12:00、13:00〜17:00" に対応
+    const ranges = timeStr.split(/[、,]/);
+    for (const range of ranges) {
+      const m = range.trim().match(/(\d{1,2}):(\d{2})\s*[〜~\-]\s*(\d{1,2}):(\d{2})/);
+      if (!m) continue;
+      const openMin  = parseInt(m[1]) * 60 + parseInt(m[2]);
+      let   closeMin = parseInt(m[3]) * 60 + parseInt(m[4]);
+      if (closeMin <= openMin) closeMin += 24 * 60; // 深夜越え
+      if (nowMin >= openMin && nowMin < closeMin) return true;
+    }
+    return false;
+  }
+
+  function clearFilters() {
+    document.getElementById("search-input").value         = "";
+    document.getElementById("pref-filter").value          = "";
+    document.getElementById("genre-filter").value         = "";
+    document.getElementById("google-rating-filter").value = "";
+    document.getElementById("open-filter").value          = "";
+    document.getElementById("payment-filter").value       = "";
+    document.getElementById("parking-filter").value       = "";
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const q        = document.getElementById("search-input").value.trim().toLowerCase();
+    const pref     = document.getElementById("pref-filter").value;
+    const genre    = document.getElementById("genre-filter").value;
+    const gMin     = parseFloat(document.getElementById("google-rating-filter").value) || 0;
+    const openOnly = document.getElementById("open-filter").value === "open";
+    const payment  = document.getElementById("payment-filter").value;
+    const parking  = document.getElementById("parking-filter").value;
+    const filtered = allLocations.filter(l => {
+      if (pref     && l.prefecture  !== pref)  return false;
+      if (genre    && l._genreLabel !== genre) return false;
+      if (gMin     && (l.google_rating == null || l.google_rating < gMin)) return false;
+      if (openOnly && isOpenNow(l) !== true)   return false;
+      if (payment) {
+        const methods = Array.isArray(l.payment_methods) ? l.payment_methods : [];
+        if (!methods.includes(payment)) return false;
+      }
+      if (parking !== "") {
+        if (l.has_parking == null) return false;
+        if (String(l.has_parking) !== parking) return false;
+      }
+      if (q) {
+        const menus = (l.recommended_menus || []).join(" ").toLowerCase();
+        if (!(l.shop_name || "").toLowerCase().includes(q) &&
+            !(l.address   || "").toLowerCase().includes(q) &&
+            !(l.city      || "").toLowerCase().includes(q) &&
+            !menus.includes(q)) return false;
+      }
+      return true;
+    });
+    renderList(filtered);
+  }
+
+  function renderList(locations) {
+    const container = document.getElementById("main-content");
+    document.getElementById("total-label").textContent = `${locations.length}件`;
+    if (locations.length === 0) {
+      container.innerHTML = '<div id="empty-msg">該当するお店が見つかりません</div>';
+      return;
+    }
+    const grouped = groupLocations(locations);
+    container.innerHTML = Object.keys(grouped).sort((a, b) => prefOrder(a) - prefOrder(b)).map(pref => {
+      const color = getPrefectureColor(pref);
+      const cities = grouped[pref];
+      const prefCount = Object.values(cities).flat().length;
+      const cityHtml = Object.entries(cities)
+        .sort((a, b) => b[1].length - a[1].length)
+        .map(([city, shops]) => {
+          const shopHtml = shops.map(s => {
+            const gc     = s._genreConf  || resolveGenre(s, getGenreSettings());
+            const label  = s._genreLabel || gc.name;
+            const menus  = Array.isArray(s.recommended_menus) ? s.recommended_menus : [];
+            const isOwn  = s.source === "own";
+            const menuHtml = menus.length
+              ? `<div class="menu-tags">${menus.map(m => `<span class="menu-tag">🍴 ${m}</span>`).join("")}</div>`
+              : "";
+            const chipClass = isOwn ? `genre-chip editable` : `genre-chip`;
+            const chipExtra = isOwn
+              ? `onclick="openGenreEdit(event,${s.id},this)" title="クリックでジャンルを変更"`
+              : "";
+            const pencil    = isOwn ? `<span class="edit-pencil">✏</span>` : "";
+            const wantAgainAttr = s.want_again ? ' data-want-again="1"' : '';
+            const heartHtml = s.want_again ? '<span class="want-heart">❤️</span>' : '';
+            const statusHtml = s.visited
+              ? `<div class="visit-status-line"><span class="visit-status">✓ 訪問済み ${"★".repeat(s.rating||0)}${"☆".repeat(5-(s.rating||0))}</span></div>`
+              : "";
+            const safeName = (s.shop_name || "").replace(/'/g, "\\'");
+            return `
+              <div class="shop-item" data-loc-id="${s.id}"${wantAgainAttr}>
+                <div class="shop-body">
+                  <div class="shop-main" onclick="toggleThread(${s.id})">
+                    <div class="shop-top">
+                      ${heartHtml}
+                      <span class="shop-name">${s.shop_name || "（名称不明）"}</span>
+                      <span class="${chipClass}" style="background:${gc.color}" ${chipExtra}>${gc.icon} ${label}${pencil}</span>
+                    </div>
+                    ${statusHtml}
+                    <div class="shop-address">${s.address || ""}</div>
+                    ${menuHtml}
+                    <div class="place-info" id="place-info-${s.id}">${placeInfoInnerHtml(s)}</div>
+                    <div class="official-links" id="official-links-${s.id}">${officialLinksHtml(s)}</div>
+                  </div>
+                  <div class="shop-actions">
+                    <div class="shop-links">
+                      <a class="shop-link link-map" href="/map?focus=${encodeURIComponent(s.instagram_url)}" target="_blank">📍 地図</a>
+                      <a class="shop-link link-ig"  href="${s.instagram_url}" target="_blank">${IG_SVG} 保存済みInstagram投稿</a>
+                    </div>
+                    <button class="review-btn" onclick="openVisitModal(${s.id},'${safeName}')">📝 レビューする</button>
+                    <button class="refresh-place-btn" onclick="refreshPlaceInfo(event,${s.id})">${refreshBtnInnerHtml(s, !!s.place_info_fetched_at)}</button>
+                  </div>
+                </div>
+                <div class="thread-panel" id="thread-${s.id}"></div>
+              </div>`;
+          }).join("");
+          return `<div class="city-header">${city} <span class="city-count">${shops.length}件</span></div>${shopHtml}`;
+        }).join("");
+      return `
+        <div class="pref-section">
+          <div class="pref-header" style="border-left-color:${color}" onclick="togglePref(this)">
+            <span class="pref-name" style="color:${color}">${pref}</span>
+            <span class="pref-count">${prefCount}件</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="city-section open">${cityHtml}</div>
+        </div>`;
+    }).join("");
+  }
+
+  /* ---------- ジャンル編集ドロップダウン ---------- */
+  let _activeDropdown = null;
+
+  function openGenreEdit(event, locId, chipEl) {
+    event.stopPropagation();
+    closeGenreEdit();
+    const genres = getGenreSettings();
+    const loc = allLocations.find(l => l.id === locId);
+    const currentLabel = loc ? (loc._genreLabel || "") : "";
+
+    const rect = chipEl.getBoundingClientRect();
+    const dropdown = document.createElement("div");
+    dropdown.className = "genre-dropdown";
+    dropdown.style.cssText =
+      `left:${Math.min(rect.left, window.innerWidth - 220)}px;top:${rect.bottom + 4}px;`;
+
+    dropdown.innerHTML =
+      `<div class="genre-dd-header">ジャンルを選択</div>` +
+      genres.map(g => {
+        const active = g.name === currentLabel;
+        return `<div class="genre-dd-item${active ? " active" : ""}">
+          <span class="genre-dd-dot" style="background:${g.color}">${g.icon}</span>
+          <span class="genre-dd-name">${g.name}</span>
+          ${active ? `<span class="genre-dd-check">✓</span>` : ""}
+        </div>`;
+      }).join("");
+
+    dropdown._chipEl = chipEl;
+    document.body.appendChild(dropdown);
+    _activeDropdown = dropdown;
+
+    dropdown.querySelectorAll(".genre-dd-item").forEach((item, i) => {
+      item.addEventListener("click", e => {
+        e.stopPropagation();
+        selectGenre(locId, genres[i], chipEl);
+      });
+    });
+
+    setTimeout(() => document.addEventListener("click", closeGenreEdit, { once: true }), 0);
+  }
+
+  function closeGenreEdit() {
+    if (_activeDropdown) { _activeDropdown.remove(); _activeDropdown = null; }
+  }
+
+  async function selectGenre(locId, genre, chipEl) {
+    closeGenreEdit();
+    try {
+      await apiFetch(`/api/locations/${locId}`, {
+        method: "PATCH",
+        body: JSON.stringify({ genre: genre.name }),
+      });
+      chipEl.style.background = genre.color;
+      chipEl.innerHTML =
+        `${genre.icon} ${genre.name}<span class="edit-pencil">✏</span>`;
+      const loc = allLocations.find(l => l.id === locId);
+      if (loc) {
+        loc.genre       = genre.name;
+        loc._genreConf  = genre;
+        loc._genreLabel = genre.name;
+      }
+    } catch (e) { alert("更新失敗: " + e.message); }
+  }
+
+  function togglePref(headerEl) {
+    const section = headerEl.nextElementSibling;
+    const icon = headerEl.querySelector(".toggle-icon");
+    icon.textContent = section.classList.toggle("open") ? "▼" : "▶";
+  }
+
+  /* ---------- スレッド表示 ---------- */
+  let _openThreadId = null;
+
+  async function toggleThread(locId) {
+    const panel = document.getElementById(`thread-${locId}`);
+    if (!panel) return;
+    const shopMain = panel.closest(".shop-item").querySelector(".shop-main");
+
+    if (_openThreadId === locId) {
+      panel.classList.remove("open");
+      panel.innerHTML = "";
+      shopMain.classList.remove("thread-open");
+      _openThreadId = null;
+      return;
+    }
+
+    if (_openThreadId !== null) {
+      const prev = document.getElementById(`thread-${_openThreadId}`);
+      if (prev) {
+        prev.classList.remove("open");
+        prev.innerHTML = "";
+        prev.closest(".shop-item")?.querySelector(".shop-main")?.classList.remove("thread-open");
+      }
+    }
+
+    _openThreadId = locId;
+    panel.classList.add("open");
+    shopMain.classList.add("thread-open");
+    panel.innerHTML = '<div class="thread-loading">読み込み中...</div>';
+
+    const loc = allLocations.find(l => l.id === locId) || {};
+    const gc = loc._genreConf || resolveGenre(loc, getGenreSettings());
+    let visits = [];
+    try { visits = await apiFetch(`/api/locations/${locId}/visit`); } catch (_) {}
+
+    panel.innerHTML = renderThreadHtml(loc, gc, visits);
+  }
+
+  function renderThreadHtml(loc, gc, visits) {
+    const locId    = loc.id;
+    const safeName = (loc.shop_name || "").replace(/'/g, "\\'");
+
+    if (!Array.isArray(visits) || visits.length === 0) {
+      return `
+        <div class="thread-no-review">
+          <span>まだ訪問記録がありません</span>
+        </div>`;
+    }
+
+    return visits.map(visit => {
+      const rating  = visit.rating || 0;
+      const stars   = "★".repeat(rating) + "☆".repeat(5 - rating);
+      const statusLabel = visit.visited ? `✓ 訪問済み ${stars}` : `未訪問${rating ? " " + stars : ""}`;
+      const statusClass = visit.visited ? "thread-status" : "thread-status unvisited";
+      const escImp  = (visit.impression || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      const imgHtml = (visit.images || []).length
+        ? `<div class="thread-img-row">${visit.images.map(img =>
+            `<img class="thread-img" src="/api/visit-images/${img.filename}" onclick="window.open(this.src)" loading="lazy" />`
+          ).join("")}</div>`
+        : "";
+      const wantHtml = visit.want_again
+        ? `<div class="thread-want-again">❤️ また行きたい${visit.next_comment
+            ? ` <span class="thread-next-comment">— ${visit.next_comment.replace(/</g,"&lt;")}</span>` : ""}</div>`
+        : "";
+      const dateStr = visit.updated_at ? visit.updated_at.slice(0, 10) : "";
+      const editBtn = visit.is_own
+        ? `<button class="thread-edit-btn" onclick="openVisitModalForEdit(${visit.id},${locId},'${safeName}')">編集</button>`
+        : "";
+
+      return `
+        <div class="thread-reply" style="margin-top:10px">
+          <div class="thread-reply-top">
+            <span class="thread-reply-label">👤 ${visit.user_name} <span style="font-weight:400;color:#bbb">${dateStr}</span></span>
+            ${editBtn}
+          </div>
+          <div class="${statusClass}">${statusLabel}</div>
+          ${escImp ? `<div class="thread-impression">${escImp}</div>` : ""}
+          ${imgHtml}
+          ${wantHtml}
+        </div>`;
+    }).join("");
+  }
+
+  async function refreshOpenThread(locId) {
+    if (_openThreadId !== locId) return;
+    const panel = document.getElementById(`thread-${locId}`);
+    if (!panel || !panel.classList.contains("open")) return;
+    const loc = allLocations.find(l => l.id === locId) || {};
+    const gc  = loc._genreConf || resolveGenre(loc, getGenreSettings());
+    let visits = [];
+    try { visits = await apiFetch(`/api/locations/${locId}/visit`); } catch (_) {}
+    panel.innerHTML = renderThreadHtml(loc, gc, visits);
+  }
+
+  /* ---------- 公式リンク表示 ---------- */
+  function officialLinksHtml(s) {
+    const links = [];
+    if (s.website_url)
+      links.push(`<a class="official-link link-official-hp" href="${s.website_url}" target="_blank" onclick="event.stopPropagation()">🌐 公式HP</a>`);
+    if (s.official_twitter_url)
+      links.push(`<a class="official-link link-official-x"  href="${s.official_twitter_url}" target="_blank" onclick="event.stopPropagation()">𝕏 公式X</a>`);
+    if (s.official_instagram_url)
+      links.push(`<a class="official-link link-official-ig" href="${s.official_instagram_url}" target="_blank" onclick="event.stopPropagation()">📸 公式Instagram</a>`);
+    return links.join("");
+  }
+
+  /* ---------- 公式リンク編集モーダル ---------- */
+  let _lmLocId = null;
+
+  function openLinksModal(locId, shopName) {
+    _lmLocId = locId;
+    const loc = allLocations.find(l => l.id === locId) || {};
+    document.getElementById("links-modal-title").textContent = `公式リンクを編集 — ${shopName}`;
+    document.getElementById("lm-hp").value  = loc.website_url            || "";
+    document.getElementById("lm-x").value   = loc.official_twitter_url   || "";
+    document.getElementById("lm-ig").value  = loc.official_instagram_url || "";
+    document.getElementById("links-modal-overlay").classList.remove("hidden");
+  }
+
+  function closeLinksModal() {
+    _lmLocId = null;
+    document.getElementById("links-modal-overlay").classList.add("hidden");
+  }
+
+  async function saveLinksModal() {
+    if (!_lmLocId) return;
+    const payload = {
+      website_url:            document.getElementById("lm-hp").value.trim()  || null,
+      official_twitter_url:   document.getElementById("lm-x").value.trim()   || null,
+      official_instagram_url: document.getElementById("lm-ig").value.trim()  || null,
+    };
+    try {
+      await apiFetch(`/api/locations/${_lmLocId}`, {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+      });
+      const loc = allLocations.find(l => l.id === _lmLocId);
+      if (loc) {
+        loc.website_url            = payload.website_url;
+        loc.official_twitter_url   = payload.official_twitter_url;
+        loc.official_instagram_url = payload.official_instagram_url;
+        const div = document.getElementById(`official-links-${_lmLocId}`);
+        if (div) div.innerHTML = officialLinksHtml(loc);
+      }
+      closeLinksModal();
+    } catch (e) {
+      alert("保存に失敗しました: " + e.message);
+    }
+  }
+
+  /* ---------- Google Places 情報表示 ---------- */
+  function placeInfoInnerHtml(s) {
+    const parts = [];
+    if (s.google_rating != null) {
+      const highRating = s.google_rating > 4.0;
+      const highCount  = (s.google_ratings_total || 0) > 500;
+      const ratingTxt  = highRating
+        ? `<strong>${s.google_rating.toFixed(1)}</strong>`
+        : s.google_rating.toFixed(1);
+      const isPopular = highRating && highCount;
+      const cntTxt = s.google_ratings_total
+        ? (isPopular
+            ? ` (<strong>${s.google_ratings_total.toLocaleString()}件</strong>)`
+            : ` (${s.google_ratings_total.toLocaleString()}件)`)
+        : "";
+      const starHtml = isPopular ? `<span class="star-sparkle">⭐</span>` : `⭐`;
+      const popularClass = isPopular ? " google-popular" : "";
+      parts.push(`<span class="place-tag google${popularClass}">${starHtml} ${ratingTxt}${cntTxt}</span>`);
+    }
+    if (Array.isArray(s.business_hours) && s.business_hours.length) {
+      const todayIdx = (new Date().getDay() + 6) % 7; // 0=Mon…6=Sun
+      const h = s.business_hours[todayIdx] || "";
+      const timeStr = h.replace(/^[^:]+:\s*/, "");
+      if (timeStr) parts.push(`<span class="place-tag hours">🕐 ${timeStr}</span>`);
+    }
+    if (Array.isArray(s.payment_methods) && s.payment_methods.length) {
+      parts.push(`<span class="place-tag payment">💳 ${s.payment_methods.join(" / ")}</span>`);
+    }
+    if (s.has_parking === 1) {
+      parts.push(`<span class="place-tag parking">🅿️ 駐車場あり</span>`);
+    } else if (s.has_parking === 0) {
+      parts.push(`<span class="place-tag parking">🅿️ 駐車場なし</span>`);
+    }
+    return parts.join("");
+  }
+
+  function formatFetchedAt(isoStr) {
+    if (!isoStr) return "";
+    const d = new Date(isoStr);
+    return d.toLocaleString("ja-JP", {
+      timeZone: "Asia/Tokyo",
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit",
+    });
+  }
+
+  function refreshBtnInnerHtml(loc, showTime = false) {
+    const timeStr = showTime && loc && loc.place_info_fetched_at
+      ? `<span class="refresh-time">(最終更新 ${formatFetchedAt(loc.place_info_fetched_at)})</span>`
+      : "";
+    return `🔄 店舗情報更新${timeStr}`;
+  }
+
+  async function refreshPlaceInfo(event, locId) {
+    event.stopPropagation();
+    const btn = event.currentTarget;
+    btn.disabled = true;
+    btn.textContent = "⏳ 取得中…";
+    const loc = allLocations.find(l => l.id === locId);
+    try {
+      const data = await apiFetch(`/api/locations/${locId}/fetch-place-info`, { method: "POST" });
+      if (loc) {
+        loc.business_hours        = data.business_hours;
+        loc.google_rating         = data.google_rating;
+        loc.google_ratings_total  = data.google_ratings_total;
+        loc.payment_methods       = data.payment_methods;
+        loc.has_parking           = data.has_parking;
+        loc.website_url           = data.website_url;
+        loc.official_twitter_url  = data.official_twitter_url;
+        loc.official_instagram_url= data.official_instagram_url;
+        loc.place_info_fetched    = 1;
+        loc.place_info_fetched_at = data.place_info_fetched_at || new Date().toISOString();
+        const piDiv = document.getElementById(`place-info-${locId}`);
+        if (piDiv) piDiv.innerHTML = placeInfoInnerHtml(loc);
+        const olDiv = document.getElementById(`official-links-${locId}`);
+        if (olDiv) olDiv.innerHTML = officialLinksHtml(loc);
+      }
+      btn.textContent = "✓ 更新済み";
+      setTimeout(() => { btn.innerHTML = refreshBtnInnerHtml(loc, true); btn.disabled = false; }, 2000);
+    } catch (e) {
+      btn.innerHTML = refreshBtnInnerHtml(loc);
+      btn.disabled = false;
+      alert("情報の取得に失敗しました: " + e.message);
+    }
+  }
+
+  function exportCsvAll() {
+    const pref = document.getElementById("pref-filter").value;
+    const q = document.getElementById("search-input").value.trim().toLowerCase();
+    const filtered = allLocations.filter(l => {
+      const matchPref = !pref || l.prefecture === pref;
+      const matchQ = !q || (l.shop_name || "").toLowerCase().includes(q) || (l.address || "").toLowerCase().includes(q);
+      return matchPref && matchQ;
+    });
+    exportCsv(filtered);
+  }
+
+  window.addEventListener("load", init);
+</script>
+</body>
+</html>

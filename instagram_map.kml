@@ -1,0 +1,4345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>Instagram 保存済みお店マップ</name>
+  <description>468件のお店（Instagramの保存済み投稿から抽出）</description>
+  <Folder>
+    <name>北海道 (2件)</name>
+    <Folder>
+      <name>北海道 (2件)</name>
+      <Placemark>
+        <name>スヌーピー茶屋</name>
+        <description>📍 北海道小樽市堺町6-4
+🏙 北海道小樽市
+Instagram: https://www.instagram.com/p/CyIoV2kxeDH/</description>
+        <Point>
+          <coordinates>141.0068978,43.1922877,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Berry Garden</name>
+        <description>📍 北海道札幌市中央区南４条西５丁目４ シャンゼリゼビル 1階
+🏙 北海道札幌市中央区
+Instagram: https://www.instagram.com/p/C2j37nXRRiV/</description>
+        <Point>
+          <coordinates>141.3505276,43.0548097,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Folder>
+  <Folder>
+    <name>東北 (224件)</name>
+    <Folder>
+      <name>宮城県 (118件)</name>
+      <Placemark>
+        <name>自家製麺結び</name>
+        <description>📍 宮城県仙台市
+🏙 宮城県仙台市
+Instagram: https://www.instagram.com/p/C7Tvm_Av_D7/</description>
+        <Point>
+          <coordinates>140.869418,38.268195,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CAMPER'S CAFE</name>
+        <description>📍 宮城県仙台市太白区茂庭１丁目
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/Cp2Pe5tPzfz/</description>
+        <Point>
+          <coordinates>140.795127,38.2224997,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Cafe de シーダーギャラリー</name>
+        <description>📍 宮城県仙台市太白区秋保町馬場丸山12-1
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/DZcLECfSu-6/</description>
+        <Point>
+          <coordinates>140.6074408,38.2723537,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Great Dane Brewing</name>
+        <description>📍 宮城県仙台市太白区秋保町湯元字枇杷原5
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/C2Pb2wNPXow/</description>
+        <Point>
+          <coordinates>140.7318179,38.2237069,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HACHI 秋保温泉店</name>
+        <description>📍 宮城県仙台市太白区秋保町湯元薬師40-2
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/Cuy1_HXPfVz/</description>
+        <Point>
+          <coordinates>140.7175361,38.2292105,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HACHI 長町店</name>
+        <description>📍 仙台市太白区長町5丁目1-30
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/CvZqEVAvAuB/</description>
+        <Point>
+          <coordinates>140.8856608,38.22776229999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MILK DO dore iku?</name>
+        <description>📍 宮城県仙台市太白区あすと長町1丁目6−37
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/C6qj062PkmO/</description>
+        <Point>
+          <coordinates>140.8865603,38.2272397,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MILK DO dore iku?</name>
+        <description>📍 宮城県仙台市太白区あすと長町1丁目6−37
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/C5xyHNnviY-/</description>
+        <Point>
+          <coordinates>140.8865603,38.2272397,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>PUBLIC.COFFEE</name>
+        <description>📍 宮城県仙台市太白区長町３丁目７−３
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/C7bfB9Jo7Rp/</description>
+        <Point>
+          <coordinates>140.8852167,38.2303731,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>amo la Pizza（アモーラピッツァ）</name>
+        <description>📍 宮城県仙台市太白区鹿野２丁目１４−１４グローリアス鹿野 １０２
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/CkqGRfWPL3Y/</description>
+        <Point>
+          <coordinates>140.8731351,38.2277446,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>cafe EDEN</name>
+        <description>📍 宮城県仙台市太白区八木山弥生町23-30
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/Co68wRSvJn9/</description>
+        <Point>
+          <coordinates>140.8665515,38.2383347,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>グリーンフィールド えむ</name>
+        <description>📍 宮城県仙台市太白区秋保町長袋戸崎64
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/DaKdo19SY6w/</description>
+        <Point>
+          <coordinates>140.6830284,38.2449786,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>マーガレット菓子店</name>
+        <description>📍 宮城県仙台市太白区長町4丁目3−13−10
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/C5N9HF2vPpv/</description>
+        <Point>
+          <coordinates>140.88266,38.229977,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ミモザチーズケーキ</name>
+        <description>📍 宮城県仙台市太白区袋原6丁目5-5
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/Cuy7_BaPICl/</description>
+        <Point>
+          <coordinates>140.9093381,38.1953658,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>天守閣自然公園</name>
+        <description>📍 宮城県仙台市太白区秋保町湯元源兵衛原10
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/Ckj-syRv4WH/</description>
+        <Point>
+          <coordinates>140.7092347,38.2311071,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>秋保 風雅</name>
+        <description>📍 宮城県仙台市太白区秋保町湯元薬師40-2
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/Crx0-vshON2/</description>
+        <Point>
+          <coordinates>140.7175361,38.2292105,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>秋保ヴィレッジ アグリエの森</name>
+        <description>📍 宮城県仙台市太白区茂庭字中谷地南32-1
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/C089g3Ph2ht/</description>
+        <Point>
+          <coordinates>140.7444569,38.2180628,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>秋保風雅</name>
+        <description>📍 宮城県仙台市太白区秋保町湯元薬師40-2
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/CztJ9v4vhXz/</description>
+        <Point>
+          <coordinates>140.7175361,38.2292105,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>秋保風雅</name>
+        <description>📍 宮城県仙台市太白区秋保町湯元薬師４０－２
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/CryD09kPxx6/</description>
+        <Point>
+          <coordinates>140.7175361,38.2292105,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>萬國珈琲 仙台茂庭店</name>
+        <description>📍 宮城県仙台市太白区茂庭1-6-10
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/Da4wFfsyWkZ/</description>
+        <Point>
+          <coordinates>140.7879501,38.2223368,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>蕎麦処 初代 伝五郎</name>
+        <description>📍 宮城県仙台市太白区鈎取本町１丁目１７−２０ 青峰堂
+🏙 宮城県仙台市太白区
+Instagram: https://www.instagram.com/p/DFhz2d-zzqU/</description>
+        <Point>
+          <coordinates>140.8399224,38.2206972,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ball Park</name>
+        <description>📍 仙台市宮城野区元寺小路9
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/DC0V_ikIaiY/</description>
+        <Point>
+          <coordinates>140.884651,38.2636068,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ball Park</name>
+        <description>📍 宮城県仙台市宮城野区元寺小路304-3
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/CjKaAXIvFjF/</description>
+        <Point>
+          <coordinates>140.8846582,38.2636289,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>VON</name>
+        <description>📍 宮城県仙台市宮城野区宮城野１丁目９−３
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/C2Um5OIPIy4/</description>
+        <Point>
+          <coordinates>140.9010644,38.2583963,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>となりのれすとらん</name>
+        <description>📍 宮城県仙台市宮城野区新田4-4-22
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/Cj7zXlcvtbL/</description>
+        <Point>
+          <coordinates>140.924914,38.2750443,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>もちだや</name>
+        <description>📍 宮城県仙台市宮城野区榴岡4-3-1 アルファビル1階
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/DJtf-51Tjqa/</description>
+        <Point>
+          <coordinates>140.8881301,38.2586254,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>もちだや</name>
+        <description>📍 宮城県仙台市宮城野区榴岡4-3-1 アルファビル 1F
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/C3Z7iqxvC4e/</description>
+        <Point>
+          <coordinates>140.8881301,38.2586254,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>もちだや</name>
+        <description>📍 宮城県仙台市宮城野区榴岡4-3-1 アルファビル 1F
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/C08zvf3PMVD/</description>
+        <Point>
+          <coordinates>140.8881301,38.2586254,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>石窯焼イタリアン Joe&amp;Joe</name>
+        <description>📍 宮城県仙台市宮城野区榴岡2丁目1-25 BiVi仙台東口4F
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/CjUx7alPwA3/</description>
+        <Point>
+          <coordinates>140.8837672,38.2610135,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>麺屋くまがい</name>
+        <description>📍 宮城県仙台市宮城野区鶴ケ谷1-8-16
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/C6P8GClP52j/</description>
+        <Point>
+          <coordinates>140.9138953,38.2860574,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>麺牛 ひろせ</name>
+        <description>📍 宮城県仙台市宮城野区福室字弁当2-25-2
+🏙 宮城県仙台市宮城野区
+Instagram: https://www.instagram.com/p/C5YXaRevCu3/</description>
+        <Point>
+          <coordinates>140.9648437,38.271859,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Eigyokudo cafe 仙台店</name>
+        <description>📍 宮城県仙台市泉区高森一丁目1-189
+🏙 宮城県仙台市泉区
+Instagram: https://www.instagram.com/p/CtRDRChv9dE/</description>
+        <Point>
+          <coordinates>140.8440795,38.33590909999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>biz creek cafe</name>
+        <description>📍 宮城県仙台市泉区根白石下河原39
+🏙 宮城県仙台市泉区
+Instagram: https://www.instagram.com/p/Cd0tyrMjKFs/</description>
+        <Point>
+          <coordinates>140.8007986,38.3428042,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>in vitro coffee</name>
+        <description>📍 宮城県仙台市泉区西田中松下3-13
+🏙 宮城県仙台市泉区
+Instagram: https://www.instagram.com/p/C24UPA4SDIM/</description>
+        <Point>
+          <coordinates>140.7943613,38.3268584,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>徳島ラーメン人生</name>
+        <description>📍 宮城県仙台市泉区市名坂字原田64-1
+🏙 宮城県仙台市泉区
+Instagram: https://www.instagram.com/p/C3B1vdnPJkt/</description>
+        <Point>
+          <coordinates>140.9013298,38.3142292,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>桃源花 泉店</name>
+        <description>📍 宮城県仙台市泉区松森陣ケ前109-4
+🏙 宮城県仙台市泉区
+Instagram: https://www.instagram.com/p/C644N10PPIT/</description>
+        <Point>
+          <coordinates>140.9279751,38.3103154,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>街外れの休日shogen</name>
+        <description>📍 宮城県仙台市泉区将監の10丁目13-1-1
+🏙 宮城県仙台市泉区
+Instagram: https://www.instagram.com/p/CkGZUjtSdtr/</description>
+        <Point>
+          <coordinates>140.8786638,38.335259,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>クレープハウス グリーンズ</name>
+        <description>📍 宮城県仙台市若林区中倉3丁目14−10
+🏙 宮城県仙台市若林区
+Instagram: https://www.instagram.com/p/C4DLok6P8eU/</description>
+        <Point>
+          <coordinates>140.9219447,38.2458277,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ラ・クロンヌ・ドル</name>
+        <description>📍 宮城県仙台市若林区新寺1丁目6-12
+🏙 宮城県仙台市若林区
+Instagram: https://www.instagram.com/p/C-H949oxKsz/</description>
+        <Point>
+          <coordinates>140.8835273,38.2546687,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>創作ノ蔵 めし処 萩ノ宮</name>
+        <description>📍 宮城県仙台市若林区中倉
+🏙 宮城県仙台市若林区
+Instagram: https://www.instagram.com/p/DDMFbtzThyd/</description>
+        <Point>
+          <coordinates>140.9164172,38.2453118,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>猿田彦珈琲 アクアイグニス仙台店</name>
+        <description>📍 宮城県仙台市若林区藤塚字松の西33-3
+🏙 宮城県仙台市若林区
+Instagram: https://www.instagram.com/p/Cwhx9yfg4Wy/</description>
+        <Point>
+          <coordinates>140.9556092,38.1848688,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>8/4の ゆきだるま</name>
+        <description>📍 宮城県仙台市青葉区北目町2-33
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CxnRayDPTet/</description>
+        <Point>
+          <coordinates>140.8767058,38.25468619999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BABEL858</name>
+        <description>📍 宮城県仙台市青葉区霊屋下１０−２７
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DZ822F1h1nD/</description>
+        <Point>
+          <coordinates>140.8678981,38.2531194,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BABEL858</name>
+        <description>📍 宮城県仙台市青葉区霊屋下10-27
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C5GGvlwPO3f/</description>
+        <Point>
+          <coordinates>140.8678981,38.2531194,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CAFE 眞白</name>
+        <description>📍 宮城県仙台市青葉区宮町２丁目３−１１
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C7oWBwWvNsk/</description>
+        <Point>
+          <coordinates>140.8842669,38.2715908,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CANDAY CAFE</name>
+        <description>📍 宮城県仙台市青葉区上杉2丁目9-23
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CzGzqzLv-9e/</description>
+        <Point>
+          <coordinates>140.8714246,38.2748355,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CRAFT BEER MARKET</name>
+        <description>📍 宮城県仙台市青葉区中央3丁目7-25 ダイワロイネットホテル仙台西口1階
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C2ZrPGrvEdv/</description>
+        <Point>
+          <coordinates>140.8790483,38.2592822,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Café青山文庫</name>
+        <description>📍 宮城県仙台市青葉区中央２丁目１−２７ Ｅｖｅｒ－ｉ中央ビル5F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CmHE_rAPh8c/</description>
+        <Point>
+          <coordinates>140.878656,38.2613898,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Don Tacos</name>
+        <description>📍 宮城県仙台市青葉区木町通2丁目4-34 木町通ＴＫビル1階
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DFkVelxz5rp/</description>
+        <Point>
+          <coordinates>140.8624868,38.2731976,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>JAM CAFE</name>
+        <description>📍 宮城県仙台市青葉区一番町4－5－20 松葉屋ビル2F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C0lcFxIr-7b/</description>
+        <Point>
+          <coordinates>140.8710059,38.2644095,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>JEAN-PAUL HÉVIN 三越仙台店</name>
+        <description>📍 宮城県仙台市青葉区一番町4-8-15 三越仙台店B1F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DTKdsarkiLj/</description>
+        <Point>
+          <coordinates>140.8712021,38.2651306,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>L'UTOPIE</name>
+        <description>📍 宮城県仙台市青葉区春日町6-15G ビル1F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C2rb1KtyvIu/</description>
+        <Point>
+          <coordinates>140.8659946,38.2662431,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MEETING HOUSE</name>
+        <description>📍 宮城県仙台市青葉区上杉２丁目３５−１７
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C2XFPTZPHWc/</description>
+        <Point>
+          <coordinates>140.8711863,38.2732344,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Makan</name>
+        <description>📍 宮城県仙台市青葉区一番町２丁目５−６
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C2mntRNPuvh/</description>
+        <Point>
+          <coordinates>140.8721456,38.2589249,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>PIZZA＆WINE ESOLA 仙台駅前店</name>
+        <description>📍 宮城県仙台市青葉区
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DBdp6D4seUh/</description>
+        <Point>
+          <coordinates>140.7904631,38.2725766,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Quiet Corner（クワイエットコーナー）</name>
+        <description>📍 宮城県仙台市青葉区昭和町3-31-2F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CjfQDQwPzlI/</description>
+        <Point>
+          <coordinates>140.8699095,38.28001870000001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SAMOS CAFE 仙台店</name>
+        <description>📍 宮城県仙台市青葉区一番町3-6-10 Foresta大町1F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DBlAVA6Pcil/</description>
+        <Point>
+          <coordinates>140.8733975,38.2608272,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Staghorn Records Analog Media Cafe</name>
+        <description>📍 宮城県仙台市青葉区一番町1-4-28小松物産ビル2F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DYoseKPy81F/</description>
+        <Point>
+          <coordinates>140.8710511,38.257206,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Tavernetta Salvatore 仙台</name>
+        <description>📍 宮城県仙台市青葉区中央3丁目7-5 仙台パルコ2 1F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DXjIAINyXMq/</description>
+        <Point>
+          <coordinates>140.8797023,38.2589994,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ThaChang</name>
+        <description>📍 仙台市青葉区本町１丁目１−１
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/Ct_hgf1vBq5/</description>
+        <Point>
+          <coordinates>140.8799501,38.2634942,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>glutton factory</name>
+        <description>📍 宮城県仙台市青葉区中央1-7-39-2F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C50S5AMvKiY/</description>
+        <Point>
+          <coordinates>140.8803952,38.2625372,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>m's chiffon</name>
+        <description>📍 宮城県仙台市青葉区上杉1丁目8–37
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C6QwtZAPoG0/</description>
+        <Point>
+          <coordinates>140.8724863,38.2705997,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>おいしい台所12カ月</name>
+        <description>📍 宮城県仙台市青葉区国分町3-2-10-2F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C4aO7DGP2oO/</description>
+        <Point>
+          <coordinates>140.8689141,38.2662887,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>お先に失礼 サワーにドロン</name>
+        <description>📍 宮城県仙台市青葉区中央区2-11-23
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CmULEHlPENG/</description>
+        <Point>
+          <coordinates>140.8280264,38.2851638,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>やきとり31</name>
+        <description>📍 仙台市青葉区国分町2-6-9 山路三号館2F-B
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DDZF42ITcqp/</description>
+        <Point>
+          <coordinates>140.8690935,38.26351349999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ゆづくしSalon一の坊</name>
+        <description>📍 宮城県仙台市青葉区作並字長原3
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DDZRGHGzq29/</description>
+        <Point>
+          <coordinates>140.6113788,38.3345489,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ゆづくしSalon一の坊</name>
+        <description>📍 宮城県仙台市青葉区作並
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DA-rxhHs-Yk/</description>
+        <Point>
+          <coordinates>140.6024802,38.3610979,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ウェスティンホテル仙台</name>
+        <description>📍 宮城県仙台市青葉区一番町1-9-1
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CknDjn5v_eW/</description>
+        <Point>
+          <coordinates>140.8762059,38.2564662,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>オステリア・ラ・カンティーナ da CIAORO</name>
+        <description>📍 宮城県仙台市青葉区本町2丁目14-1
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C1ofaGzvUpI/</description>
+        <Point>
+          <coordinates>140.8741834,38.2641975,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>キリンシティプラス JR仙台駅</name>
+        <description>📍 宮城県仙台市青葉区中央1-1-1
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CnMRoSAvwV3/</description>
+        <Point>
+          <coordinates>140.881271,38.2581411,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ダブルエッグ4丁目店</name>
+        <description>📍 宮城県仙台市青葉区中山4丁目6-36
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C7q5CWlPl9D/</description>
+        <Point>
+          <coordinates>140.842713,38.2917886,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ハンマート</name>
+        <description>📍 宮城県仙台市青葉区国分町２丁目1-12
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/Cn_oVGivbMr/</description>
+        <Point>
+          <coordinates>140.8701468,38.2629859,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ボタニカルアイテム＆カフェ シアン</name>
+        <description>📍 宮城県仙台市青葉区一番町1丁目6-22
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C_DCwXdqXr3/</description>
+        <Point>
+          <coordinates>140.8737418,38.2572453,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>三陸魚河岸処 佰食亭（ひゃくしょくてい）</name>
+        <description>📍 宮城県仙台市青葉区堤通雨宮町2-28
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CkMUM_jhDJT/</description>
+        <Point>
+          <coordinates>140.8689194,38.2758009,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>代官山Candy apple 仙台店</name>
+        <description>📍 仙台市青葉区国分町１丁目１−１３
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CuMS2S4PcNP/</description>
+        <Point>
+          <coordinates>140.870881,38.2611987,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>作並の四季を愉しむカフェ 山ノ季</name>
+        <description>📍 宮城県仙台市青葉区作並元木1 湯ノ原ホテル内
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C5GARjNy5va/</description>
+        <Point>
+          <coordinates>140.6167131,38.3287469,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>和牛料理 伴</name>
+        <description>📍 宮城県仙台市青葉区国分町2丁目14-25
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/Cwzpu1pPoUF/</description>
+        <Point>
+          <coordinates>140.8687945,38.2653651,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>喫茶 久遠</name>
+        <description>📍 宮城県仙台市青葉区立町４−１２ 朝日プラザ立町 １０１
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CkYBHPRPrly/</description>
+        <Point>
+          <coordinates>140.8657383,38.26223969999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>喫茶 久遠（くおん）</name>
+        <description>📍 宮城県仙台市青葉区立町4-12-101
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/Cj4VUPQP0Qt/</description>
+        <Point>
+          <coordinates>140.7705906,38.2524999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>喫茶久遠</name>
+        <description>📍 宮城県仙台市青葉区立町4-12 朝日プラザ立町101
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C2Rgp5nvmqz/</description>
+        <Point>
+          <coordinates>140.8657383,38.26223969999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>夜ノ森</name>
+        <description>📍 宮城県仙台市青葉区花京院1-1-52
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/Cq2Z8NpPviL/</description>
+        <Point>
+          <coordinates>140.880693,38.2635195,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>宮城県美術館</name>
+        <description>📍 宮城県仙台市青葉区川内元支倉34-1
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DZzXdCryN0s/</description>
+        <Point>
+          <coordinates>140.8549347,38.2638714,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>希望の丘醸造所 HOP &amp; SPICE</name>
+        <description>📍 宮城県仙台市青葉区中央1-1-1 エスパル仙台本館地下1階
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DY_rrbqSZ9L/</description>
+        <Point>
+          <coordinates>140.8820344,38.2592214,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>治一郎 エスパル仙台店</name>
+        <description>📍 宮城県仙台市青葉区中央1-1-1 エスパル仙台東館2F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DZHXdqoy9S8/</description>
+        <Point>
+          <coordinates>140.8816871,38.2585976,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>洋式「旨」居酒屋・アナログガーデン</name>
+        <description>📍 宮城県仙台市青葉区国分町２丁目１−１２ 瀬戸勝ビル
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CkSu8BnvYmh/</description>
+        <Point>
+          <coordinates>140.8699856,38.26289269999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>炉端とおでん 呼炉凪来 仙台駅前店</name>
+        <description>📍 宮城県仙台市青葉区中央3丁目1-14 中央古久根ビル2階
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DDMTIlAzUS4/</description>
+        <Point>
+          <coordinates>140.878368,38.260225,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>炭火焼鳥 まるみ</name>
+        <description>📍 仙台市青葉区国分町3-8-18
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/Cr2Kp82vAXk/</description>
+        <Point>
+          <coordinates>140.8683629,38.2682863,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>焼肉え～す。仙台焼肉ホルモン酒場</name>
+        <description>📍 宮城県仙台市青葉区中央４丁目３−20
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CjxU2q4v1zz/</description>
+        <Point>
+          <coordinates>140.8780282,38.2582953,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>焼菓子とごはんカフェムギ</name>
+        <description>📍 宮城県仙台市青葉区片平1丁目3-3-5 1TO2BLDG.1F 2F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/CjpYUnuP2sC/</description>
+        <Point>
+          <coordinates>140.8655643,38.2586196,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>煮干中華そば ぜくう</name>
+        <description>📍 宮城県仙台市青葉区春日町7-19
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C5KTzrHyoMB/</description>
+        <Point>
+          <coordinates>140.8653448,38.2676418,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>牛たん けやき 仙台一番町本店</name>
+        <description>📍 宮城県仙台市青葉区一番町３丁目９−２
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/C6_Erzeh722/</description>
+        <Point>
+          <coordinates>140.8715977,38.2609962,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>韓国バル屋台　ぴんな＋(プラス)　仙台駅前店</name>
+        <description>📍 宮城県仙台市青葉区中央２丁目６−３３ 第6藤榮駅前ビル 6F
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/Ckku42JvglV/</description>
+        <Point>
+          <coordinates>140.8782558,38.2621688,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>高橋と餃子</name>
+        <description>📍 宮城県仙台市青葉区中央２丁目６−１９ 豊栄堂ビル BF
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DC0-l1PzdT3/</description>
+        <Point>
+          <coordinates>140.8772792,38.2621516,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>麺屋河北</name>
+        <description>📍 宮城県仙台市青葉区一番町1-6-22シャンポール一番町 地下1階
+🏙 宮城県仙台市青葉区
+Instagram: https://www.instagram.com/p/DZhWODVTkyl/</description>
+        <Point>
+          <coordinates>140.8734467,38.2571797,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MARUMORI-SAUNA</name>
+        <description>📍 宮城県伊具郡丸森町不動６４−１
+🏙 宮城県伊具郡丸森町
+Instagram: https://www.instagram.com/p/C3XWPXOPPTc/</description>
+        <Point>
+          <coordinates>140.7815599,37.8691548,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ゆと森倶楽部</name>
+        <description>📍 宮城県刈田郡蔵王町遠刈田温泉字上ノ原128
+🏙 宮城県刈田郡蔵王町
+Instagram: https://www.instagram.com/p/C6vySW-BsT7/</description>
+        <Point>
+          <coordinates>140.5550159,38.125689,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>みゆキッチン</name>
+        <description>📍 宮城県名取市手倉田字山162-10
+🏙 宮城県名取市
+Instagram: https://www.instagram.com/p/C5NqUqvvea0/</description>
+        <Point>
+          <coordinates>140.8691718,38.1588748,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>スターバックスコーヒーイオンモール名取店</name>
+        <description>📍 宮城県名取市杜せきのした5丁目3-1 イオンモール名取
+🏙 宮城県名取市
+Instagram: https://www.instagram.com/p/C5S-1gLPZWS/</description>
+        <Point>
+          <coordinates>140.8960516,38.16399,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Offshore SOBA&amp;COFFEE</name>
+        <description>📍 宮城県多賀城市
+🏙 宮城県多賀城市
+Instagram: https://www.instagram.com/p/C7eRRZIPnuT/</description>
+        <Point>
+          <coordinates>141.0044375,38.2938504,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>もつ鍋居酒屋 まるも 多賀城店</name>
+        <description>📍 宮城県多賀城市町前２丁目６−１１
+🏙 宮城県多賀城市
+Instagram: https://www.instagram.com/p/DGadD-lTQa_/</description>
+        <Point>
+          <coordinates>141.0046835,38.284602,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Poisson Bleu CAFE</name>
+        <description>📍 宮城県大崎市古川七日町3-10
+🏙 宮城県大崎市
+Instagram: https://www.instagram.com/p/C_QA34QBX68/</description>
+        <Point>
+          <coordinates>140.9553285,38.5761746,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>潟沼</name>
+        <description>📍 宮城県大崎市鳴子温泉湯元６９
+🏙 宮城県大崎市
+Instagram: https://www.instagram.com/p/CjXVhgovMVT/</description>
+        <Point>
+          <coordinates>140.7239071,38.7353065,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>イオンモール新利府 北館</name>
+        <description>📍 宮城県宮城郡利府町利府新屋田前２２
+🏙 宮城県宮城郡利府町
+Instagram: https://www.instagram.com/p/DCrBpZGzrxb/</description>
+        <Point>
+          <coordinates>140.9720318,38.3269671,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>コナズ珈琲 利府店</name>
+        <description>📍 宮城県宮城郡利府町利府八幡崎前100-1
+🏙 宮城県宮城郡利府町
+Instagram: https://www.instagram.com/p/DAIqqWYhEIF/</description>
+        <Point>
+          <coordinates>140.9719747,38.3248305,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>&amp;HouSE.</name>
+        <description>📍 宮城県宮城郡松島町松島普賢堂71
+🏙 宮城県宮城郡松島町
+Instagram: https://www.instagram.com/p/CkI9LHPvAvy/</description>
+        <Point>
+          <coordinates>141.0665414,38.3723535,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>le Roman</name>
+        <description>📍 宮城県宮城郡松島町松島犬田１０−１７４
+🏙 宮城県宮城郡松島町
+Instagram: https://www.instagram.com/p/CjX0jrkvQLT/</description>
+        <Point>
+          <coordinates>141.0531413,38.36712869999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>松島サンドウィッチストア</name>
+        <description>📍 宮城県宮城郡松島町松島普賢堂39−１ 国分町クリスタルビル 105
+🏙 宮城県宮城郡松島町
+Instagram: https://www.instagram.com/p/DDMWhORzI9B/</description>
+        <Point>
+          <coordinates>141.0672426,38.3727904,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>North Pole</name>
+        <description>📍 宮城県富谷市富谷仏所210-20
+🏙 宮城県富谷市
+Instagram: https://www.instagram.com/p/CyGCT8HRERF/</description>
+        <Point>
+          <coordinates>140.8791569,38.4002249,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ガーデンレストラン North Pole（ノースポール）</name>
+        <description>📍 宮城県富谷市富谷仏所210-20
+🏙 宮城県富谷市
+Instagram: https://www.instagram.com/p/DX1IlroRhwx/</description>
+        <Point>
+          <coordinates>140.8791569,38.4002249,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>竹駒の杜 CAFE 一粒万倍</name>
+        <description>📍 宮城県岩沼市稲荷町1-1竹駒神社境内
+🏙 宮城県岩沼市
+Instagram: https://www.instagram.com/p/DP3SrZBElwV/</description>
+        <Point>
+          <coordinates>140.8640898,38.1043505,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>カフェレストランペニーレイン</name>
+        <description>📍 宮城県柴田郡大河原町新南60−41
+🏙 宮城県柴田郡大河原町
+Instagram: https://www.instagram.com/p/C5GRlwQvfUa/</description>
+        <Point>
+          <coordinates>140.7307993,38.0534733,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>森のピザ工房 ルヴォワール</name>
+        <description>📍 宮城県柴田郡川崎町前川松葉森山６−５
+🏙 宮城県柴田郡川崎町
+Instagram: https://www.instagram.com/p/CkLSJu1vlfp/</description>
+        <Point>
+          <coordinates>140.5803647,38.1664858,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>森の芽ぶき たまご舎 ファームファクトリー</name>
+        <description>📍 宮城県柴田郡村田町大字村田字迫91-15
+🏙 宮城県柴田郡村田町
+Instagram: https://www.instagram.com/p/C-Z-XmWBINz/</description>
+        <Point>
+          <coordinates>140.7178042,38.1199407,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>cafe TAKAMO</name>
+        <description>📍 宮城県栗原市築館上高森53−１
+🏙 宮城県栗原市
+Instagram: https://www.instagram.com/p/DHgCvDqTlTE/</description>
+        <Point>
+          <coordinates>140.9743214,38.71109390000001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>くりはら田園鉄道公園</name>
+        <description>📍 宮城県栗原市川北塚ノ根１７
+🏙 宮城県栗原市
+Instagram: https://www.instagram.com/p/DB8jVOxB58O/</description>
+        <Point>
+          <coordinates>141.1323657,38.7743281,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ホテル・エルファロ</name>
+        <description>📍 宮城県牡鹿郡女川町女川2-1-2
+🏙 宮城県牡鹿郡女川町
+Instagram: https://www.instagram.com/p/C4iK51XPrpS/</description>
+        <Point>
+          <coordinates>141.4451539,38.44579969999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Umikaze Coffee</name>
+        <description>📍 宮城県石巻市渡波栄田91
+🏙 宮城県石巻市
+Instagram: https://www.instagram.com/p/C5i4OvFPU-s/</description>
+        <Point>
+          <coordinates>141.3492249,38.4172566,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>キャプテンカンガルー石巻店</name>
+        <description>📍 宮城県石巻市丸井戸3-1-1
+🏙 宮城県石巻市
+Instagram: https://www.instagram.com/p/CkIuk-VvaJT/</description>
+        <Point>
+          <coordinates>141.2790516,38.4460138,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>山形県 (79件)</name>
+      <Placemark>
+        <name>Hutte&amp;MossGarden</name>
+        <description>📍 山形県上山市狸森腰王山214-3
+🏙 山形県上山市
+Instagram: https://www.instagram.com/p/CyqL_VYvYGj/</description>
+        <Point>
+          <coordinates>140.2200999,38.1705339,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>cafe koikoi</name>
+        <description>📍 山形県上山市金生東２丁目６−３０
+🏙 山形県上山市
+Instagram: https://www.instagram.com/p/CmOm6qgvJac/</description>
+        <Point>
+          <coordinates>140.2860904,38.1422137,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>さくら亭</name>
+        <description>📍 山形県上山市旭町２丁目２−１５
+🏙 山形県上山市
+Instagram: https://www.instagram.com/p/CkK47moBVbd/</description>
+        <Point>
+          <coordinates>140.2876213,38.1631659,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>すてーき食堂シンバル</name>
+        <description>📍 山形県上山市沢丁
+🏙 山形県上山市
+Instagram: https://www.instagram.com/p/Cnl1o0HL0OE/</description>
+        <Point>
+          <coordinates>140.2678429,38.1495569,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>狸森焙煎所</name>
+        <description>📍 山形県上山市狸森1198-8
+🏙 山形県上山市
+Instagram: https://www.instagram.com/p/CjsIyROLrwN/</description>
+        <Point>
+          <coordinates>140.2180395,38.1865208,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>雪雅</name>
+        <description>📍 山形県上山市中生居96
+🏙 山形県上山市
+Instagram: https://www.instagram.com/p/DUdH7hUkjKV/</description>
+        <Point>
+          <coordinates>140.3125177,38.1212071,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>cafe Hanamori 南陽山南店</name>
+        <description>📍 山形県南陽市池黒
+🏙 山形県南陽市
+Instagram: https://www.instagram.com/p/CrStpuZu5jN/</description>
+        <Point>
+          <coordinates>140.1226577,38.0817084,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>きなりcafe</name>
+        <description>📍 山形県南陽市赤湯853-4
+🏙 山形県南陽市
+Instagram: https://www.instagram.com/p/CzMDwTzvjwy/</description>
+        <Point>
+          <coordinates>140.1652254,38.0501673,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Biz creek cafe天童店</name>
+        <description>📍 山形県天童市芳賀タウン北4-1-1
+🏙 山形県天童市
+Instagram: https://www.instagram.com/p/CvhSzDHPLd1/</description>
+        <Point>
+          <coordinates>140.3636155,38.3445331,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kitchen 8 Burg</name>
+        <description>📍 山形県天童市北目4丁目13-11
+🏙 山形県天童市
+Instagram: https://www.instagram.com/p/CsfvwaKyzck/</description>
+        <Point>
+          <coordinates>140.3772869,38.3469532,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Room102</name>
+        <description>📍 山形県天童市鎌田本町1丁目5-12
+🏙 山形県天童市
+Instagram: https://www.instagram.com/p/DWJNgVqk_sW/</description>
+        <Point>
+          <coordinates>140.3811622,38.360558,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>soraniwa CAFE &amp; BBQ</name>
+        <description>📍 山形県天童市鍬ノ町
+🏙 山形県天童市
+Instagram: https://www.instagram.com/p/CrAuS0mLcS_/</description>
+        <Point>
+          <coordinates>140.3863771,38.3553688,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>そば処 やぶ</name>
+        <description>📍 山形県天童市中里６丁目５−４１
+🏙 山形県天童市
+Instagram: https://www.instagram.com/p/C_2ccMTyHE2/</description>
+        <Point>
+          <coordinates>140.3611128,38.326414,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ハワイアンカフェ ルアナ&amp;ラナイ</name>
+        <description>📍 山形県天童市東本町3-1-18
+🏙 山形県天童市
+Instagram: https://www.instagram.com/p/DShfMdNEssu/</description>
+        <Point>
+          <coordinates>140.3776256,38.358614,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>國丼</name>
+        <description>📍 山形県天童市本町1-4-1
+🏙 山形県天童市
+Instagram: https://www.instagram.com/p/CsDdjW2L4lC/</description>
+        <Point>
+          <coordinates>140.3707747,38.3600783,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>居酒屋 魚新</name>
+        <description>📍 山形県寒河江市元町1丁目13−11
+🏙 山形県寒河江市
+Instagram: https://www.instagram.com/p/C5TATQgvNt-/</description>
+        <Point>
+          <coordinates>140.2707057,38.3722916,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>麺 麺屋六兵衛</name>
+        <description>📍 山形県寒河江市慈恩寺３７７−１８
+🏙 山形県寒河江市
+Instagram: https://www.instagram.com/p/DWD2nYZPQyy/</description>
+        <Point>
+          <coordinates>140.2431675,38.4090991,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>胡桃の木</name>
+        <description>📍 山形県尾花沢市梺町4丁目2-1
+🏙 山形県尾花沢市
+Instagram: https://www.instagram.com/p/CyIMDYFr6Yt/</description>
+        <Point>
+          <coordinates>140.402864,38.6105216,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>銀山温泉 白銀公園</name>
+        <description>📍 山形県尾花沢市銀山新畑443
+🏙 山形県尾花沢市
+Instagram: https://www.instagram.com/p/C8ZRQOlvUzf/</description>
+        <Point>
+          <coordinates>140.5309177,38.5694205,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BREAD VOLCA</name>
+        <description>📍 山形県山形市小白川町１丁目１−９
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C3Z_pSmPDPh/</description>
+        <Point>
+          <coordinates>140.3473081,38.2450259,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BREAD VOLCA</name>
+        <description>📍 山形県山形市小白川町1丁目1-9
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CwHtrS0LthM/</description>
+        <Point>
+          <coordinates>140.3473081,38.2450259,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>GLAMPiC（グランピック）</name>
+        <description>📍 山形県山形市新山514-1
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/Cj_4ZyovX2M/</description>
+        <Point>
+          <coordinates>140.4259352,38.2267479,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>KIMIJIMA</name>
+        <description>📍 山形県山形市あかねヶ丘一丁目17-20
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DXto3cCE1Hf/</description>
+        <Point>
+          <coordinates>140.3090767,38.2510477,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kitchen Fields</name>
+        <description>📍 山形県山形市中桜田3丁目1−1
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DUdEaMPE5om/</description>
+        <Point>
+          <coordinates>140.3341014,38.2165772,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kitchen Fields</name>
+        <description>📍 山形県山形市中桜田３丁目１−１
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DFzyl3-Swou/</description>
+        <Point>
+          <coordinates>140.3341014,38.2165772,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Kitchen Fields</name>
+        <description>📍 山形県山形市中桜田3丁目1-1
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/Cp9ExB3viNx/</description>
+        <Point>
+          <coordinates>140.3341014,38.2165772,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Lami du vin F</name>
+        <description>📍 山形市七日町2丁目3-9
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CqH9S9yr8Dq/</description>
+        <Point>
+          <coordinates>140.3406462,38.2521849,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Otoya「おとや」</name>
+        <description>📍 山形県山形市江俣３丁目１８−１
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CjuRIR3rxnI/</description>
+        <Point>
+          <coordinates>140.3210128,38.2767747,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pizza Filo</name>
+        <description>📍 山形市香澄町１丁目２０−８ 大沢ビル1F
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DVs1MAgkokN/</description>
+        <Point>
+          <coordinates>140.3304215,38.25068539999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pâtisserie TAKESHI SAITO</name>
+        <description>📍 山形県山形市中桜田３丁目１−７
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DUb4XzxE881/</description>
+        <Point>
+          <coordinates>140.333448,38.216713,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>RoughroLL</name>
+        <description>📍 山形県山形市七日町3-5-35
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/Cnoop4hLXE6/</description>
+        <Point>
+          <coordinates>140.3417275,38.2545399,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>café art カフェ・アルト</name>
+        <description>📍 山形県山形市城南町２丁目１０−２３
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CmxV30FyLo1/</description>
+        <Point>
+          <coordinates>140.3252052,38.2526159,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ella coffee&amp;</name>
+        <description>📍 山形県山形市七日町４丁目３−１９ 1
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DTUmqM6D-Ah/</description>
+        <Point>
+          <coordinates>140.3436035,38.2520218,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>forest inn. SANGORO</name>
+        <description>📍 山形県山形市上宝沢 不動上国有林28 蔵王温泉スキー場中央ゲレンデ
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C1O7SZJrdya/</description>
+        <Point>
+          <coordinates>140.417219,38.1665188,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>mocomoco</name>
+        <description>📍 山形県山形市吉原2丁目17−3
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CujfqfLg9HX/</description>
+        <Point>
+          <coordinates>140.3109247,38.228255,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>muse山形店</name>
+        <description>📍 山形県山形市香澄町1丁目3−1
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C8CGG72P_Vz/</description>
+        <Point>
+          <coordinates>140.3290961,38.2480652,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>muse山形店</name>
+        <description>📍 山形県山形市香澄町1丁目3−1
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C7wEgaLPPsI/</description>
+        <Point>
+          <coordinates>140.3290961,38.2480652,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>toi toi toi !!</name>
+        <description>📍 山形県山形市岩波1294番地1
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DRoD2YeD4nL/</description>
+        <Point>
+          <coordinates>140.361955,38.2003806,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>おむすびと発酵弁当 ニコル食堂</name>
+        <description>📍 山形県山形市小白川町1丁目5-23
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CwpEdwALStC/</description>
+        <Point>
+          <coordinates>140.3502591,38.2485005,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>お茶と菓で岩淵</name>
+        <description>📍 山形県山形市長谷堂２９０６−１
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DCbOG73SQ3h/</description>
+        <Point>
+          <coordinates>140.2637577,38.19336990000001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>かくれ庵sasaki</name>
+        <description>📍 山形県山形市嶋南3丁目8−22
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C68nvguva6E/</description>
+        <Point>
+          <coordinates>140.3170694,38.2822619,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>なる鮨</name>
+        <description>📍 山形県山形市五十鈴3丁目9−19
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C6Gfy6mPHMi/</description>
+        <Point>
+          <coordinates>140.357458,38.275271,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>のむぎ</name>
+        <description>📍 山形市浜崎12-11
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CqFbcYsLQ9V/</description>
+        <Point>
+          <coordinates>140.3599828,38.2846295,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>みけぱん</name>
+        <description>📍 山形県山形市深町２丁目１０−２３
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CtBdqhuLgt_/</description>
+        <Point>
+          <coordinates>140.3159997,38.2323321,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ケーキハウスチュチュ</name>
+        <description>📍 山形県山形市
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C9cJNf-SyyO/</description>
+        <Point>
+          <coordinates>140.3350967,38.2459634,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ブーランジェリーココリコ</name>
+        <description>📍 山形県山形市南館2丁目5-2
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DRweOmPksfb/</description>
+        <Point>
+          <coordinates>140.3143136,38.2388436,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>仁亭</name>
+        <description>📍 山形市馬見ケ崎3丁目14-3
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CpCe3RnL38t/</description>
+        <Point>
+          <coordinates>140.3275438,38.282301,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>創作和カフェ No.9</name>
+        <description>📍 山形県山形市荒楯町１丁目１９−１５
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DODw8hFAcrA/</description>
+        <Point>
+          <coordinates>140.3322001,38.2334974,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>和の花</name>
+        <description>📍 山形県山形市小白川町1-5-61
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C27FsHPLghj/</description>
+        <Point>
+          <coordinates>140.3495168,38.2483344,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>大衆バル Pisolina</name>
+        <description>📍 山形市七日町2-1-2
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CpHlGNDrj3i/</description>
+        <Point>
+          <coordinates>140.3388147,38.2519921,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>季分屋</name>
+        <description>📍 山形県山形市防原町3-10
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CjCySgsu-ag/</description>
+        <Point>
+          <coordinates>140.3917326,38.240449,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>焼肉Garden KAKI</name>
+        <description>📍 山形県山形市鈴川町3丁目4-11
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/Co1ger5LO0u/</description>
+        <Point>
+          <coordinates>140.3579564,38.269423,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>竹林坊</name>
+        <description>📍 山形市中野713
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CuETRw9rron/</description>
+        <Point>
+          <coordinates>140.3011733,38.307923,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>米沢牛登起波 山形店</name>
+        <description>📍 山形県山形市山形駅前 ダイワロイネットホテル1階
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CzdXleIPJN8/</description>
+        <Point>
+          <coordinates>140.3296966,38.24742579999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>紅茶カフェ&amp;ダイニング志信〜shinobu〜</name>
+        <description>📍 山形県山形市飯田西1-2-30
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/C1T9-VTLGfN/</description>
+        <Point>
+          <coordinates>140.3222596,38.2166846,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>肉と蕎麦 えんじゅ</name>
+        <description>📍 山形県山形市黒沢２９３−９
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/DEHr2McyX67/</description>
+        <Point>
+          <coordinates>140.3022679,38.1901376,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>鶏や あさぎ</name>
+        <description>📍 山形市香澄町1丁目21－28
+🏙 山形県山形市
+Instagram: https://www.instagram.com/p/CqNHC-ALpb3/</description>
+        <Point>
+          <coordinates>140.331127,38.2496476,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ナポリ亭</name>
+        <description>📍 山形県新庄市若葉町8-23
+🏙 山形県新庄市
+Instagram: https://www.instagram.com/p/DSPYrT1Eqte/</description>
+        <Point>
+          <coordinates>140.3028159,38.7613233,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ミタテドーナッツ</name>
+        <description>📍 山形県東村山郡中山町長崎１９１−８
+🏙 山形県東村山郡中山町
+Instagram: https://www.instagram.com/p/DSPPIcpE_TP/</description>
+        <Point>
+          <coordinates>140.2816992,38.3330559,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CHEzLePain 山形</name>
+        <description>📍 山形県東村山郡山辺町山辺２８８８−２
+🏙 山形県東村山郡山辺町
+Instagram: https://www.instagram.com/p/DZHwyVyzWYV/</description>
+        <Point>
+          <coordinates>140.2767271,38.293798,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>十の藏Cafe</name>
+        <description>📍 山形県東村山郡山辺町山辺427ー1
+🏙 山形県東村山郡山辺町
+Instagram: https://www.instagram.com/p/DZxEkDiNLlz/</description>
+        <Point>
+          <coordinates>140.269678,38.2990766,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HAPPY JACK DINER</name>
+        <description>📍 山形県東根市本丸北１丁目１−１２
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/CogLY51vRrO/</description>
+        <Point>
+          <coordinates>140.4014595,38.4418497,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>amipan</name>
+        <description>📍 山形県東根市中央東
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/CtLu9j6LLLB/</description>
+        <Point>
+          <coordinates>140.403704,38.4302,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>中華そば まがりすけ</name>
+        <description>📍 山形県東根市中央東１丁目４−１０
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/DF7uFLLykKu/</description>
+        <Point>
+          <coordinates>140.3962227,38.4354835,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>冷たい肉そば花いずみ</name>
+        <description>📍 山形県東根市神町
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/CuBzuAwLPod/</description>
+        <Point>
+          <coordinates>140.3712334,38.4101799,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>山下食堂</name>
+        <description>📍 山形県東根市温泉町２丁目２−１
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/Cr5RosyLC_x/</description>
+        <Point>
+          <coordinates>140.3907622,38.4584678,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>未来食屋</name>
+        <description>📍 山形県東根市一本木3丁目8-24
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/CtvusHRvlKs/</description>
+        <Point>
+          <coordinates>140.3821741,38.4223964,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>未来食屋 BeefRice&amp;Curry</name>
+        <description>📍 山形県東根市一本木３丁目８−２４
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/CkCz-q7LY5S/</description>
+        <Point>
+          <coordinates>140.3821741,38.4223964,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>東北スターラ</name>
+        <description>📍 山形県東根市中央一丁目6-10
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/CpsUxrBPxQ5/</description>
+        <Point>
+          <coordinates>140.3945133,38.4323749,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>石臼十割そば 森久</name>
+        <description>📍 山形県東根市中央東3丁目6-55
+🏙 山形県東根市
+Instagram: https://www.instagram.com/p/Cvw1UCxPZ5B/</description>
+        <Point>
+          <coordinates>140.4101568,38.424948,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>cafe mamenoki</name>
+        <description>📍 山形県米沢市
+🏙 山形県米沢市
+Instagram: https://www.instagram.com/p/C96XxP3y-my/</description>
+        <Point>
+          <coordinates>140.1167445,37.9223201,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>うふcafe</name>
+        <description>📍 山形県米沢市古志田町２７８２−２
+🏙 山形県米沢市
+Instagram: https://www.instagram.com/p/DWi9TPWEqqr/</description>
+        <Point>
+          <coordinates>140.0870697,37.8961837,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ホテルスロービレッジ米沢</name>
+        <description>📍 山形県米沢市春日１丁目７−５２
+🏙 山形県米沢市
+Instagram: https://www.instagram.com/p/DWI9hb8Escf/</description>
+        <Point>
+          <coordinates>140.1112472,37.9228186,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>肉そば といや</name>
+        <description>📍 山形県西村山郡河北町月山堂392-1
+🏙 山形県西村山郡河北町
+Instagram: https://www.instagram.com/p/C-HuLnXyd6G/</description>
+        <Point>
+          <coordinates>140.3106909,38.41548179999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>蔵ダイニング 紅月庵</name>
+        <description>📍 山形県西村山郡河北町谷地月山堂４０６−１
+🏙 山形県西村山郡河北町
+Instagram: https://www.instagram.com/p/C96CIfGSTiG/</description>
+        <Point>
+          <coordinates>140.3135685,38.4154189,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Boulangerie KIMURAYA</name>
+        <description>📍 山形県酒田市こあら２丁目５−５
+🏙 山形県酒田市
+Instagram: https://www.instagram.com/p/CnBUlvoL4Sp/</description>
+        <Point>
+          <coordinates>139.8644284,38.9144009,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>cafe麩和里</name>
+        <description>📍 山形県長井市成田１４４０
+🏙 山形県長井市
+Instagram: https://www.instagram.com/p/C3NB1pKLyer/</description>
+        <Point>
+          <coordinates>140.0351838,38.1234909,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>セカイスケッチコーヒー</name>
+        <description>📍 山形県長井市本町2-2-15
+🏙 山形県長井市
+Instagram: https://www.instagram.com/p/CnEYru1vubS/</description>
+        <Point>
+          <coordinates>140.037834,38.104952,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>古民家カフェわだや</name>
+        <description>📍 山形県飽海郡遊佐町吉出和田3-5
+🏙 山形県飽海郡遊佐町
+Instagram: https://www.instagram.com/p/CwKkfTdPc0_/</description>
+        <Point>
+          <coordinates>139.9090192,39.0230024,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>岩手県 (4件)</name>
+      <Placemark>
+        <name>ジェラテリア イト</name>
+        <description>📍 岩手県北上市中野町2丁目22-20
+🏙 岩手県北上市
+Instagram: https://www.instagram.com/p/C6mpRVphGSl/</description>
+        <Point>
+          <coordinates>141.1262074,39.2934648,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CAFE gull</name>
+        <description>📍 岩手県大船渡市赤崎町字長崎11-4
+🏙 岩手県大船渡市
+Instagram: https://www.instagram.com/p/C6cWx-Qhw0r/</description>
+        <Point>
+          <coordinates>141.7547095,39.0252999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>リサージュ ラヴィモア</name>
+        <description>📍 岩手県盛岡市本宮５丁目７−５
+🏙 岩手県盛岡市
+Instagram: https://www.instagram.com/p/C9Hj8m1RK4D/</description>
+        <Point>
+          <coordinates>141.1184206,39.6912191,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>大沢温泉 菊水舘</name>
+        <description>📍 岩手県花巻市湯口字大沢181
+🏙 岩手県花巻市
+Instagram: https://www.instagram.com/p/C6durClP2oy/</description>
+        <Point>
+          <coordinates>141.0161039,39.43577810000001,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>福島県 (21件)</name>
+      <Placemark>
+        <name>まぐろの高木</name>
+        <description>📍 福島県いわき市小名浜辰巳町４３−１
+🏙 福島県いわき市
+Instagram: https://www.instagram.com/p/C-ceA3hv3DK/</description>
+        <Point>
+          <coordinates>140.9055451,36.9443139,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>一の字</name>
+        <description>📍 福島県いわき市小名浜岡小名沖34-2
+🏙 福島県いわき市
+Instagram: https://www.instagram.com/p/CxsFHWZvojs/</description>
+        <Point>
+          <coordinates>140.9032298,36.9626269,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>りょうぜんこどもの村</name>
+        <description>📍 福島県伊達市霊山町石田字宝司沢9-1
+🏙 福島県伊達市
+Instagram: https://www.instagram.com/p/C-U4twiqwre/</description>
+        <Point>
+          <coordinates>140.6882048,37.7591598,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>保原総合公園</name>
+        <description>📍 福島県伊達市保原町大泉字宮脇265
+🏙 福島県伊達市
+Instagram: https://www.instagram.com/p/C5TGrwGylax/</description>
+        <Point>
+          <coordinates>140.5672453,37.818013,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>道の駅 伊達の郷 りょうぜん</name>
+        <description>📍 福島県伊達市霊山町下小国字桜町3-1
+🏙 福島県伊達市
+Instagram: https://www.instagram.com/p/CtjcG-7vHPk/</description>
+        <Point>
+          <coordinates>140.586001,37.7656942,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>1/3Cafe</name>
+        <description>📍 福島県会津若松市一箕町大字八幡天下甲1404
+🏙 福島県会津若松市
+Instagram: https://www.instagram.com/p/C7a5boYSJII/</description>
+        <Point>
+          <coordinates>139.9519381,37.5058188,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>kitchen IZANAI</name>
+        <description>📍 福島県会津若松市門田町大字一ノ堰土手外１９２４−１０
+🏙 福島県会津若松市
+Instagram: https://www.instagram.com/p/C7bL_uCSCuj/</description>
+        <Point>
+          <coordinates>139.9072866,37.4628425,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ファットリアこもと</name>
+        <description>📍 福島県河沼郡会津坂下町大字坂本字糠塚乙1144
+🏙 福島県河沼郡会津坂下町
+Instagram: https://www.instagram.com/p/CPA0JCqFg5l/</description>
+        <Point>
+          <coordinates>139.768551,37.557599,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MOTHER's KITCHEN</name>
+        <description>📍 福島県福島市万世町３－３６
+🏙 福島県福島市
+Instagram: https://www.instagram.com/p/DWYqvvghA2F/</description>
+        <Point>
+          <coordinates>140.4652988,37.7578162,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>伏見珈琲店</name>
+        <description>📍 福島県福島市曾根田町3-38
+🏙 福島県福島市
+Instagram: https://www.instagram.com/p/DHyIfF7hC6c/</description>
+        <Point>
+          <coordinates>140.4596097,37.7602459,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>伏見珈琲店</name>
+        <description>📍 福島県福島市曾根田町3-38
+🏙 福島県福島市
+Instagram: https://www.instagram.com/p/DNP-1tgp0gY/</description>
+        <Point>
+          <coordinates>140.4596097,37.7602459,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>炭火焼肉 福わらひ 本店</name>
+        <description>📍 福島県福島市新町2-15
+🏙 福島県福島市
+Instagram: https://www.instagram.com/p/DRtwwkjE7qn/</description>
+        <Point>
+          <coordinates>140.467285,37.7559001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TARO CAFE</name>
+        <description>📍 福島県耶麻郡猪苗代町堅田入江村前704−3
+🏙 福島県耶麻郡猪苗代町
+Instagram: https://www.instagram.com/p/CudZ6q3S84g/</description>
+        <Point>
+          <coordinates>140.1094805,37.5334368,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ホテルリステル猪苗代</name>
+        <description>📍 福島県耶麻郡猪苗代町大字川桁
+🏙 福島県耶麻郡猪苗代町
+Instagram: https://www.instagram.com/p/CtoZCFmPUa9/</description>
+        <Point>
+          <coordinates>140.1654591,37.5430999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ホテルリステル猪苗代ウイングタワー</name>
+        <description>📍 福島県耶麻郡猪苗代町大字川桁字天王坂2414
+🏙 福島県耶麻郡猪苗代町
+Instagram: https://www.instagram.com/p/DDg4eaRPM5s/</description>
+        <Point>
+          <coordinates>140.1495939,37.5431384,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>bandai coffee</name>
+        <description>📍 福島県耶麻郡磐梯町磐梯元寺八幡4614-4
+🏙 福島県耶麻郡磐梯町
+Instagram: https://www.instagram.com/p/DAIhgbwSTB2/</description>
+        <Point>
+          <coordinates>140.0036409,37.5860245,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>H.B GARAGE</name>
+        <description>📍 福島県郡山市安積町日出山南台３１−１
+🏙 福島県郡山市
+Instagram: https://www.instagram.com/p/DZe1AjBJpFt/</description>
+        <Point>
+          <coordinates>140.3760624,37.3640969,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>hapeace（ハッピース）</name>
+        <description>📍 福島県郡山市富田町大徳南９−３１
+🏙 福島県郡山市
+Instagram: https://www.instagram.com/p/DZ159I0peYT/</description>
+        <Point>
+          <coordinates>140.3371023,37.4081562,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>酒と鮮魚 四〇屋</name>
+        <description>📍 福島県郡山市中町１０－１３
+🏙 福島県郡山市
+Instagram: https://www.instagram.com/p/C7YzlMLPv4B/</description>
+        <Point>
+          <coordinates>140.384292,37.3977578,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>鉄板フレンチトースト専門店 千年カフェ</name>
+        <description>📍 福島県郡山市桑野２丁目１７−１２ Ｊ＆Ｃビル1F
+🏙 福島県郡山市
+Instagram: https://www.instagram.com/p/DZXDzQERvIw/</description>
+        <Point>
+          <coordinates>140.354485,37.4050015,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MILK DO dore iku? 須賀川店</name>
+        <description>📍 福島県須賀川市仲の町142 ビッグつばめ須賀川店駐車場内
+🏙 福島県須賀川市
+Instagram: https://www.instagram.com/p/C_R2fNgS20E/</description>
+        <Point>
+          <coordinates>140.3831744,37.2963789,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>秋田県 (1件)</name>
+      <Placemark>
+        <name>つるべゑ</name>
+        <description>📍 秋田県秋田市大町４丁目２−８
+🏙 秋田県秋田市
+Instagram: https://www.instagram.com/p/C9e8k2Sh8YJ/</description>
+        <Point>
+          <coordinates>140.1168007,39.7161341,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>青森県 (1件)</name>
+      <Placemark>
+        <name>Cafe Happy TREE</name>
+        <description>📍 青森県十和田市
+🏙 青森県十和田市
+Instagram: https://www.instagram.com/p/DBtb5y4JOed/</description>
+        <Point>
+          <coordinates>141.2069318,40.6126011,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Folder>
+  <Folder>
+    <name>関東 (153件)</name>
+    <Folder>
+      <name>千葉県 (12件)</name>
+      <Placemark>
+        <name>and RIVER勝浦</name>
+        <description>📍 千葉県勝浦市佐野69
+🏙 千葉県勝浦市
+Instagram: https://www.instagram.com/p/CvTVv0ytkE-/</description>
+        <Point>
+          <coordinates>140.2561153,35.2290423,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>東京 湯楽城</name>
+        <description>📍 千葉県富里市七栄650-35
+🏙 千葉県富里市
+Instagram: https://www.instagram.com/p/C1tfqsJPib2/</description>
+        <Point>
+          <coordinates>140.3442322,35.7438363,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>高滝湖グランピングリゾート</name>
+        <description>📍 千葉県市原市養老１０１２−１
+🏙 千葉県市原市
+Instagram: https://www.instagram.com/p/DCT3QF4S0hg/</description>
+        <Point>
+          <coordinates>140.1541085,35.3573425,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>大慶園</name>
+        <description>📍 千葉県市川市大町358
+🏙 千葉県市川市
+Instagram: https://www.instagram.com/p/C2FFS13PIud/</description>
+        <Point>
+          <coordinates>139.9683708,35.7623742,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>大慶園</name>
+        <description>📍 千葉県市川市大町358
+🏙 千葉県市川市
+Instagram: https://www.instagram.com/p/Czdj-8TyiGJ/</description>
+        <Point>
+          <coordinates>139.9683708,35.7623742,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>80/Eat 取り調べかつ丼木更津派出所</name>
+        <description>📍 千葉県木更津市富士見2-1-1
+🏙 千葉県木更津市
+Instagram: https://www.instagram.com/p/DOOF_3Rj1_j/</description>
+        <Point>
+          <coordinates>139.9219703,35.3815442,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>トランポリンパークMr.JUMP 松戸店</name>
+        <description>📍 千葉県松戸市ニツ木1293
+🏙 千葉県松戸市
+Instagram: https://www.instagram.com/p/DAdMPECuA9-/</description>
+        <Point>
+          <coordinates>139.9033248,35.7876663,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ニンジャパーク 松戸店</name>
+        <description>📍 千葉県松戸市松戸1307-1 キテミテマツド3F
+🏙 千葉県松戸市
+Instagram: https://www.instagram.com/p/DE1i0x9Tf4y/</description>
+        <Point>
+          <coordinates>139.8988278,35.7821438,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>サイゼリヤ 舞浜駅前店</name>
+        <description>📍 千葉県浦安市舞浜２６−５ ホテルドリームゲート舞浜 1F
+🏙 千葉県浦安市
+Instagram: https://www.instagram.com/p/DTpMWXjE_dh/</description>
+        <Point>
+          <coordinates>139.8846103,35.6358863,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>東京ベイ有明ワシントンホテル</name>
+        <description>📍 千葉県浦安市舞浜２６−５
+🏙 千葉県浦安市
+Instagram: https://www.instagram.com/p/DLjv0mmvp0C/</description>
+        <Point>
+          <coordinates>139.8831206,35.6370454,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>清水公園</name>
+        <description>📍 千葉県野田市清水906
+🏙 千葉県野田市
+Instagram: https://www.instagram.com/p/DBS5NHWOiA_/</description>
+        <Point>
+          <coordinates>139.8542664,35.9584591,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ニドファ</name>
+        <description>📍 千葉県香取郡多古町高津原１２７３
+🏙 千葉県香取郡多古町
+Instagram: https://www.instagram.com/p/C2Rs907PTKF/</description>
+        <Point>
+          <coordinates>140.4531545,35.7835697,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>埼玉県 (21件)</name>
+      <Placemark>
+        <name>FIGURE RIZE</name>
+        <description>📍 埼玉県さいたま市大宮区宮町1-55 ABC小島ビル 8F
+🏙 埼玉県さいたま市大宮区
+Instagram: https://www.instagram.com/p/DOYouUWgSfI/</description>
+        <Point>
+          <coordinates>139.6251069,35.9078943,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>羽釜炊きおにぎり 満米</name>
+        <description>📍 埼玉県さいたま市大宮区大門町1-24
+🏙 埼玉県さいたま市大宮区
+Instagram: https://www.instagram.com/p/C4prfSIyhSW/</description>
+        <Point>
+          <coordinates>139.6262218,35.9067654,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>蕾 分家</name>
+        <description>📍 埼玉県さいたま市大宮区桜木町2-159-2
+🏙 埼玉県さいたま市大宮区
+Instagram: https://www.instagram.com/p/C6GTAawyG7_/</description>
+        <Point>
+          <coordinates>139.620649,35.906507,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>アミューズメントパーク ウェアハウス岩槻店</name>
+        <description>📍 埼玉県さいたま市岩槻区加倉3-3-63
+🏙 埼玉県さいたま市岩槻区
+Instagram: https://www.instagram.com/p/DDtzECSzmFn/</description>
+        <Point>
+          <coordinates>139.6860842,35.94110209999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ウェアハウス三橋店</name>
+        <description>📍 埼玉県さいたま市西区三橋6-955-1
+🏙 埼玉県さいたま市西区
+Instagram: https://www.instagram.com/p/DADbWR0CTmp/</description>
+        <Point>
+          <coordinates>139.5958337,35.91588060000001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>O Park OGOSE</name>
+        <description>📍 埼玉県入間郡越生町上野3083-1
+🏙 埼玉県入間郡越生町
+Instagram: https://www.instagram.com/p/DCYlgluOMSq/</description>
+        <Point>
+          <coordinates>139.2948379,35.9465336,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MINAMIMACHICOFFEE</name>
+        <description>📍 埼玉県川越市元町2-1-3小江戸横丁 1F
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/CsgNgsKPumR/</description>
+        <Point>
+          <coordinates>139.4828571,35.9240402,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mrs.hamburger</name>
+        <description>📍 埼玉県川越市連雀町8-1
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/Cs-8oBdvTgo/</description>
+        <Point>
+          <coordinates>139.4828792,35.9189781,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>すぺいん亭</name>
+        <description>📍 埼玉県川越市今成4-11-4
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/DamdrRQzl7F/</description>
+        <Point>
+          <coordinates>139.4667195,35.9176318,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>スカイウォーカー 7058</name>
+        <description>📍 埼玉県川越市泉町1-1 ウニクス南古谷内
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/DL94QeBh-3C/</description>
+        <Point>
+          <coordinates>139.516523,35.9032869,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>トルコバザールカフェ</name>
+        <description>📍 埼玉県川越市幸町1-4
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/CwaB5Zso9l9/</description>
+        <Point>
+          <coordinates>139.4823397,35.9219037,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>和心</name>
+        <description>📍 埼玉県川越市新富町1-6-11 TDUビル B1F
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/C_5EqlCzEVk/</description>
+        <Point>
+          <coordinates>139.4831914,35.9171995,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>小江戸居酒屋 風鈴酒場</name>
+        <description>📍 埼玉県川越市新富町2-27-12
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/CwuOzVLyu1U/</description>
+        <Point>
+          <coordinates>139.4817396,35.9123091,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>金魚亭</name>
+        <description>📍 埼玉県川越市仲町10−15
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/C0dXbMGvewl/</description>
+        <Point>
+          <coordinates>139.4815682,35.9215135,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>風鈴酒場</name>
+        <description>📍 埼玉県川越市新富町2-27-12
+🏙 埼玉県川越市
+Instagram: https://www.instagram.com/p/DCOqm5QvUFS/</description>
+        <Point>
+          <coordinates>139.4817396,35.9123091,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>温泉バルコニー キング&amp;クィーン</name>
+        <description>📍 埼玉県所沢市北中２丁目２７１
+🏙 埼玉県所沢市
+Instagram: https://www.instagram.com/p/DAXnXbru438/</description>
+        <Point>
+          <coordinates>139.4303544,35.8116839,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>おふろcaféハレニワの湯</name>
+        <description>📍 埼玉県熊谷市久保島939
+🏙 埼玉県熊谷市
+Instagram: https://www.instagram.com/p/CaE5kEUPCvI/</description>
+        <Point>
+          <coordinates>139.3475488,36.1630629,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>夢街道 熊谷店</name>
+        <description>📍 埼玉県熊谷市大麻生1-1
+🏙 埼玉県熊谷市
+Instagram: https://www.instagram.com/p/DUiEQ2oks4C/</description>
+        <Point>
+          <coordinates>139.3447932,36.1499082,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>うめだ商店</name>
+        <description>📍 埼玉県草加市柿木町600
+🏙 埼玉県草加市
+Instagram: https://www.instagram.com/p/Cwm05HmS80D/</description>
+        <Point>
+          <coordinates>139.8352493,35.8646865,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ムーミンバレーパーク</name>
+        <description>📍 埼玉県飯能市宮沢327-6
+🏙 埼玉県飯能市
+Instagram: https://www.instagram.com/p/C1BzSFrr-eS/</description>
+        <Point>
+          <coordinates>139.3235771,35.8711238,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>green finger acfe</name>
+        <description>📍 埼玉県鶴ヶ島市上新田4-1
+🏙 埼玉県鶴ヶ島市
+Instagram: https://www.instagram.com/p/CxfKYhCv1Jd/</description>
+        <Point>
+          <coordinates>139.3662469,35.9349523,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>東京都 (86件)</name>
+      <Placemark>
+        <name>深沢小さな美術館</name>
+        <description>📍 東京都あきる野市深沢４９２
+🏙 東京都あきる野市
+Instagram: https://www.instagram.com/p/DBI-nmtN81P/</description>
+        <Point>
+          <coordinates>139.2083222,35.7472759,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HANAKADO</name>
+        <description>📍 東京都世田谷区尾山台3-10-8
+🏙 東京都世田谷区
+Instagram: https://www.instagram.com/p/C2MtWOdywmx/</description>
+        <Point>
+          <coordinates>139.6525715,35.6048723,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>下北酒場ヤングチャチャ</name>
+        <description>📍 東京都世田谷区代田6-7-24
+🏙 東京都世田谷区
+Instagram: https://www.instagram.com/p/C9ZbDljC_6G/</description>
+        <Point>
+          <coordinates>139.6651788,35.6640756,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>teal</name>
+        <description>📍 東京都中央区日本橋兜町1-10 日証館 1F
+🏙 東京都中央区
+Instagram: https://www.instagram.com/p/CkIitKKBDSP/</description>
+        <Point>
+          <coordinates>139.7787449,35.6834313,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>シエスタ</name>
+        <description>📍 東京都中央区銀座7-8-19 東京ビル１Ｆ
+🏙 東京都中央区
+Instagram: https://www.instagram.com/p/DWnvHj_xhcx/</description>
+        <Point>
+          <coordinates>139.762567,35.66942179999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>シエスタ</name>
+        <description>📍 東京都中央区銀座7-8-19東京ビル1F
+🏙 東京都中央区
+Instagram: https://www.instagram.com/p/C2FIMZCvjzo/</description>
+        <Point>
+          <coordinates>139.762567,35.66942179999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>牡蠣と貝</name>
+        <description>📍 東京都中央区築地3-16-9
+🏙 東京都中央区
+Instagram: https://www.instagram.com/p/DCB4lVoAMLW/</description>
+        <Point>
+          <coordinates>139.7712481,35.6663471,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>デイリーチコ</name>
+        <description>📍 東京都中野区中野5-52-15
+🏙 東京都中野区
+Instagram: https://www.instagram.com/p/CzbLIn8PWNz/</description>
+        <Point>
+          <coordinates>139.6660313,35.70916130000001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>純喫茶ジンガロ</name>
+        <description>📍 東京都中野区中野5-52-15 中野ブロードウェイ 2F
+🏙 東京都中野区
+Instagram: https://www.instagram.com/p/C7B12jNBbFR/</description>
+        <Point>
+          <coordinates>139.6656524,35.7092475,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>DEPOT</name>
+        <description>📍 東京都千代田区丸の内1-9-1 グランスタ東京 B1F
+🏙 東京都千代田区
+Instagram: https://www.instagram.com/p/CkA7SJSpGB0/</description>
+        <Point>
+          <coordinates>139.7675145,35.6798702,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>JANAI HOTEL SUIDOBASHI</name>
+        <description>📍 東京都千代田区神田三崎町2-22-17
+🏙 東京都千代田区
+Instagram: https://www.instagram.com/p/DBBp6ojSVZ9/</description>
+        <Point>
+          <coordinates>139.7525656,35.7023637,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>丸の内エリア</name>
+        <description>📍 東京都千代田区丸の内
+🏙 東京都千代田区
+Instagram: https://www.instagram.com/p/DCWYs4GsMqJ/</description>
+        <Point>
+          <coordinates>139.7664859,35.6804062,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ROUTE BOOKS</name>
+        <description>📍 東京都台東区東上野4-14-3
+🏙 東京都台東区
+Instagram: https://www.instagram.com/p/C7WkJmDvoKz/</description>
+        <Point>
+          <coordinates>139.7807239,35.7139233,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ROUTE BOOKS</name>
+        <description>📍 東京都台東区東上野4-14-3
+🏙 東京都台東区
+Instagram: https://www.instagram.com/p/C08z-IKSpWw/</description>
+        <Point>
+          <coordinates>139.7807239,35.7139233,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Route books</name>
+        <description>📍 東京都台東区東上野4-14-3
+🏙 東京都台東区
+Instagram: https://www.instagram.com/p/C3clU73hzaK/</description>
+        <Point>
+          <coordinates>139.7807239,35.7139233,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>dial</name>
+        <description>📍 東京都台東区駒形2-1-20 1F
+🏙 東京都台東区
+Instagram: https://www.instagram.com/p/C3PdVSjh7ma/</description>
+        <Point>
+          <coordinates>139.7955997,35.7071133,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>アクアリウムレストラン Nautilus</name>
+        <description>📍 東京都台東区上野2丁目12-23
+🏙 東京都台東区
+Instagram: https://www.instagram.com/p/C68oovqrr5n/</description>
+        <Point>
+          <coordinates>139.7728359,35.7097153,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ヤネウラ</name>
+        <description>📍 東京都台東区蔵前1-5-8 シスコビル 2F
+🏙 東京都台東区
+Instagram: https://www.instagram.com/p/DZhnjCERH09/</description>
+        <Point>
+          <coordinates>139.7888834,35.7007973,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>麻辣大学</name>
+        <description>📍 東京都台東区上野2-14-31
+🏙 東京都台東区
+Instagram: https://www.instagram.com/p/C99zUP3PH4J/</description>
+        <Point>
+          <coordinates>139.7731787,35.7105457,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HOTEL SARA GRANDE</name>
+        <description>📍 東京都品川区東五反田1-20-3
+🏙 東京都品川区
+Instagram: https://www.instagram.com/p/C4sjLdvPBRq/</description>
+        <Point>
+          <coordinates>139.7261967,35.6261532,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>なっぱごちそう</name>
+        <description>📍 東京都品川区上大崎2-26-5 メグロード B1F
+🏙 東京都品川区
+Instagram: https://www.instagram.com/p/DEEwdjhT-bs/</description>
+        <Point>
+          <coordinates>139.714698,35.63417,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>PENNY LANE</name>
+        <description>📍 東京都墨田区押上1丁目1-2 東京スカイツリー
+🏙 東京都墨田区
+Instagram: https://www.instagram.com/p/C1oxCCsP01K/</description>
+        <Point>
+          <coordinates>139.8107004,35.7100627,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>SARA 錦糸町</name>
+        <description>📍 東京都墨田区江東橋3-1-8
+🏙 東京都墨田区
+Instagram: https://www.instagram.com/p/C6vgFv3OFk3/</description>
+        <Point>
+          <coordinates>139.8144076,35.6932747,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HUSKY CAFE TOKYO</name>
+        <description>📍 東京都大田区
+🏙 東京都大田区
+Instagram: https://www.instagram.com/p/C8skKCtSNEe/</description>
+        <Point>
+          <coordinates>139.7169362,35.5620838,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>トンデミ平和島</name>
+        <description>📍 東京都大田区平和島1-1-1
+🏙 東京都大田区
+Instagram: https://www.instagram.com/p/C_mr6DPvkiB/</description>
+        <Point>
+          <coordinates>139.7403143,35.5860595,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ABEBE BAKERY</name>
+        <description>📍 東京都新宿区大久保1-17-7
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/C8ejYeUy1oA/</description>
+        <Point>
+          <coordinates>139.7026156,35.6983499,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ARK2nd</name>
+        <description>📍 東京都新宿区歌舞伎町1丁目6-6
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/CuJnSuNN-ZY/</description>
+        <Point>
+          <coordinates>139.7026366,35.6938338,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ARK2nd</name>
+        <description>📍 東京都新宿区歌舞伎町1丁目6-6
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/CqfNtYAjzZH/</description>
+        <Point>
+          <coordinates>139.7026366,35.6938338,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>LUNA CAFE ORGANIC &amp; LAUNDRY</name>
+        <description>📍 東京都新宿区高田馬場1-24-18
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/C-ug8FZPSV7/</description>
+        <Point>
+          <coordinates>139.7054524,35.7118972,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Place/NE°</name>
+        <description>📍 東京都新宿区百人町2-2-43
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/Cyw-1L1SIUp/</description>
+        <Point>
+          <coordinates>139.7015755,35.7016059,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Studio Cafe MARU</name>
+        <description>📍 東京都新宿区百人町2-2-7
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/C0dy7WKPrYC/</description>
+        <Point>
+          <coordinates>139.7012887,35.70198,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>The room</name>
+        <description>📍 東京都新宿区西新宿1-19-12 鮎沢ビル B2F
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/C61QobUParO/</description>
+        <Point>
+          <coordinates>139.6967929,35.6883288,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>かまくら個室ビストロ KAMAKURA 新宿店</name>
+        <description>📍 東京都新宿区新宿4-1-13 田園新宿ビル 7F
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/DCqwmMxzK3F/</description>
+        <Point>
+          <coordinates>139.7025226,35.6892043,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ナムチニハニーカフェ 2号店</name>
+        <description>📍 東京都新宿区大久保1-16-22
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/C0T5q9DL02r/</description>
+        <Point>
+          <coordinates>139.7029563,35.7004347,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ビタースイーツビュッフェ</name>
+        <description>📍 東京都新宿区新宿３丁目３８−１ ルミネエスト新宿 8F
+🏙 東京都新宿区
+Instagram: https://www.instagram.com/p/DB3MqI3ROMP/</description>
+        <Point>
+          <coordinates>139.7011419,35.6912505,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>IMAGINUS 未来を作る杉並サイエンスラボ</name>
+        <description>📍 東京都杉並区高円寺
+🏙 東京都杉並区
+Instagram: https://www.instagram.com/p/DEJ6SHEyFO4/</description>
+        <Point>
+          <coordinates>139.6464845,35.7078984,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>COFFEE HALL くぐつ草</name>
+        <description>📍 東京都武蔵野市吉祥寺本町1-7-7
+🏙 東京都武蔵野市
+Instagram: https://www.instagram.com/p/C7d8bbeygev/</description>
+        <Point>
+          <coordinates>139.5781648,35.7040435,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>くぐつ草</name>
+        <description>📍 東京都武蔵野市吉祥寺本町1丁目7-7
+🏙 東京都武蔵野市
+Instagram: https://www.instagram.com/p/C6OK3RvPfOJ/</description>
+        <Point>
+          <coordinates>139.5781648,35.7040435,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>プティット村</name>
+        <description>📍 東京都武蔵野市吉祥寺本町２丁目３３−２
+🏙 東京都武蔵野市
+Instagram: https://www.instagram.com/p/DBYQMluNXxS/</description>
+        <Point>
+          <coordinates>139.5745794,35.7046631,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>武蔵野プレイス</name>
+        <description>📍 東京都武蔵野市境南町2丁目3−18
+🏙 東京都武蔵野市
+Instagram: https://www.instagram.com/p/C6gWA3ISWMR/</description>
+        <Point>
+          <coordinates>139.5436724,35.7011533,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>アーバンスポーツパーク</name>
+        <description>📍 東京都江東区有明1-13-7
+🏙 東京都江東区
+Instagram: https://www.instagram.com/p/DBTMacTPErR/</description>
+        <Point>
+          <coordinates>139.7853027,35.6387424,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>イマーシブフォート東京</name>
+        <description>📍 東京都江東区青海
+🏙 東京都江東区
+Instagram: https://www.instagram.com/p/C39ssIcy6vF/</description>
+        <Point>
+          <coordinates>139.7784062,35.6231972,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>東京豊洲 万葉倶楽部</name>
+        <description>📍 東京都江東区豊洲
+🏙 東京都江東区
+Instagram: https://www.instagram.com/p/C-R90n6SzKE/</description>
+        <Point>
+          <coordinates>139.7965201,35.6545886,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BOTANICAL GARDEN FUREAI</name>
+        <description>📍 東京都渋谷区東2丁目25-37
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C01LfD6ypmX/</description>
+        <Point>
+          <coordinates>139.7077694,35.6533377,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>C.STAND 渋谷マークシティ横店</name>
+        <description>📍 東京都渋谷区宇田川町13-7
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C5kxQdsSjfm/</description>
+        <Point>
+          <coordinates>139.6986618,35.6609637,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CAFE Secret Recipe</name>
+        <description>📍 東京都渋谷区神宮前6-20-10
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C8MSHloyl8a/</description>
+        <Point>
+          <coordinates>139.7018707,35.6632015,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>LA PITA DE MAISON CINQUANTECINQ</name>
+        <description>📍 東京都渋谷区西原3-5-1
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/DZR5YZiRtJJ/</description>
+        <Point>
+          <coordinates>139.6815646,35.6701043,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>M2 Luxury shisha cafe&amp;bar</name>
+        <description>📍 東京都渋谷区道玄坂1-15-9 B1F
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/DWkzIRLgAEx/</description>
+        <Point>
+          <coordinates>139.6973966,35.657194,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MIL GALLERY / MIL 2ND</name>
+        <description>📍 東京都渋谷区神宮前4-25-28
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/CyIaEk8P3Ta/</description>
+        <Point>
+          <coordinates>139.7078615,35.6688851,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MYSTAR BASE</name>
+        <description>📍 東京都渋谷区千駄ヶ谷5-24-2
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/CxVOG03Pn6r/</description>
+        <Point>
+          <coordinates>139.7021464,35.6877186,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>OYU</name>
+        <description>📍 東京都渋谷区神宮前６丁目２０−１０
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C7a5naCSchG/</description>
+        <Point>
+          <coordinates>139.7018707,35.6632015,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Olive Lounge</name>
+        <description>📍 東京都渋谷区
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C7yiJnSy1mp/</description>
+        <Point>
+          <coordinates>139.703795,35.6619707,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>PIZZERIA SPONTINI カスケード原宿店</name>
+        <description>📍 東京都渋谷区神宮前1-10-37 CASCADE HARAJUKU 2F
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/DE4aOOczdFD/</description>
+        <Point>
+          <coordinates>139.7038186,35.670042,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Q-pot CAFE.</name>
+        <description>📍 東京都渋谷区神宮前3‐4‐8
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/CurCJQvS8Y3/</description>
+        <Point>
+          <coordinates>139.7127422,35.6687215,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Samoyed Lounge moff</name>
+        <description>📍 東京都渋谷区神宮前3-21-21
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C62XuGBSPQQ/</description>
+        <Point>
+          <coordinates>139.7075416,35.6706971,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WHITE GLASS COFFEE</name>
+        <description>📍 東京都渋谷区桜丘町23−18
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/CcDJGB3v2TC/</description>
+        <Point>
+          <coordinates>139.6999015,35.6559017,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WITH HARAJUKU / PEANUTS Cafe SUNNY SIDE KITCHEN</name>
+        <description>📍 東京都渋谷区神宮前1-14-30
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/CyBXPimPvs8/</description>
+        <Point>
+          <coordinates>139.7031067,35.6705208,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>caffe Michelangelo</name>
+        <description>📍 東京都渋谷区猿楽町２９−３
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C731c0LybgU/</description>
+        <Point>
+          <coordinates>139.6992852,35.6484178,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>igu&amp;peace</name>
+        <description>📍 東京都渋谷区道玄坂1-5-2
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/CypKPKUyzhE/</description>
+        <Point>
+          <coordinates>139.6995089,35.6580491,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>kiln THE BEER HOUSE 渋谷道玄坂店</name>
+        <description>📍 東京都渋谷区道玄坂2-25-7 大林ビル 1F・2F
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/DOFiIExE6KR/</description>
+        <Point>
+          <coordinates>139.6967462,35.6602728,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>musch 渋谷宮下パーク前店</name>
+        <description>📍 東京都渋谷区神宮前6丁目19−17
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/Cp41ZJZyP_e/</description>
+        <Point>
+          <coordinates>139.7024219,35.6637572,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>すし光琳</name>
+        <description>📍 東京都渋谷区神山町11-10 梅澤ビル B1F
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/DaHMqVIxG1z/</description>
+        <Point>
+          <coordinates>139.6944004,35.6632473,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ゴールドラッシュ 本店</name>
+        <description>📍 東京都渋谷区宇田川町4-7
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/CyxnG0cJ4OX/</description>
+        <Point>
+          <coordinates>139.6979978,35.6625338,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ハピネスファクトリー</name>
+        <description>📍 東京都渋谷区神宮前６丁目
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C-H6dnoqQpk/</description>
+        <Point>
+          <coordinates>139.7032633,35.6670872,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ヒロキヤ恵比寿</name>
+        <description>📍 東京都渋谷区恵比寿西1-4-7
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C9WvwgJgLXA/</description>
+        <Point>
+          <coordinates>139.7081194,35.6484309,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>フォンダ デ ラ マドゥルガーダ</name>
+        <description>📍 東京都渋谷区神宮前２丁目３３−１２ ビラ・ビアンカ B1
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/DUmhuS0j4OQ/</description>
+        <Point>
+          <coordinates>139.7080585,35.6734917,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>フォンダ デ ラ マドゥルガーダ</name>
+        <description>📍 東京都渋谷区神宮前２丁目３３−１２ ビラ・ビアンカ B1
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/DQ0UEwsD4zh/</description>
+        <Point>
+          <coordinates>139.7080585,35.6734917,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ボナペティート</name>
+        <description>📍 東京都渋谷区
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/CyStUNoSshW/</description>
+        <Point>
+          <coordinates>139.703795,35.6619707,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>有楽町かきだ</name>
+        <description>📍 東京都渋谷区代々木2-2-1 小田急ホテルセンチュリーサザンタワー 19F
+🏙 東京都渋谷区
+Instagram: https://www.instagram.com/p/C5vV_1gSRXH/</description>
+        <Point>
+          <coordinates>139.7004339,35.6863845,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MUSIUM</name>
+        <description>📍 東京都港区六本木5丁目2−４
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/C8lwJbqSdvn/</description>
+        <Point>
+          <coordinates>139.7338283,35.6622913,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WAGYU割烹 芋洗坂の下</name>
+        <description>📍 東京都港区六本木5-9-22 第二千陽ビル 2F
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/DZm6pZFxQnD/</description>
+        <Point>
+          <coordinates>139.7329899,35.6619388,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>こどもの視点カフェ</name>
+        <description>📍 東京都港区北青山2-3-1
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/CuO6tSlshYU/</description>
+        <Point>
+          <coordinates>139.72001,35.6720607,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>カフェ ラ・ボエム</name>
+        <description>📍 東京都港区台場1-7-1 アクアシティ4F
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/C5YHX2bS6rB/</description>
+        <Point>
+          <coordinates>139.773568,35.627819,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>カフェ ラ・ボエム 白金</name>
+        <description>📍 東京都港区白金台4-19-17
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/DTzwWqRD7yT/</description>
+        <Point>
+          <coordinates>139.7230452,35.6392111,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>サロン・ド・テ・ロンド</name>
+        <description>📍 東京都港区六本木7-22-2 国立新美術館 2F
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/Cjz_pjBhux_/</description>
+        <Point>
+          <coordinates>139.726374,35.665289,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>東京ミッドタウン</name>
+        <description>📍 東京都港区六本木
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/DCjSJ80SO2n/</description>
+        <Point>
+          <coordinates>139.7345469,35.6618586,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>水色</name>
+        <description>📍 東京都港区汐留
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/C7l4_81BZrT/</description>
+        <Point>
+          <coordinates>139.7587622,35.6597272,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>田村町木村屋</name>
+        <description>📍 東京都港区西新橋1-18-19
+🏙 東京都港区
+Instagram: https://www.instagram.com/p/DZzeG6bPBPs/</description>
+        <Point>
+          <coordinates>139.7532291,35.6677737,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>姿勢改善専門店 ひのき</name>
+        <description>📍 東京都町田市原町田6-26-6 リコーレ原町田503号室
+🏙 東京都町田市
+Instagram: https://www.instagram.com/p/DBeFGUNiHZK/</description>
+        <Point>
+          <coordinates>139.4478082,35.5449965,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Meat&amp;Cheese Forne</name>
+        <description>📍 東京都目黒区上目黒1-20-12 コミヤビル2階
+🏙 東京都目黒区
+Instagram: https://www.instagram.com/p/DP3dXf0D8Dt/</description>
+        <Point>
+          <coordinates>139.6987651,35.6450019,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ラ・ヴィア・ラ・カンパーニュ</name>
+        <description>📍 東京都目黒区上目黒2-24-12
+🏙 東京都目黒区
+Instagram: https://www.instagram.com/p/DYYXcF_TUCg/</description>
+        <Point>
+          <coordinates>139.6969213,35.6412884,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>豆富食堂</name>
+        <description>📍 東京都目黒区三田2丁目10-30
+🏙 東京都目黒区
+Instagram: https://www.instagram.com/p/DNF2dqVvoht/</description>
+        <Point>
+          <coordinates>139.7123903,35.6391095,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BAR ORIENT EXPRESS</name>
+        <description>📍 東京都豊島区西池袋1-6-1 ホテルメトロポリタン 2F
+🏙 東京都豊島区
+Instagram: https://www.instagram.com/p/C1wHbbAS8eP/</description>
+        <Point>
+          <coordinates>139.7083758,35.7286601,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Racines Bread &amp; Salad</name>
+        <description>📍 東京都豊島区南池袋2-12-12
+🏙 東京都豊島区
+Instagram: https://www.instagram.com/p/Czs_-hyvM5Z/</description>
+        <Point>
+          <coordinates>139.7136561,35.7256567,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>星空サンシャインTOKYO</name>
+        <description>📍 東京都豊島区東池袋1-21-13
+🏙 東京都豊島区
+Instagram: https://www.instagram.com/p/C7tQUvoy6X5/</description>
+        <Point>
+          <coordinates>139.7159902,35.7304467,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>sd coffee</name>
+        <description>📍 東京都足立区千住4丁目19-11
+🏙 東京都足立区
+Instagram: https://www.instagram.com/p/CydCJrbrOWw/</description>
+        <Point>
+          <coordinates>139.8036722,35.752636,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>栃木県 (8件)</name>
+      <Placemark>
+        <name>ふふ 日光</name>
+        <description>📍 栃木県日光市本町1573-8
+🏙 栃木県日光市
+Instagram: https://www.instagram.com/p/C0TteE1pCbb/</description>
+        <Point>
+          <coordinates>139.5891585,36.7513534,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>恋とカセット</name>
+        <description>📍 栃木県真岡市田町1065-2
+🏙 栃木県真岡市
+Instagram: https://www.instagram.com/p/CwNcTF-SBgK/</description>
+        <Point>
+          <coordinates>140.008629,36.441898,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>FRAJARICA cafe and sweets by KAEN</name>
+        <description>📍 栃木県那須塩原市東町2-4
+🏙 栃木県那須塩原市
+Instagram: https://www.instagram.com/p/DT2BHHkCd2t/</description>
+        <Point>
+          <coordinates>139.9868516,36.8863071,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>croce（クローチェ）</name>
+        <description>📍 栃木県那須塩原市細竹10-9
+🏙 栃木県那須塩原市
+Instagram: https://www.instagram.com/p/DJBxNtDSv0W/</description>
+        <Point>
+          <coordinates>139.9713618,37.0361031,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ひつじ珈琲 西那須野店</name>
+        <description>📍 栃木県那須塩原市三島2丁目10-6
+🏙 栃木県那須塩原市
+Instagram: https://www.instagram.com/p/C_0H950SiJ9/</description>
+        <Point>
+          <coordinates>139.9746292,36.894228,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TOWAピュアコテージ</name>
+        <description>📍 栃木県那須町高久乙3375-85
+🏙 栃木県那須町
+Instagram: https://www.instagram.com/p/C7oQOHmyo1_/</description>
+        <Point>
+          <coordinates>139.966738,37.0657512,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ropos</name>
+        <description>📍 栃木県那須郡那須町高久丙4514-5
+🏙 栃木県那須郡那須町
+Instagram: https://www.instagram.com/p/C6c0oiTSSmV/</description>
+        <Point>
+          <coordinates>140.045475,37.0419072,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>パン工房 ドリーム</name>
+        <description>📍 栃木県那須郡那須町湯本460-1
+🏙 栃木県那須郡那須町
+Instagram: https://www.instagram.com/p/C6yP7dIyVxg/</description>
+        <Point>
+          <coordinates>140.0110059,37.0716581,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>神奈川県 (16件)</name>
+      <Placemark>
+        <name>Merengue マリン&amp;ウォーク横浜店</name>
+        <description>📍 神奈川県横浜市中区新港1丁目3−1
+🏙 神奈川県横浜市中区
+Instagram: https://www.instagram.com/p/Cq-XUrjS61l/</description>
+        <Point>
+          <coordinates>139.6417022,35.4548567,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>VSPARK</name>
+        <description>📍 神奈川県横浜市中区新港2-2-1 横浜ワールドポーターズ4F
+🏙 神奈川県横浜市中区
+Instagram: https://www.instagram.com/p/DAfX9Q7THFR/</description>
+        <Point>
+          <coordinates>139.6389486,35.4539911,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>VSPARK横浜ワールドポーターズ</name>
+        <description>📍 神奈川県横浜市中区新港２丁目２−１
+🏙 神奈川県横浜市中区
+Instagram: https://www.instagram.com/p/C9w7fMwOOVn/</description>
+        <Point>
+          <coordinates>139.6389925,35.4539404,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>花よりCafe</name>
+        <description>📍 神奈川県横浜市神奈川区鶴屋町1-41
+🏙 神奈川県横浜市神奈川区
+Instagram: https://www.instagram.com/p/C8WlOO3yADT/</description>
+        <Point>
+          <coordinates>139.6236949,35.4678738,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ヤマハミュージック横浜みなとみらい</name>
+        <description>📍 神奈川県横浜市西区みなとみらい5-1-2 横浜シンフォステージウエストタワー1F
+🏙 神奈川県横浜市西区
+Instagram: https://www.instagram.com/p/DAN8btxhi_5/</description>
+        <Point>
+          <coordinates>139.6271188,35.4611093,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>横濱大食堂 横浜ランドマークタワー店</name>
+        <description>📍 神奈川県横浜市西区みなとみらい2-2-1 横浜ランドマークタワー 5F
+🏙 神奈川県横浜市西区
+Instagram: https://www.instagram.com/p/CjSiudzPma7/</description>
+        <Point>
+          <coordinates>139.6314218,35.4545635,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>MOON SIDE CAFE</name>
+        <description>📍 神奈川県横浜市都筑区中川中央1丁目22−3
+🏙 神奈川県横浜市都筑区
+Instagram: https://www.instagram.com/p/CrfftEbSiQo/</description>
+        <Point>
+          <coordinates>139.5784247,35.5518304,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>サープラ横浜 あそびタウン</name>
+        <description>📍 神奈川県横浜市都筑区中川中央1-25-1 ノースポート・モール6F
+🏙 神奈川県横浜市都筑区
+Instagram: https://www.instagram.com/p/CjxKQXhpF8b/</description>
+        <Point>
+          <coordinates>139.5794141,35.55209809999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>拉麺成 CH</name>
+        <description>📍 神奈川県横浜市都筑区仲町台1-14-20
+🏙 神奈川県横浜市都筑区
+Instagram: https://www.instagram.com/p/CtbgXtoywsn/</description>
+        <Point>
+          <coordinates>139.5906557,35.5344513,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>越廼</name>
+        <description>📍 神奈川県横浜市都筑区センター北
+🏙 神奈川県横浜市都筑区
+Instagram: https://www.instagram.com/p/CxE3UtWJ47s/</description>
+        <Point>
+          <coordinates>139.578482,35.553138,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>葉山ホテル 音羽ノ森</name>
+        <description>📍 神奈川県横須賀市秋谷5596-1
+🏙 神奈川県横須賀市
+Instagram: https://www.instagram.com/p/C7VnriLykvm/</description>
+        <Point>
+          <coordinates>139.581548,35.2539566,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mr JUMP</name>
+        <description>📍 神奈川県相模原市中央区共和3-4-10
+🏙 神奈川県相模原市中央区
+Instagram: https://www.instagram.com/p/C_UxvGdvFem/</description>
+        <Point>
+          <coordinates>139.399609,35.5616914,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>さがみ湖MORIMORI</name>
+        <description>📍 神奈川県相模原市緑区若柳1634番地
+🏙 神奈川県相模原市緑区
+Instagram: https://www.instagram.com/p/DMzwpSSO0x9/</description>
+        <Point>
+          <coordinates>139.2010547,35.6049206,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>オリエント急行カフェ「Le Train」</name>
+        <description>📍 神奈川県足柄下郡箱根町仙石原186-1
+🏙 神奈川県足柄下郡箱根町
+Instagram: https://www.instagram.com/p/C2Tsi9Jyo6a/</description>
+        <Point>
+          <coordinates>139.0098053,35.2703143,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>RURU KAMAKURA</name>
+        <description>📍 神奈川県鎌倉市雪ノ下1-6-28
+🏙 神奈川県鎌倉市
+Instagram: https://www.instagram.com/p/C7JWEHVypgf/</description>
+        <Point>
+          <coordinates>139.5532014,35.3223576,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ゆりあぺむぺる鎌倉店</name>
+        <description>📍 神奈川県鎌倉市御成町15-7
+🏙 神奈川県鎌倉市
+Instagram: https://www.instagram.com/p/C7RFUIfyr-t/</description>
+        <Point>
+          <coordinates>139.5479809,35.3196195,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>群馬県 (3件)</name>
+      <Placemark>
+        <name>SHOP TEA GLOW</name>
+        <description>📍 群馬県伊勢崎市今泉町１丁目２９−９
+🏙 群馬県伊勢崎市
+Instagram: https://www.instagram.com/p/C-kUUmGPqf7/</description>
+        <Point>
+          <coordinates>139.2039304,36.3116815,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>尻焼温泉</name>
+        <description>📍 群馬県吾妻郡中之条町入山１５０３
+🏙 群馬県吾妻郡中之条町
+Instagram: https://www.instagram.com/p/DBqr6K9C6hs/</description>
+        <Point>
+          <coordinates>138.6422052,36.6480543,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ダイニングまさ坊</name>
+        <description>📍 群馬県太田市藪塚町1111-1
+🏙 群馬県太田市
+Instagram: https://www.instagram.com/p/C8NwmwUSEvC/</description>
+        <Point>
+          <coordinates>139.3097744,36.3638346,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>茨城県 (7件)</name>
+      <Placemark>
+        <name>Agato</name>
+        <description>📍 茨城県つくば市二の宮２丁目１５−２１
+🏙 茨城県つくば市
+Instagram: https://www.instagram.com/p/C8oeolvSU_R/</description>
+        <Point>
+          <coordinates>140.1224415,36.06303279999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>mo-cafe</name>
+        <description>📍 茨城県つくば市山中480-38
+🏙 茨城県つくば市
+Instagram: https://www.instagram.com/p/C7GpGXoSwGu/</description>
+        <Point>
+          <coordinates>140.0791971,36.0653271,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Le Cafe Neuf</name>
+        <description>📍 茨城県古河市大山1599-5
+🏙 茨城県古河市
+Instagram: https://www.instagram.com/p/Cv7U59tyT8Z/</description>
+        <Point>
+          <coordinates>139.7178237,36.1558406,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>佛蘭西館</name>
+        <description>📍 茨城県日立市千石町1-6-10
+🏙 茨城県日立市
+Instagram: https://www.instagram.com/p/C6EHeDbypPb/</description>
+        <Point>
+          <coordinates>140.629229,36.5538411,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>うま囲水戸OPA店</name>
+        <description>📍 茨城県水戸市宮町1-7-33
+🏙 茨城県水戸市
+Instagram: https://www.instagram.com/p/C-zjmmnSn7x/</description>
+        <Point>
+          <coordinates>140.4756988,36.3703408,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HACHI CAFE</name>
+        <description>📍 茨城県那珂市飯田１６３６−３１
+🏙 茨城県那珂市
+Instagram: https://www.instagram.com/p/DAc94y2SsAy/</description>
+        <Point>
+          <coordinates>140.4694435,36.4473862,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>HACHICAFE</name>
+        <description>📍 茨城県那珂市飯田１６３６−３１
+🏙 茨城県那珂市
+Instagram: https://www.instagram.com/p/C_7ol-Wy0JF/</description>
+        <Point>
+          <coordinates>140.4694435,36.4473862,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Folder>
+  <Folder>
+    <name>中部 (47件)</name>
+    <Folder>
+      <name>富山県 (2件)</name>
+      <Placemark>
+        <name>ディズニー・アニメーション・イマーシブ・エクスペリエンス</name>
+        <description>📍 富山県富山市友杉1682
+🏙 富山県富山市
+Instagram: https://www.instagram.com/p/C9uDeLEJ6iX/</description>
+        <Point>
+          <coordinates>137.1963979,36.6403677,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>湯屋 FUROBAKKA</name>
+        <description>📍 富山県黒部市堀切９５１−１
+🏙 富山県黒部市
+Instagram: https://www.instagram.com/p/CvCkU0cpMsu/</description>
+        <Point>
+          <coordinates>137.4266437,36.8785797,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>山梨県 (1件)</name>
+      <Placemark>
+        <name>恵美餅（えめもち）・昇仙峡ラインのお店</name>
+        <description>📍 山梨県甲府市猪狩町４２３
+🏙 山梨県甲府市
+Instagram: https://www.instagram.com/p/C-pfD3hic71/</description>
+        <Point>
+          <coordinates>138.5646879,35.75382159999999,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>岐阜県 (1件)</name>
+      <Placemark>
+        <name>ポケモン化石博物館</name>
+        <description>📍 岐阜県関市小屋名1989
+🏙 岐阜県関市
+Instagram: https://www.instagram.com/p/DBJCLxyCTjS/</description>
+        <Point>
+          <coordinates>136.8706925,35.47751179999999,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>愛知県 (18件)</name>
+      <Placemark>
+        <name>BeeRush</name>
+        <description>📍 愛知県名古屋市中区錦3-17-15 栄ナナイロ 10F
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/DDWmnk9yfGq/</description>
+        <Point>
+          <coordinates>136.9063906,35.17020979999999,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>THE CONDER HOUSE</name>
+        <description>📍 愛知県名古屋市中区錦2丁目20番25
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/C2mYFu5yqyz/</description>
+        <Point>
+          <coordinates>136.9013026,35.168735,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>THE KAWABUN NAGOYA</name>
+        <description>📍 愛知県名古屋市中区丸の内2-12-30
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/C3KiZLOL83v/</description>
+        <Point>
+          <coordinates>136.9005311,35.1756059,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>The theater</name>
+        <description>📍 愛知県名古屋市中区栄3丁目12−6 インペリアルプラザ B1
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/C5-eXA2vTw-/</description>
+        <Point>
+          <coordinates>136.9045778,35.1665146,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WINE&amp;RESTAURANT MUG</name>
+        <description>📍 愛知県名古屋市中区錦3-14-4 シャインアルファ錦ビル１Ｆ
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/C22O_g1yAYv/</description>
+        <Point>
+          <coordinates>136.9059168,35.1715291,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ar.</name>
+        <description>📍 愛知県名古屋市中区大須3-22-30
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/CoUfMtUj_RF/</description>
+        <Point>
+          <coordinates>136.9037809,35.1596865,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>muse 名古屋栄店</name>
+        <description>📍 愛知県名古屋市中区錦3-17-5 EXIT NISHIKI Mid 6F
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/C6OVL8nSPzv/</description>
+        <Point>
+          <coordinates>136.9061281,35.1703731,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>muse 名古屋栄店</name>
+        <description>📍 愛知県名古屋市中区錦3-17-5 EXIT NISHIKI 6F
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/C2-7V0mSPHo/</description>
+        <Point>
+          <coordinates>136.9061281,35.1703731,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>大衆酒泉テルマエ栄泉</name>
+        <description>📍 愛知県名古屋市中区栄3-1-14
+🏙 愛知県名古屋市中区
+Instagram: https://www.instagram.com/p/CrSzwW-JneI/</description>
+        <Point>
+          <coordinates>136.9031646,35.1680236,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>メガインディアンズ千音寺</name>
+        <description>📍 愛知県名古屋市中川区千音寺
+🏙 愛知県名古屋市中川区
+Instagram: https://www.instagram.com/p/DCi-0DOyzdc/</description>
+        <Point>
+          <coordinates>136.8143874,35.1589183,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>タイガーカフェ</name>
+        <description>📍 愛知県名古屋市南区石元町3-17
+🏙 愛知県名古屋市南区
+Instagram: https://www.instagram.com/p/C3NG6h6S_BU/</description>
+        <Point>
+          <coordinates>136.9333486,35.0849497,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Messiah</name>
+        <description>📍 愛知県名古屋市東区葵１-26-10 ユニーブル新栄ビル1F
+🏙 愛知県名古屋市東区
+Instagram: https://www.instagram.com/p/C1rGho7y3Q9/</description>
+        <Point>
+          <coordinates>136.9236473,35.1707431,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>montalcino</name>
+        <description>📍 愛知県名古屋市東区泉2-23-9 タウンマンション泉 1F
+🏙 愛知県名古屋市東区
+Instagram: https://www.instagram.com/p/C2MeguMPYhi/</description>
+        <Point>
+          <coordinates>136.9172026,35.175694,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ざうお 小牧店</name>
+        <description>📍 愛知県小牧市村中新町88−1
+🏙 愛知県小牧市
+Instagram: https://www.instagram.com/p/C6itxyDPPUW/</description>
+        <Point>
+          <coordinates>136.9070479,35.2972154,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>コーリンベール</name>
+        <description>📍 愛知県岡崎市緑丘2-6-4
+🏙 愛知県岡崎市
+Instagram: https://www.instagram.com/p/C08yYaqvPOa/</description>
+        <Point>
+          <coordinates>137.1816625,34.9186354,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>木曜日のカヌレ屋さん</name>
+        <description>📍 愛知県岡崎市庄司田1-14
+🏙 愛知県岡崎市
+Instagram: https://www.instagram.com/p/C6VwaqivhOd/</description>
+        <Point>
+          <coordinates>137.1701275,34.9204301,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>INAXライブミュージアム</name>
+        <description>📍 愛知県常滑市奥栄町１丁目１３０
+🏙 愛知県常滑市
+Instagram: https://www.instagram.com/p/C0eAWmVPjOu/</description>
+        <Point>
+          <coordinates>136.8486301,34.8819454,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>WOOD DESIGN PARK野間</name>
+        <description>📍 愛知県知多郡美浜町小野浦二ツ廻間35-4
+🏙 愛知県知多郡美浜町
+Instagram: https://www.instagram.com/p/CyF9qf2rFjc/</description>
+        <Point>
+          <coordinates>136.8441279,34.7602663,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>新潟県 (15件)</name>
+      <Placemark>
+        <name>モワチエモワチエ</name>
+        <description>📍 新潟県三条市本町１丁目３−２０
+🏙 新潟県三条市
+Instagram: https://www.instagram.com/p/Cl-5SpWvXb7/</description>
+        <Point>
+          <coordinates>138.9588025,37.62866040000001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>田沢農園</name>
+        <description>📍 新潟県三条市代官島１２５２
+🏙 新潟県三条市
+Instagram: https://www.instagram.com/p/CtyXtmqIjb2/</description>
+        <Point>
+          <coordinates>138.9738468,37.6777412,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>GELATO &amp; CAFE YUMMY'S COFFEE</name>
+        <description>📍 新潟県新潟市中央区沼垂東4丁目2-30
+🏙 新潟県新潟市中央区
+Instagram: https://www.instagram.com/p/CuO45sJoOlQ/</description>
+        <Point>
+          <coordinates>139.0681857,37.9207598,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>yonekuraichie</name>
+        <description>📍 新潟県新潟市中央区天神２丁目１３７−３７
+🏙 新潟県新潟市中央区
+Instagram: https://www.instagram.com/p/CrftkQqP8Ss/</description>
+        <Point>
+          <coordinates>139.0578316,37.9089149,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>スパ&amp;ラウンジ 長潟</name>
+        <description>📍 新潟県新潟市中央区長潟１２０３−１
+🏙 新潟県新潟市中央区
+Instagram: https://www.instagram.com/p/CuyvgACIfNy/</description>
+        <Point>
+          <coordinates>139.0685775,37.884392,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>大衆馬肉酒場うまる 新潟駅南口店</name>
+        <description>📍 新潟県新潟市中央区米山2丁目7-4
+🏙 新潟県新潟市中央区
+Instagram: https://www.instagram.com/p/Cy21cE3PdNX/</description>
+        <Point>
+          <coordinates>139.0580674,37.9084365,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>月曜からアイス</name>
+        <description>📍 新潟県新潟市中央区南出来島２丁目８−１
+🏙 新潟県新潟市中央区
+Instagram: https://www.instagram.com/p/Ct3gknlq1LL/</description>
+        <Point>
+          <coordinates>139.0242316,37.896963,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>望雲舎 BLUE NORTHER COFFEE</name>
+        <description>📍 新潟県新潟市西区大野町3802-5
+🏙 新潟県新潟市西区
+Instagram: https://www.instagram.com/p/CwIHC9bv1ZE/</description>
+        <Point>
+          <coordinates>139.0190836,37.8443775,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>自家焙煎珈琲 たぶの木</name>
+        <description>📍 新潟県新潟市西区中野小屋３５６
+🏙 新潟県新潟市西区
+Instagram: https://www.instagram.com/p/Ck2u8gZPQq3/</description>
+        <Point>
+          <coordinates>138.9354236,37.8235642,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>OC garden</name>
+        <description>📍 新潟市西蒲区竹野町2506
+🏙 新潟県新潟市西蒲区
+Instagram: https://www.instagram.com/p/Cr8RqedPANc/</description>
+        <Point>
+          <coordinates>138.8741155,37.7730405,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>庭園カフェいちしま</name>
+        <description>📍 新潟県新発田市諏訪町３丁目１−１７
+🏙 新潟県新発田市
+Instagram: https://www.instagram.com/p/Ck74jUVv2PW/</description>
+        <Point>
+          <coordinates>139.3306712,37.9441502,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>大村食堂</name>
+        <description>📍 新潟県燕市小高810-4
+🏙 新潟県燕市
+Instagram: https://www.instagram.com/p/Cubf7D0I_mu/</description>
+        <Point>
+          <coordinates>138.9419054,37.6649342,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>bananawinds</name>
+        <description>📍 新潟県長岡市寺泊野積１０７−１７７
+🏙 新潟県長岡市
+Instagram: https://www.instagram.com/p/ClGOJ1lvlYU/</description>
+        <Point>
+          <coordinates>138.7804098,37.6712186,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ginji cafe</name>
+        <description>📍 新潟県長岡市新栄町2-3-21
+🏙 新潟県長岡市
+Instagram: https://www.instagram.com/p/C7wENbGy_p9/</description>
+        <Point>
+          <coordinates>138.9972152,37.4883707,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>草木万里野</name>
+        <description>📍 新潟県長岡市花園南１丁目６０
+🏙 新潟県長岡市
+Instagram: https://www.instagram.com/p/CuEauDFo6Fu/</description>
+        <Point>
+          <coordinates>138.8627734,37.4296278,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>福井県 (1件)</name>
+      <Placemark>
+        <name>エンゼルランドふくい</name>
+        <description>📍 福井県坂井市春江町東太郎丸３−１
+🏙 福井県坂井市
+Instagram: https://www.instagram.com/p/C16wdwVLjSW/</description>
+        <Point>
+          <coordinates>136.2165491,36.1314928,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>長野県 (5件)</name>
+      <Placemark>
+        <name>bio cafe COUDO</name>
+        <description>📍 長野県松本市中川7768
+🏙 長野県松本市
+Instagram: https://www.instagram.com/p/CuMH1rIBncj/</description>
+        <Point>
+          <coordinates>138.003422,36.3466707,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>美ヶ原温泉 翔峰</name>
+        <description>📍 長野県松本市里山辺５２７
+🏙 長野県松本市
+Instagram: https://www.instagram.com/p/C3fINMhBd43/</description>
+        <Point>
+          <coordinates>138.0041129,36.2446937,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>くるみぼーる 飯綱高原セカンドハウス</name>
+        <description>📍 長野県長野市上ケ屋2471-889
+🏙 長野県長野市
+Instagram: https://www.instagram.com/p/C_4-AleOJw_/</description>
+        <Point>
+          <coordinates>138.113987,36.7003666,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ネコまち駅舎</name>
+        <description>📍 長野県須坂市村山254
+🏙 長野県須坂市
+Instagram: https://www.instagram.com/p/CuO5BSiuamC/</description>
+        <Point>
+          <coordinates>138.2787374,36.65993040000001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>猫まち駅舎</name>
+        <description>📍 長野県須坂市村山町254
+🏙 長野県須坂市
+Instagram: https://www.instagram.com/p/C_5Mn7xCJAF/</description>
+        <Point>
+          <coordinates>138.2766859,36.6626711,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>静岡県 (4件)</name>
+      <Placemark>
+        <name>UMITO the salon IZU</name>
+        <description>📍 静岡県伊東市八幡野1253-25
+🏙 静岡県伊東市
+Instagram: https://www.instagram.com/p/C03wmsSpUlS/</description>
+        <Point>
+          <coordinates>139.1034555,34.8991158,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>自転車の国サイクルスポーツセンター</name>
+        <description>📍 静岡県伊豆市大野１８２６
+🏙 静岡県伊豆市
+Instagram: https://www.instagram.com/p/C9o4QE0S8bY/</description>
+        <Point>
+          <coordinates>139.0117838,35.0093192,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>甘味処どんぐり</name>
+        <description>📍 静岡県沼津市大手町5-8-22
+🏙 静岡県沼津市
+Instagram: https://www.instagram.com/p/Cv15mBjJBiG/</description>
+        <Point>
+          <coordinates>138.857969,35.1010924,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>河津七滝 溪流温泉茶寮 水鞠</name>
+        <description>📍 静岡県賀茂郡河津町梨本 424-2
+🏙 静岡県賀茂郡河津町
+Instagram: https://www.instagram.com/p/DZ3civ3yEKx/</description>
+        <Point>
+          <coordinates>138.9321486,34.7945871,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Folder>
+  <Folder>
+    <name>近畿 (27件)</name>
+    <Folder>
+      <name>三重県 (2件)</name>
+      <Placemark>
+        <name>VISON</name>
+        <description>📍 三重県多気郡多気町
+🏙 三重県多気郡多気町
+Instagram: https://www.instagram.com/p/DAiY_7EPl-E/</description>
+        <Point>
+          <coordinates>136.5460801,34.496245,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>VISON</name>
+        <description>📍 三重県多気郡多気町ヴィソン672-1
+🏙 三重県多気郡多気町
+Instagram: https://www.instagram.com/p/CwfD4amsa6T/</description>
+        <Point>
+          <coordinates>136.5154655,34.4604442,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>京都府 (5件)</name>
+      <Placemark>
+        <name>salon de 1904</name>
+        <description>📍 京都府京都市上京区薮之内町1
+🏙 京都府京都市上京区
+Instagram: https://www.instagram.com/p/C5nodZay4QV/</description>
+        <Point>
+          <coordinates>135.7550478,35.0203466,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>zarame</name>
+        <description>📍 京都府京都市右京区嵯峨天龍寺車道町1
+🏙 京都府京都市右京区
+Instagram: https://www.instagram.com/p/CjSX7xhj_lf/</description>
+        <Point>
+          <coordinates>135.6807753,35.0168121,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>noncaron</name>
+        <description>📍 京都府京都市東山区松原町272-5
+🏙 京都府京都市東山区
+Instagram: https://www.instagram.com/p/Cn-_KujDjuX/</description>
+        <Point>
+          <coordinates>135.7778588,35.0057005,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ハイアットリージェンシー京都</name>
+        <description>📍 京都府京都市東山七条
+🏙 京都府京都市東山区
+Instagram: https://www.instagram.com/p/C7ptyzmBAi-/</description>
+        <Point>
+          <coordinates>135.7710525,34.9892305,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ニンテンドーミュージアム</name>
+        <description>📍 京都府綾部市小倉
+🏙 京都府綾部市
+Instagram: https://www.instagram.com/p/DDT1WC9ykaN/</description>
+        <Point>
+          <coordinates>135.2520397,35.2882032,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>兵庫県 (4件)</name>
+      <Placemark>
+        <name>三田天然温泉 寿ノ湯</name>
+        <description>📍 兵庫県三田市富士が丘5丁目2
+🏙 兵庫県三田市
+Instagram: https://www.instagram.com/p/C0Tnr01SJJL/</description>
+        <Point>
+          <coordinates>135.2016583,34.8922897,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>モノイレ ウッド・トイ・ミュージアム</name>
+        <description>📍 兵庫県丹波市青垣町文室244 FOREST DOOR -旧神楽小学校- 2階
+🏙 兵庫県丹波市
+Instagram: https://www.instagram.com/p/DA3Mxgjv5Zl/</description>
+        <Point>
+          <coordinates>134.9632689,35.2514351,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>GREENIA</name>
+        <description>📍 兵庫県神戸市灘区六甲山北六甲4512-98
+🏙 兵庫県神戸市灘区
+Instagram: https://www.instagram.com/p/DAnGW3lzrVR/</description>
+        <Point>
+          <coordinates>135.2421649,34.7667953,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>須磨浦山上遊園</name>
+        <description>📍 兵庫県神戸市須磨区一ノ谷町5丁目3番2号
+🏙 兵庫県神戸市須磨区
+Instagram: https://www.instagram.com/p/DB3VRy-yjI1/</description>
+        <Point>
+          <coordinates>135.1003237,34.6380419,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>大阪府 (15件)</name>
+      <Placemark>
+        <name>chill smoke</name>
+        <description>📍 大阪府大阪市北区曾根崎2丁目5-23
+🏙 大阪府北区
+Instagram: https://www.instagram.com/p/CzbAswyy6vy/</description>
+        <Point>
+          <coordinates>135.501254,34.6994632,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Masahiko Ozumi Paris</name>
+        <description>📍 大阪府大阪市中央区大手通2-4-8
+🏙 大阪府大阪市中央区
+Instagram: https://www.instagram.com/p/CvjzP0xgS7l/</description>
+        <Point>
+          <coordinates>135.5123878,34.6863498,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>icafe</name>
+        <description>📍 大阪府大阪市中央区西心斎橋1-16-8
+🏙 大阪府大阪市中央区
+Instagram: https://www.instagram.com/p/Cmv8YSBSzqg/</description>
+        <Point>
+          <coordinates>135.4976605,34.6730199,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>書肆喫茶　mori</name>
+        <description>📍 大阪府大阪市中央区谷町6丁目14-2
+🏙 大阪府大阪市中央区
+Instagram: https://www.instagram.com/p/CkN46vtSymK/</description>
+        <Point>
+          <coordinates>135.514721,34.6741876,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>&amp;ISLAND</name>
+        <description>📍 大阪府大阪市北区中之島5-3-60
+🏙 大阪府大阪市北区
+Instagram: https://www.instagram.com/p/CmREKYGykG3/</description>
+        <Point>
+          <coordinates>135.4864684,34.690692,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>JANAI GAMES</name>
+        <description>📍 大阪府大阪市北区角田町5-15
+🏙 大阪府大阪市北区
+Instagram: https://www.instagram.com/p/C7l13KGSBWF/</description>
+        <Point>
+          <coordinates>135.5002354,34.7040906,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>JANAIGAMES</name>
+        <description>📍 大阪府大阪市北区角田町5-15
+🏙 大阪府大阪市北区
+Instagram: https://www.instagram.com/p/CvmQAlhgrJA/</description>
+        <Point>
+          <coordinates>135.5002354,34.7040906,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>chill smoke 梅田店</name>
+        <description>📍 大阪府大阪市北区曽根崎2-5-23 お初天神参道ビル 3F
+🏙 大阪府大阪市北区
+Instagram: https://www.instagram.com/p/DDhGIeoTroJ/</description>
+        <Point>
+          <coordinates>135.5012606,34.6993579,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>大衆酒泉テルマエ 大阪駅前第2ビル泉</name>
+        <description>📍 大阪府大阪市北区梅田１丁目２−２ 大阪駅前第2ビル B1
+🏙 大阪府大阪市北区
+Instagram: https://www.instagram.com/p/DNF-PLQJ06E/</description>
+        <Point>
+          <coordinates>135.4979539,34.6989342,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Mamezo&amp;Cafe</name>
+        <description>📍 大阪府大阪市福島区福島1-1-48 堂島クロスウォーク店
+🏙 大阪府大阪市福島区
+Instagram: https://www.instagram.com/p/Ckaq75GSzj7/</description>
+        <Point>
+          <coordinates>135.4896509,34.6946806,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>TASOGARE COFFEE</name>
+        <description>📍 大阪市西区南堀江１丁目１６−１１ RE-008 1F
+🏙 大阪府大阪市西区
+Instagram: https://www.instagram.com/p/DWWMpnqkaSP/</description>
+        <Point>
+          <coordinates>135.4949856,34.6706151,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>CAFFE CIAO PRESSO</name>
+        <description>📍 大阪府大阪市阿倍野区阿倍野筋1-1-43 あべのハルカス 17F
+🏙 大阪府大阪市阿倍野区
+Instagram: https://www.instagram.com/p/CkS5Z9VyhEj/</description>
+        <Point>
+          <coordinates>135.5134771,34.6460706,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>ワタワン</name>
+        <description>📍 大阪府岸和田市岸の丘町１丁目３２−１
+🏙 大阪府岸和田市
+Instagram: https://www.instagram.com/p/C6WA7J9B6hd/</description>
+        <Point>
+          <coordinates>135.4302344,34.4314951,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>十八代笹川</name>
+        <description>📍 大阪府箕面市栗生間谷東1-27-1
+🏙 大阪府箕面市
+Instagram: https://www.instagram.com/p/CkIlyn0yTt9/</description>
+        <Point>
+          <coordinates>135.5161122,34.84540510000001,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hotel felice</name>
+        <description>📍 大阪府豊中市走井3-2-18
+🏙 大阪府豊中市
+Instagram: https://www.instagram.com/p/DRRcD3_EwbW/</description>
+        <Point>
+          <coordinates>135.4518116,34.7831183,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>滋賀県 (1件)</name>
+      <Placemark>
+        <name>のぼり窯カフェ</name>
+        <description>📍 滋賀県甲賀市信楽町小川
+🏙 滋賀県甲賀市
+Instagram: https://www.instagram.com/p/Cvt44Jjgkmm/</description>
+        <Point>
+          <coordinates>136.0324844,34.8417992,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Folder>
+  <Folder>
+    <name>中国 (2件)</name>
+    <Folder>
+      <name>広島県 (2件)</name>
+      <Placemark>
+        <name>mokemoke</name>
+        <description>📍 広島県廿日市市廿日市2丁目7-24 2F
+🏙 広島県廿日市市
+Instagram: https://www.instagram.com/p/DLersqBhURF/</description>
+        <Point>
+          <coordinates>132.336245,34.3548655,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>露菴</name>
+        <description>📍 広島県福山市高西町2-1-25
+🏙 広島県福山市
+Instagram: https://www.instagram.com/p/DAiRPYXyd-J/</description>
+        <Point>
+          <coordinates>133.2420623,34.4461803,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Folder>
+  <Folder>
+    <name>四国 (2件)</name>
+    <Folder>
+      <name>愛媛県 (1件)</name>
+      <Placemark>
+        <name>大和屋本店</name>
+        <description>📍 愛媛県松山市道後湯之町20-8
+🏙 愛媛県松山市
+Instagram: https://www.instagram.com/p/DMpLRkcSuNn/</description>
+        <Point>
+          <coordinates>132.7861396,33.8528339,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>香川県 (1件)</name>
+      <Placemark>
+        <name>癒しの遊園地世界劇場</name>
+        <description>📍 香川県高松市古馬場町13-7
+🏙 香川県高松市
+Instagram: https://www.instagram.com/p/C0Px8pkSXBj/</description>
+        <Point>
+          <coordinates>134.0514045,34.3419522,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Folder>
+  <Folder>
+    <name>九州・沖縄 (11件)</name>
+    <Folder>
+      <name>大分県 (5件)</name>
+      <Placemark>
+        <name>GRAND VERDE RESORT</name>
+        <description>📍 大分県別府市天間松塚2-2
+🏙 大分県別府市
+Instagram: https://www.instagram.com/p/C2UcytrrC7s/</description>
+        <Point>
+          <coordinates>131.4062045,33.3316238,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>アクアビート</name>
+        <description>📍 大分県別府市
+🏙 大分県別府市
+Instagram: https://www.instagram.com/p/C-AOW05y80_/</description>
+        <Point>
+          <coordinates>131.4907093,33.2844614,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>城島高原パーク</name>
+        <description>📍 大分県別府市
+🏙 大分県別府市
+Instagram: https://www.instagram.com/p/C9hbozdSgkB/</description>
+        <Point>
+          <coordinates>131.4907093,33.2844614,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>旧豊後森機関庫</name>
+        <description>📍 大分県玖珠郡玖珠町岩室242−7
+🏙 大分県玖珠郡玖珠町
+Instagram: https://www.instagram.com/p/C6Lae2hryfW/</description>
+        <Point>
+          <coordinates>131.2055143,33.310124,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>湯布院温泉郷 グランピング COMOREBI</name>
+        <description>📍 大分県由布市挾間町時松１０５
+🏙 大分県由布市
+Instagram: https://www.instagram.com/p/C3Cvfway18g/</description>
+        <Point>
+          <coordinates>131.4592378,33.2160481,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>福岡県 (4件)</name>
+      <Placemark>
+        <name>coba cafe</name>
+        <description>📍 福岡県太宰府市宰府2丁目7-4
+🏙 福岡県太宰府市
+Instagram: https://www.instagram.com/p/C346G2FPS0q/</description>
+        <Point>
+          <coordinates>130.5322909,33.5189631,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>GUF</name>
+        <description>📍 福岡県福岡市東区香椎駅前1-13-2 ガーデンテラス7F
+🏙 福岡県福岡市東区
+Instagram: https://www.instagram.com/p/C3KeooBrGFV/</description>
+        <Point>
+          <coordinates>130.4429539,33.6596464,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>NOBOLT</name>
+        <description>📍 福岡県福岡市西区小戸２丁目１０−７６
+🏙 福岡県福岡市西区
+Instagram: https://www.instagram.com/p/C7BYbAeyt1e/</description>
+        <Point>
+          <coordinates>130.3214,33.5961533,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>鮨屋台</name>
+        <description>📍 福岡県遠賀郡岡垣町大字原670-6
+🏙 福岡県遠賀郡岡垣町
+Instagram: https://www.instagram.com/p/C6JIPXFy-rL/</description>
+        <Point>
+          <coordinates>130.5705619,33.8794454,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>長崎県 (1件)</name>
+      <Placemark>
+        <name>カフェ オリンピック</name>
+        <description>📍 長崎県長崎市浜町８−１３
+🏙 長崎県長崎市
+Instagram: https://www.instagram.com/p/C_2pwO-yKal/</description>
+        <Point>
+          <coordinates>129.8790352,32.7442328,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>鹿児島県 (1件)</name>
+      <Placemark>
+        <name>天文館カフェ</name>
+        <description>📍 鹿児島県鹿児島市東千石町１８−１ 3階奥
+🏙 鹿児島県鹿児島市
+Instagram: https://www.instagram.com/p/C-kTq6nyotx/</description>
+        <Point>
+          <coordinates>130.5541563,31.5923228,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Folder>
+</Document>
+</kml>

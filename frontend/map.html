@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram 保存済み店舗マップ</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* ── ヘッダー ── */
+    #top-header {
+      background: #1a1a2e; color: #fff;
+      padding: 0 16px; height: 48px;
+      display: flex; align-items: center; gap: 12px;
+      flex-shrink: 0; z-index: 20;
+    }
+    #top-header h1 { font-size: 14px; font-weight: 700; white-space: nowrap; }
+    .header-spacer { flex: 1; }
+    .nav-link { font-size: 13px; color: #ccc; text-decoration: none; white-space: nowrap; padding: 4px 8px; border-radius: 4px; }
+    .nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .nav-link-current { font-size: 13px; color: #666; text-decoration: none; white-space: nowrap; padding: 4px 8px; border-radius: 4px; pointer-events: none; }
+
+    /* 認証UI */
+    #auth-area { display: flex; align-items: center; gap: 8px; }
+    #user-info  { display: flex; align-items: center; gap: 8px; }
+    #user-avatar { width: 26px; height: 26px; border-radius: 50%; }
+    #user-name { font-size: 13px; color: #ddd; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #logout-btn { font-size: 12px; color: #aaa; background: none; border: 1px solid #444; border-radius: 4px; cursor: pointer; padding: 3px 8px; }
+    #logout-btn:hover { border-color: #aaa; color: #fff; }
+
+    /* ── メインレイアウト ── */
+    .main { display: flex; flex: 1; overflow: hidden; }
+
+    /* サイドバー */
+    #sidebar { width: 260px; min-width: 260px; background: #fff; border-right: 1px solid #ddd; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* エリアタブ */
+    #area-tabs { display: flex; border-bottom: 2px solid #e0e0e0; flex-shrink: 0; }
+    .area-tab {
+      flex: 1; padding: 9px 0; font-size: 13px; font-weight: 600;
+      text-align: center; cursor: pointer; color: #888;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      user-select: none; transition: color 0.15s;
+    }
+    .area-tab:hover { color: #333; }
+    .area-tab.active { color: #1a73e8; border-bottom-color: #1a73e8; }
+
+    /* 日本パネル */
+    #japan-panel { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+    #sidebar-inner { padding: 10px; border-bottom: 1px solid #eee; flex-shrink: 0; }
+    #sidebar-inner h2 { font-size: 12px; color: #888; margin-bottom: 8px; }
+    #filter-input { width: 100%; padding: 7px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
+    #pref-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+
+    /* 海外パネル */
+    #overseas-panel { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+    #overseas-inner { padding: 10px; border-bottom: 1px solid #eee; flex-shrink: 0; }
+    #overseas-inner h2 { font-size: 12px; color: #888; margin-bottom: 8px; }
+    #overseas-search-row { display: flex; gap: 6px; }
+    #country-input { flex: 1; padding: 7px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
+    #country-search-btn {
+      padding: 7px 12px; border-radius: 6px; border: none;
+      background: #1a73e8; color: #fff; font-size: 12px; font-weight: 600;
+      cursor: pointer; white-space: nowrap;
+    }
+    #country-search-btn:hover { background: #1557b0; }
+    #country-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+
+    /* 共通リストアイテム */
+    .pref-item {
+      padding: 7px 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+      font-size: 13px; user-select: none;
+    }
+    .pref-item:hover { background: #f5f5f5; }
+    .pref-item.active { background: #e3f2fd; font-weight: 600; }
+    .pref-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+    .pref-count { margin-left: auto; font-size: 11px; color: #999; }
+
+    /* 地図 */
+    #map { flex: 1; }
+
+    /* オーバーレイ */
+    #overlay {
+      position: fixed; inset: 0; background: rgba(255,255,255,0.95);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; z-index: 100;
+    }
+    #overlay h2 { font-size: 18px; color: #333; }
+    #overlay p  { font-size: 14px; color: #666; }
+    #overlay.hidden { display: none; }
+    .spinner { width: 36px; height: 36px; border: 4px solid #e0e0e0; border-top-color: #1a73e8; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* フィルターツールバー */
+    #filter-toolbar {
+      background: #fff; border-bottom: 1px solid #e0e0e0;
+      padding: 8px 16px; flex-shrink: 0; display: flex; flex-direction: column; gap: 7px;
+    }
+    .filter-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    #filter-toolbar input[type="text"] {
+      flex: 1; padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px;
+    }
+    #filter-toolbar select {
+      padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: #fff;
+    }
+    #map-clear-btn {
+      padding: 6px 12px; border: 1px solid #e57373; border-radius: 6px;
+      font-size: 13px; background: #fff; color: #e57373; cursor: pointer; white-space: nowrap;
+    }
+    #map-clear-btn:hover { background: #ffebee; }
+    #map-total-label { font-size: 13px; color: #888; margin-left: auto; }
+
+    /* ズームコントロール */
+    #zoom-ctrl {
+      position: absolute; bottom: 28px; right: 10px;
+      background: rgba(255,255,255,0.97); border-radius: 10px;
+      padding: 10px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      min-width: 120px;
+    }
+    #zoom-ctrl label { font-size: 11px; color: #888; font-weight: 600; letter-spacing: 0.3px; }
+    #zoom-slider { width: 100px; cursor: pointer; accent-color: #1a73e8; }
+    .zoom-text-row { display: flex; align-items: center; gap: 4px; }
+    #zoom-text { width: 44px; text-align: center; border: 1px solid #ddd; border-radius: 5px; padding: 3px 4px; font-size: 13px; font-weight: 600; -moz-appearance: textfield; }
+    #zoom-text::-webkit-outer-spin-button, #zoom-text::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .zoom-btn { width: 26px; height: 26px; border: 1px solid #ddd; border-radius: 5px; background: #f5f5f5; font-size: 16px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+    .zoom-btn:hover { background: #e8e8e8; border-color: #1a73e8; color: #1a73e8; }
+
+    /* ── ハンバーガーメニュー ── */
+    #top-header { position: relative; }
+    #hamburger-btn {
+      display: none; background: none; border: none;
+      color: #fff; font-size: 22px; cursor: pointer;
+      padding: 4px 6px; line-height: 1; flex-shrink: 0;
+    }
+
+    /* サイドバートグルボタン（モバイルのみ表示） */
+    #sidebar-toggle-btn {
+      display: none;
+      position: absolute; top: 8px; left: 8px; z-index: 9;
+      background: rgba(255,255,255,0.96); border: 1px solid #ccc;
+      border-radius: 6px; padding: 6px 11px; font-size: 13px; font-weight: 600;
+      cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+
+    /* サイドバーオーバーレイ（タップで閉じる） */
+    #sidebar-overlay {
+      display: none; position: absolute; inset: 0;
+      background: rgba(0,0,0,0.35); z-index: 9;
+    }
+    #sidebar-overlay.open { display: block; }
+
+    @media (max-width: 640px) {
+      #top-header { padding: 0 12px; }
+      #header-nav {
+        display: none; position: absolute; top: 48px; left: 0; right: 0;
+        background: #1a1a2e; flex-direction: column;
+        z-index: 30; border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+      #header-nav.open { display: flex; }
+      #header-nav .nav-link, #header-nav .nav-link-current {
+        padding: 12px 16px; border-radius: 0; font-size: 14px; color: #ddd;
+        border-bottom: 1px solid rgba(255,255,255,0.06); display: block;
+      }
+      #hamburger-btn { display: block; }
+      #user-name { display: none; }
+      #logout-btn { font-size: 11px; padding: 3px 6px; }
+
+      /* フィルターツールバー */
+      #filter-toolbar { padding: 6px 10px; }
+      #filter-toolbar input[type="text"],
+      #filter-toolbar select { font-size: 16px; }
+      #filter-toolbar .filter-row:nth-child(2) {
+        flex-wrap: nowrap; overflow-x: auto; padding-bottom: 3px;
+        -webkit-overflow-scrolling: touch;
+      }
+      #filter-toolbar .filter-row:nth-child(2) select { flex-shrink: 0; }
+
+      /* サイドバー: オーバーレイ */
+      .main { position: relative; }
+      #sidebar {
+        position: absolute; top: 0; bottom: 0; left: -265px;
+        z-index: 10; transition: left 0.25s ease;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+      }
+      #sidebar.open { left: 0; }
+      #sidebar-toggle-btn { display: block; }
+
+      /* ズームコントロール */
+      #zoom-ctrl { right: 6px; bottom: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="top-header">
+  <h1><a href="/" style="color:inherit;text-decoration:none;">📍 Instagram お店マップ</a></h1>
+  <div class="header-spacer"></div>
+  <nav id="header-nav">
+    <span class="nav-link-current">MAP</span>
+    <a class="nav-link" href="/list">店舗一覧</a>
+    <a class="nav-link" href="/groups">グループ管理</a>
+    <a class="nav-link" href="/settings">設定</a>
+  </nav>
+  <div id="auth-area">
+    <div id="user-info" style="display:none">
+      <img id="user-avatar" src="" alt="" />
+      <span id="user-name"></span>
+      <button id="logout-btn" onclick="logout()">ログアウト</button>
+    </div>
+    <div id="header-signin"></div>
+  </div>
+  <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
+</div>
+
+<div id="filter-toolbar">
+  <div class="filter-row">
+    <input id="map-search" type="text" placeholder="店名・住所・メニューで検索..." oninput="applyMarkerFilter()" />
+    <select id="map-pref-filter" onchange="applyMarkerFilter()">
+      <option value="">都道府県（すべて）</option>
+    </select>
+  </div>
+  <div class="filter-row">
+    <select id="map-genre-filter" onchange="applyMarkerFilter()">
+      <option value="">ジャンル（すべて）</option>
+    </select>
+    <select id="map-rating-filter" onchange="applyMarkerFilter()">
+      <option value="">Google評価（すべて）</option>
+      <option value="3.0">3.0 以上</option>
+      <option value="3.5">3.5 以上</option>
+      <option value="4.0">4.0 以上</option>
+      <option value="4.5">4.5 以上</option>
+    </select>
+    <select id="map-open-filter" onchange="applyMarkerFilter()">
+      <option value="">営業状況（すべて）</option>
+      <option value="open">営業中のみ</option>
+    </select>
+    <select id="map-payment-filter" onchange="applyMarkerFilter()">
+      <option value="">支払方法（すべて）</option>
+      <option value="クレジットカード">クレジットカード可</option>
+      <option value="電子マネー">電子マネー可</option>
+      <option value="現金のみ">現金のみ</option>
+    </select>
+    <select id="map-parking-filter" onchange="applyMarkerFilter()">
+      <option value="">駐車場（すべて）</option>
+      <option value="1">駐車場あり</option>
+      <option value="0">駐車場なし</option>
+    </select>
+  </div>
+  <div class="filter-row">
+    <button id="map-clear-btn" onclick="clearMapFilters()">✕ クリア</button>
+    <span id="map-total-label"></span>
+  </div>
+</div>
+
+<div class="main">
+  <button id="sidebar-toggle-btn" onclick="toggleSidebar()">≡ エリア</button>
+  <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div id="sidebar">
+    <!-- エリアタブ -->
+    <div id="area-tabs">
+      <div class="area-tab active" id="tab-japan"    onclick="switchTab('japan')">🇯🇵 日本</div>
+      <div class="area-tab"        id="tab-overseas" onclick="switchTab('overseas')">🌍 海外</div>
+    </div>
+
+    <!-- 日本パネル -->
+    <div id="japan-panel">
+      <div id="sidebar-inner">
+        <h2>都道府県フィルター</h2>
+        <input id="filter-input" type="text" placeholder="絞り込む..." oninput="filterSidebar(this.value)" />
+      </div>
+      <div id="pref-list"></div>
+    </div>
+
+    <!-- 海外パネル -->
+    <div id="overseas-panel">
+      <div id="overseas-inner">
+        <h2>国名で地図を移動</h2>
+        <div id="overseas-search-row">
+          <input id="country-input" type="text" placeholder="例: フランス, Thailand..." onkeydown="if(event.key==='Enter')zoomToCountry()" />
+          <button id="country-search-btn" onclick="zoomToCountry()">検索</button>
+        </div>
+      </div>
+      <div id="country-list"></div>
+    </div>
+  </div>
+
+  <div id="map"></div>
+  <div id="zoom-ctrl" style="display:none">
+    <label>縮尺</label>
+    <input id="zoom-slider" type="range" min="3" max="18" step="1" oninput="onZoomSlider(this.value)" />
+    <div class="zoom-text-row">
+      <button class="zoom-btn" onclick="onZoomMinus()">−</button>
+      <input id="zoom-text" type="number" min="3" max="18" step="1" onchange="onZoomText(this.value)" />
+      <button class="zoom-btn" onclick="onZoomPlus()">＋</button>
+    </div>
+  </div>
+</div>
+
+<div id="overlay">
+  <div class="spinner"></div>
+  <h2>読み込み中...</h2>
+</div>
+
+<script src="/frontend/app.js"></script>
+<script>
+  let map, allMarkers = [], allLocations = [], infoWindow;
+  let activePref    = null;
+  let activeCountry = null;
+  let currentTab    = "japan";
+  let geocoder      = null;
+
+  // 47都道府県セット（日本判定用）
+  const JAPAN_PREFS_SET = new Set([
+    "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+    "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+    "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県",
+    "静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県",
+    "奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県",
+    "徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県",
+    "熊本県","大分県","宮崎県","鹿児島県","沖縄県",
+  ]);
+
+  const PREF_CENTERS = {
+    "北海道":   { lat: 43.06, lng: 141.35, zoom: 7 },
+    "青森県":   { lat: 40.82, lng: 140.74, zoom: 9 },
+    "岩手県":   { lat: 39.70, lng: 141.15, zoom: 9 },
+    "宮城県":   { lat: 38.27, lng: 140.87, zoom: 9 },
+    "秋田県":   { lat: 39.72, lng: 140.10, zoom: 9 },
+    "山形県":   { lat: 38.24, lng: 140.36, zoom: 9 },
+    "福島県":   { lat: 37.75, lng: 140.47, zoom: 9 },
+    "茨城県":   { lat: 36.34, lng: 140.45, zoom: 9 },
+    "栃木県":   { lat: 36.57, lng: 139.88, zoom: 9 },
+    "群馬県":   { lat: 36.39, lng: 139.06, zoom: 9 },
+    "埼玉県":   { lat: 35.86, lng: 139.65, zoom: 10 },
+    "千葉県":   { lat: 35.61, lng: 140.12, zoom: 10 },
+    "東京都":   { lat: 35.69, lng: 139.69, zoom: 11 },
+    "神奈川県": { lat: 35.45, lng: 139.64, zoom: 10 },
+    "新潟県":   { lat: 37.90, lng: 139.02, zoom: 9 },
+    "富山県":   { lat: 36.70, lng: 137.21, zoom: 10 },
+    "石川県":   { lat: 36.59, lng: 136.63, zoom: 10 },
+    "福井県":   { lat: 35.95, lng: 136.19, zoom: 10 },
+    "山梨県":   { lat: 35.66, lng: 138.57, zoom: 10 },
+    "長野県":   { lat: 36.65, lng: 138.18, zoom: 9 },
+    "岐阜県":   { lat: 35.39, lng: 136.72, zoom: 9 },
+    "静岡県":   { lat: 34.98, lng: 138.38, zoom: 9 },
+    "愛知県":   { lat: 35.18, lng: 137.10, zoom: 10 },
+    "三重県":   { lat: 34.73, lng: 136.51, zoom: 9 },
+    "滋賀県":   { lat: 35.00, lng: 135.87, zoom: 10 },
+    "京都府":   { lat: 35.02, lng: 135.75, zoom: 10 },
+    "大阪府":   { lat: 34.69, lng: 135.50, zoom: 11 },
+    "兵庫県":   { lat: 34.69, lng: 135.18, zoom: 10 },
+    "奈良県":   { lat: 34.68, lng: 135.83, zoom: 10 },
+    "和歌山県": { lat: 34.23, lng: 135.17, zoom: 10 },
+    "鳥取県":   { lat: 35.50, lng: 133.77, zoom: 10 },
+    "島根県":   { lat: 35.47, lng: 133.05, zoom: 9 },
+    "岡山県":   { lat: 34.66, lng: 133.93, zoom: 9 },
+    "広島県":   { lat: 34.40, lng: 132.46, zoom: 9 },
+    "山口県":   { lat: 34.19, lng: 131.47, zoom: 9 },
+    "徳島県":   { lat: 33.93, lng: 134.59, zoom: 10 },
+    "香川県":   { lat: 34.34, lng: 134.04, zoom: 10 },
+    "愛媛県":   { lat: 33.84, lng: 132.77, zoom: 9 },
+    "高知県":   { lat: 33.56, lng: 133.53, zoom: 9 },
+    "福岡県":   { lat: 33.60, lng: 130.42, zoom: 10 },
+    "佐賀県":   { lat: 33.25, lng: 130.30, zoom: 10 },
+    "長崎県":   { lat: 32.74, lng: 129.87, zoom: 9 },
+    "熊本県":   { lat: 32.79, lng: 130.74, zoom: 9 },
+    "大分県":   { lat: 33.24, lng: 131.61, zoom: 9 },
+    "宮崎県":   { lat: 31.91, lng: 131.42, zoom: 9 },
+    "鹿児島県": { lat: 31.56, lng: 130.56, zoom: 9 },
+    "沖縄県":   { lat: 26.21, lng: 127.68, zoom: 9 },
+  };
+
+  function isJapanLoc(loc) {
+    return JAPAN_PREFS_SET.has(loc.prefecture);
+  }
+
+  /* ── ズーム ── */
+  function zoomToPrefecture(pref) {
+    if (!map || !pref) return;
+    const c = PREF_CENTERS[pref];
+    if (c) { map.setCenter({ lat: c.lat, lng: c.lng }); map.setZoom(c.zoom); return; }
+    const pts = allLocations.filter(l => l.prefecture === pref && l.lat && l.lng);
+    if (!pts.length) return;
+    const lat = pts.reduce((s, l) => s + l.lat, 0) / pts.length;
+    const lng = pts.reduce((s, l) => s + l.lng, 0) / pts.length;
+    map.setCenter({ lat, lng }); map.setZoom(10);
+  }
+
+  function onZoomSlider(v) {
+    const z = parseInt(v);
+    document.getElementById("zoom-text").value = z;
+    if (map) map.setZoom(z);
+  }
+  function onZoomText(v) {
+    const z = Math.max(3, Math.min(18, parseInt(v) || 5));
+    document.getElementById("zoom-text").value = z;
+    document.getElementById("zoom-slider").value = z;
+    if (map) map.setZoom(z);
+  }
+  function onZoomMinus() {
+    const z = Math.max(3, (parseInt(document.getElementById("zoom-text").value) || 5) - 1);
+    onZoomText(z);
+  }
+  function onZoomPlus() {
+    const z = Math.min(18, (parseInt(document.getElementById("zoom-text").value) || 5) + 1);
+    onZoomText(z);
+  }
+  function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("open");
+    document.getElementById("sidebar-overlay").classList.toggle("open");
+  }
+  function syncZoomControls(z) {
+    document.getElementById("zoom-slider").value = z;
+    document.getElementById("zoom-text").value = z;
+  }
+
+  /* ── タブ切替 ── */
+  function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById("tab-japan").classList.toggle("active", tab === "japan");
+    document.getElementById("tab-overseas").classList.toggle("active", tab === "overseas");
+    document.getElementById("japan-panel").style.display    = tab === "japan"    ? "flex" : "none";
+    document.getElementById("overseas-panel").style.display = tab === "overseas" ? "flex" : "none";
+
+    if (tab === "japan") {
+      activePref = null;
+      const japanLocs = allLocations.filter(isJapanLoc);
+      renderSidebar(japanLocs);
+      applyMarkerFilter();
+      map.setCenter({ lat: 36.2, lng: 138.2 });
+      map.setZoom(5);
+    } else {
+      activeCountry = null;
+      const overseasLocs = allLocations.filter(l => !isJapanLoc(l));
+      renderOverseasSidebar(overseasLocs);
+      applyMarkerFilter();
+      map.setCenter({ lat: 20, lng: 10 });
+      map.setZoom(2);
+    }
+  }
+
+  /* ── 営業中判定 ── */
+  function isOpenNow(loc) {
+    if (!Array.isArray(loc.business_hours) || !loc.business_hours.length) return null;
+    const todayIdx = (new Date().getDay() + 6) % 7;
+    const h = loc.business_hours[todayIdx] || "";
+    const timeStr = h.replace(/^[^:]+:\s*/, "").trim();
+    if (!timeStr) return null;
+    if (/定休日|休業/.test(timeStr)) return false;
+    if (/24\s*時間営業/.test(timeStr)) return true;
+    const nowMin = new Date().getHours() * 60 + new Date().getMinutes();
+    const ranges = timeStr.split(/[、,]/);
+    for (const range of ranges) {
+      const m = range.trim().match(/(\d{1,2}):(\d{2})\s*[〜~\-]\s*(\d{1,2}):(\d{2})/);
+      if (!m) continue;
+      const openMin  = parseInt(m[1]) * 60 + parseInt(m[2]);
+      let   closeMin = parseInt(m[3]) * 60 + parseInt(m[4]);
+      if (closeMin <= openMin) closeMin += 24 * 60;
+      if (nowMin >= openMin && nowMin < closeMin) return true;
+    }
+    return false;
+  }
+
+  /* ── ツールバーフィルター判定 ── */
+  function matchesToolbarFilters(loc) {
+    const q        = document.getElementById("map-search").value.trim().toLowerCase();
+    const pref     = document.getElementById("map-pref-filter").value;
+    const genre    = document.getElementById("map-genre-filter").value;
+    const gMin     = parseFloat(document.getElementById("map-rating-filter").value) || 0;
+    const openOnly = document.getElementById("map-open-filter").value === "open";
+    const payment  = document.getElementById("map-payment-filter").value;
+    const parking  = document.getElementById("map-parking-filter").value;
+
+    if (pref  && loc.prefecture !== pref) return false;
+    if (genre && resolveGenre(loc, getGenreSettings()).name !== genre) return false;
+    if (gMin  && (loc.google_rating == null || loc.google_rating < gMin)) return false;
+    if (openOnly && isOpenNow(loc) !== true) return false;
+    if (payment) {
+      const methods = Array.isArray(loc.payment_methods) ? loc.payment_methods : [];
+      if (!methods.includes(payment)) return false;
+    }
+    if (parking !== "") {
+      if (loc.has_parking == null) return false;
+      if (String(loc.has_parking) !== parking) return false;
+    }
+    if (q) {
+      const menus = (loc.recommended_menus || []).join(" ").toLowerCase();
+      if (!(loc.shop_name || "").toLowerCase().includes(q) &&
+          !(loc.address   || "").toLowerCase().includes(q) &&
+          !menus.includes(q)) return false;
+    }
+    return true;
+  }
+
+  /* ── フィルタークリア ── */
+  function clearMapFilters() {
+    document.getElementById("map-search").value          = "";
+    document.getElementById("map-pref-filter").value     = "";
+    document.getElementById("map-genre-filter").value    = "";
+    document.getElementById("map-rating-filter").value   = "";
+    document.getElementById("map-open-filter").value     = "";
+    document.getElementById("map-payment-filter").value  = "";
+    document.getElementById("map-parking-filter").value  = "";
+    applyMarkerFilter();
+  }
+
+  /* ── ドロップダウン初期化 ── */
+  const MAP_PREF_ORDER = [
+    "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+    "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+    "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県",
+    "三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県",
+    "鳥取県","島根県","岡山県","広島県","山口県",
+    "徳島県","香川県","愛媛県","高知県",
+    "福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県",
+  ];
+
+  function populateMapFilters() {
+    // 都道府県
+    const prefs = [...new Set(allLocations.map(l => l.prefecture).filter(Boolean))]
+      .sort((a, b) => {
+        const ai = MAP_PREF_ORDER.indexOf(a), bi = MAP_PREF_ORDER.indexOf(b);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      });
+    const prefSel = document.getElementById("map-pref-filter");
+    prefs.forEach(p => { const o = document.createElement("option"); o.value = o.textContent = p; prefSel.appendChild(o); });
+
+    // ジャンル
+    const genres = getGenreSettings();
+    const labels = [...new Set(allLocations.map(l => resolveGenre(l, genres).name).filter(Boolean))].sort();
+    const genreSel = document.getElementById("map-genre-filter");
+    labels.forEach(g => { const o = document.createElement("option"); o.value = o.textContent = g; genreSel.appendChild(o); });
+  }
+
+  /* ── マーカー表示制御 ── */
+  function applyMarkerFilter() {
+    let count = 0;
+    for (const m of allMarkers) {
+      const loc = allLocations.find(l => m.title === (l.shop_name || l.address));
+      if (!loc) { m.map = null; continue; }
+      let visible = false;
+      if (currentTab === "japan") {
+        visible = isJapanLoc(loc) && (!activePref || loc.prefecture === activePref);
+      } else {
+        visible = !isJapanLoc(loc) && (!activeCountry || loc.prefecture === activeCountry);
+      }
+      if (visible) visible = matchesToolbarFilters(loc);
+      m.map = visible ? map : null;
+      if (visible) count++;
+    }
+    document.getElementById("map-total-label").textContent = `${count}件`;
+  }
+
+  /* ── initMap ── */
+  async function initMap() {
+    const { Map, InfoWindow } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    geocoder = new google.maps.Geocoder();
+
+    map = new Map(document.getElementById("map"), {
+      center: { lat: 36.2, lng: 138.2 },
+      zoom: 5,
+      mapId: "DEMO_MAP_ID",
+    });
+    infoWindow = new InfoWindow();
+
+    const user = await checkAuth();
+    if (!user) { showLoginOverlay(); return; }
+    showUserInfo(user);
+
+    document.getElementById("overlay").innerHTML = '<div class="spinner"></div><h2>データ読み込み中...</h2>';
+    try {
+      allLocations = await loadLocations();
+    } catch (e) {
+      document.getElementById("overlay").innerHTML = `<h2>エラー</h2><p>${e.message}</p>`;
+      return;
+    }
+
+    document.getElementById("overlay").classList.add("hidden");
+    document.getElementById("zoom-ctrl").style.display = "flex";
+    syncZoomControls(map.getZoom());
+    map.addListener("zoom_changed", () => syncZoomControls(map.getZoom()));
+
+    await fetchGenres();
+    populateMapFilters();
+    renderMarkers(allLocations, AdvancedMarkerElement);
+
+    // 初期表示: 日本タブ
+    const japanLocs = allLocations.filter(isJapanLoc);
+    renderSidebar(japanLocs);
+    applyMarkerFilter();
+
+    // URLパラメータでフォーカス
+    const focus = new URLSearchParams(location.search).get("focus");
+    if (focus) {
+      const loc = allLocations.find(l => l.instagram_url === focus);
+      if (loc && loc.lat && loc.lng) {
+        // 海外なら海外タブへ切替
+        if (!isJapanLoc(loc)) switchTab("overseas");
+        map.setCenter({ lat: loc.lat, lng: loc.lng });
+        map.setZoom(16);
+      }
+    }
+  }
+
+  /* ── ログイン UI ── */
+  function showLoginOverlay() {
+    const ov = document.getElementById("overlay");
+    ov.innerHTML = `
+      <h2>ログインが必要です</h2>
+      <p>Google アカウントでログインしてください</p>
+      <div id="overlay-signin"></div>`;
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+    google.accounts.id.renderButton(document.getElementById("overlay-signin"), { theme: "outline", size: "large", locale: "ja" });
+  }
+  function showUserInfo(user) {
+    document.getElementById("user-info").style.display = "flex";
+    document.getElementById("user-name").textContent = user.name;
+    if (user.picture) document.getElementById("user-avatar").src = user.picture;
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+  }
+
+  /* ── マーカー描画 ── */
+  function renderMarkers(locations, AdvancedMarkerElement) {
+    allMarkers.forEach(m => (m.map = null));
+    allMarkers = [];
+    const genres = getGenreSettings();
+    for (const loc of locations) {
+      if (!loc.lat || !loc.lng) continue;
+      const genre = resolveGenre(loc, genres);
+      const marker = new AdvancedMarkerElement({
+        map, position: { lat: loc.lat, lng: loc.lng },
+        content: createPinElement(genre, { wantAgain: !!loc.want_again }),
+        title: loc.shop_name || loc.address,
+      });
+      marker.addEventListener("click", () => {
+        const visitedLine = loc.visited
+          ? `<div style="font-size:11px;color:#2e7d32;font-weight:600;margin-bottom:5px;">✓ 訪問済み ${"★".repeat(loc.rating||0)}${"☆".repeat(5-(loc.rating||0))}${loc.want_again?" ❤️":""}</div>`
+          : "";
+        const todayIdx  = (new Date().getDay() + 6) % 7;
+        const bh        = Array.isArray(loc.business_hours) && loc.business_hours.length ? loc.business_hours[todayIdx] || "" : "";
+        const todayHours= bh.replace(/^[^:]+:\s*/, "");
+        const gRating   = loc.google_rating != null
+          ? `<div style="font-size:11px;margin-bottom:3px;">⭐ Google ${loc.google_rating.toFixed(1)}${loc.google_ratings_total ? ` (${loc.google_ratings_total.toLocaleString()}件)` : ""}</div>` : "";
+        const gHours    = todayHours ? `<div style="font-size:11px;color:#2e7d32;margin-bottom:3px;">🕐 ${todayHours}</div>` : "";
+        const gPayment  = Array.isArray(loc.payment_methods) && loc.payment_methods.length
+          ? `<div style="font-size:11px;color:#555;margin-bottom:3px;">💳 ${loc.payment_methods.join(" / ")}</div>` : "";
+        const gParking  = loc.has_parking === 1
+          ? `<div style="font-size:11px;color:#555;margin-bottom:5px;">🅿️ 駐車場あり</div>`
+          : loc.has_parking === 0
+          ? `<div style="font-size:11px;color:#555;margin-bottom:5px;">🅿️ 駐車場なし</div>` : "";
+        infoWindow.setContent(`
+          <div style="max-width:270px;font-family:sans-serif;">
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">${loc.shop_name || "（店名不明）"}</div>
+            <div style="font-size:12px;color:#555;margin-bottom:4px;">${loc.address || ""}</div>
+            ${gRating}${gHours}${gPayment}${gParking}${visitedLine}
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <a href="${loc.instagram_url}" target="_blank"
+                style="font-size:12px;color:#E1306C;text-decoration:none;display:inline-flex;align-items:center;gap:4px;border:1px solid #E1306C;border-radius:4px;padding:2px 8px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                  style="vertical-align:-2px">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="4.5"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+                Instagram投稿
+              </a>
+              <a href="/list?open=${loc.id}"
+                style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid #90caf9;background:#e3f2fd;color:#1565c0;font-weight:600;text-decoration:none;">
+                詳細
+              </a>
+            </div>
+          </div>`);
+        map.panTo({ lat: loc.lat, lng: loc.lng });
+        infoWindow.open(map, marker);
+      });
+      allMarkers.push(marker);
+    }
+  }
+
+  /* ── 日本サイドバー ── */
+  function renderSidebar(japanLocs) {
+    const grouped = groupLocations(japanLocs);
+    const list = document.getElementById("pref-list");
+    list.innerHTML = "";
+
+    const allItem = document.createElement("div");
+    allItem.className = "pref-item" + (activePref === null ? " active" : "");
+    allItem.innerHTML = `<span class="pref-dot" style="background:#757575"></span>すべて<span class="pref-count">${japanLocs.length}件</span>`;
+    allItem.onclick = () => {
+      activePref = null;
+      applyMarkerFilter();
+      renderSidebar(japanLocs);
+      map.setCenter({ lat: 36.2, lng: 138.2 });
+      map.setZoom(5);
+    };
+    list.appendChild(allItem);
+
+    Object.entries(grouped)
+      .sort((a, b) => {
+        const ai = MAP_PREF_ORDER.indexOf(a[0]), bi = MAP_PREF_ORDER.indexOf(b[0]);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      })
+      .forEach(([pref, cities]) => {
+        const count = Object.values(cities).flat().length;
+        const item = document.createElement("div");
+        item.className = "pref-item" + (activePref === pref ? " active" : "");
+        item.dataset.pref = pref;
+        item.innerHTML = `<span class="pref-dot" style="background:${getPrefectureColor(pref)}"></span>${pref}<span class="pref-count">${count}件</span>`;
+        item.onclick = () => { activePref = pref; applyMarkerFilter(); renderSidebar(japanLocs); zoomToPrefecture(pref); };
+        list.appendChild(item);
+      });
+  }
+
+  /* ── 海外サイドバー ── */
+  function renderOverseasSidebar(overseasLocs) {
+    const list = document.getElementById("country-list");
+    list.innerHTML = "";
+
+    const grouped = {};
+    for (const loc of overseasLocs) {
+      const key = loc.prefecture || loc.city || "不明";
+      grouped[key] = (grouped[key] || 0) + 1;
+    }
+
+    const allItem = document.createElement("div");
+    allItem.className = "pref-item" + (activeCountry === null ? " active" : "");
+    allItem.innerHTML = `<span class="pref-dot" style="background:#757575"></span>すべて<span class="pref-count">${overseasLocs.length}件</span>`;
+    allItem.onclick = () => {
+      activeCountry = null;
+      applyMarkerFilter();
+      renderOverseasSidebar(overseasLocs);
+      map.setCenter({ lat: 20, lng: 10 });
+      map.setZoom(2);
+    };
+    list.appendChild(allItem);
+
+    Object.entries(grouped)
+      .sort((a, b) => b[1] - a[1])
+      .forEach(([country, count]) => {
+        const item = document.createElement("div");
+        item.className = "pref-item" + (activeCountry === country ? " active" : "");
+        item.dataset.country = country;
+        item.innerHTML = `<span class="pref-dot" style="background:#0277bd"></span>${country}<span class="pref-count">${count}件</span>`;
+        item.onclick = () => {
+          activeCountry = country;
+          applyMarkerFilter();
+          renderOverseasSidebar(overseasLocs);
+          zoomToRegion(country);
+        };
+        list.appendChild(item);
+      });
+  }
+
+  /* ── 国・地域ズーム ── */
+  function zoomToRegion(name) {
+    // まずマーカーの重心で試みる
+    const pts = allLocations.filter(l => l.prefecture === name && l.lat && l.lng);
+    if (pts.length) {
+      const lat = pts.reduce((s, l) => s + l.lat, 0) / pts.length;
+      const lng = pts.reduce((s, l) => s + l.lng, 0) / pts.length;
+      map.setCenter({ lat, lng }); map.setZoom(6);
+      return;
+    }
+    // フォールバック: Geocoding API
+    if (geocoder) {
+      geocoder.geocode({ address: name }, (results, status) => {
+        if (status === "OK" && results[0]) map.fitBounds(results[0].geometry.viewport);
+      });
+    }
+  }
+
+  function zoomToCountry() {
+    const name = (document.getElementById("country-input").value || "").trim();
+    if (!name) return;
+    if (!geocoder) return;
+    geocoder.geocode({ address: name }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        map.fitBounds(results[0].geometry.viewport);
+      } else {
+        alert("地名が見つかりませんでした: " + name);
+      }
+    });
+  }
+
+  /* ── 都道府県テキスト絞り込み ── */
+  function filterSidebar(query) {
+    const q = query.trim();
+    document.querySelectorAll(".pref-item[data-pref]").forEach(el => {
+      el.style.display = !q || el.dataset.pref.includes(q) ? "" : "none";
+    });
+  }
+</script>
+
+<script>
+  const MAPS_API_KEY = "YOUR_GOOGLE_MAPS_API_KEY";
+  const s = document.createElement("script");
+  s.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&v=beta&callback=initMap`;
+  s.async = true;
+  document.head.appendChild(s);
+</script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</body>
+</html>

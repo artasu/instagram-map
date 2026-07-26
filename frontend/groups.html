@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>グループ管理</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: #f5f5f5; color: #333; min-height: 100vh; }
+
+    /* ── ヘッダー ── */
+    header {
+      background: #1a1a2e; color: #fff;
+      padding: 0 24px; height: 52px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    header h1 { font-size: 16px; font-weight: 700; }
+    .header-spacer { flex: 1; }
+    .nav-link {
+      font-size: 13px; color: #ccc; text-decoration: none;
+      padding: 4px 8px; border-radius: 4px; white-space: nowrap;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .nav-link-current {
+      font-size: 13px; color: #666; text-decoration: none;
+      white-space: nowrap; padding: 4px 8px; border-radius: 4px;
+      pointer-events: none; cursor: default;
+    }
+    #user-info { display: flex; align-items: center; gap: 8px; }
+    #user-avatar { width: 26px; height: 26px; border-radius: 50%; }
+    #user-name { font-size: 13px; color: #ddd; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #logout-btn {
+      font-size: 12px; color: #aaa; background: none; border: 1px solid #444;
+      border-radius: 4px; cursor: pointer; padding: 3px 8px;
+    }
+    #logout-btn:hover { border-color: #aaa; color: #fff; }
+
+    /* ── ハンバーガーメニュー ── */
+    header { position: relative; }
+    #hamburger-btn {
+      display: none; background: none; border: none;
+      color: #fff; font-size: 22px; cursor: pointer;
+      padding: 4px 6px; line-height: 1; flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      header { padding: 0 12px; }
+      #header-nav {
+        display: none; position: absolute; top: 52px; left: 0; right: 0;
+        background: #1a1a2e; flex-direction: column;
+        z-index: 30; border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+      #header-nav.open { display: flex; }
+      #header-nav .nav-link, #header-nav .nav-link-current {
+        padding: 12px 16px; border-radius: 0; font-size: 14px; color: #ddd;
+        border-bottom: 1px solid rgba(255,255,255,0.06); display: block;
+      }
+      #hamburger-btn { display: block; }
+      #user-name { display: none; }
+      #logout-btn { font-size: 11px; padding: 3px 6px; }
+      .page { padding: 16px 12px 40px; }
+      .form-row { flex-direction: column; }
+      .form-row input { width: 100%; }
+    }
+
+    /* ── 本文 ── */
+    .page { max-width: 800px; margin: 0 auto; padding: 24px 16px; }
+    .section-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+
+    /* グループカード */
+    .group-card {
+      background: #fff; border-radius: 10px; padding: 16px 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 12px;
+      cursor: pointer; transition: box-shadow 0.15s;
+    }
+    .group-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.13); }
+    .group-card-header { display: flex; align-items: center; gap: 10px; }
+    .group-name { font-size: 15px; font-weight: 700; flex: 1; }
+    .group-meta { font-size: 12px; color: #888; margin-top: 4px; }
+    .badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: #e3f2fd; color: #1565c0; }
+    .badge-owner { background: #fff3e0; color: #e65100; }
+
+    /* 詳細パネル */
+    #detail-panel {
+      background: #fff; border-radius: 10px; padding: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 24px;
+      display: none;
+    }
+    #detail-panel.visible { display: block; }
+    .detail-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .close-btn { margin-left: auto; background: none; border: none; font-size: 20px; cursor: pointer; color: #999; }
+
+    .sub-section { margin-bottom: 20px; }
+    .sub-section h3 { font-size: 12px; color: #888; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; }
+
+    .member-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px;
+    }
+    .member-item:last-child { border-bottom: none; }
+    .member-avatar { width: 30px; height: 30px; border-radius: 50%; background: #e0e0e0; object-fit: cover; }
+    .member-name { flex: 1; }
+    .member-role { font-size: 11px; color: #888; }
+
+    .shared-list-item {
+      display: flex; align-items: center; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0; font-size: 13px;
+    }
+    .shared-list-item:last-child { border-bottom: none; }
+    .shared-list-name { flex: 1; font-weight: 600; }
+    .shared-list-owner { font-size: 12px; color: #888; }
+
+    .invite-box { background: #f8f8f8; border-radius: 8px; padding: 14px; margin-top: 8px; }
+    .invite-url {
+      font-size: 12px; color: #1a73e8; word-break: break-all;
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 6px;
+      padding: 8px 10px; margin: 8px 0;
+    }
+    .invite-expiry { font-size: 11px; color: #888; }
+
+    /* 新規グループ作成 */
+    .create-card {
+      background: #fff; border-radius: 10px; padding: 16px 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 24px;
+    }
+    .create-card h2 { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+    .form-row { display: flex; gap: 8px; }
+    .form-row input {
+      flex: 1; padding: 8px 12px; border: 1px solid #ddd;
+      border-radius: 6px; font-size: 13px;
+    }
+
+    /* ボタン */
+    .btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+    .btn-primary { background: #1a73e8; color: #fff; }
+    .btn-primary:hover { background: #1558b0; }
+    .btn-danger { background: none; border: 1px solid #d32f2f; color: #d32f2f; padding: 5px 12px; }
+    .btn-danger:hover { background: #ffebee; }
+    .btn-sm { padding: 5px 12px; font-size: 12px; }
+    .btn-secondary { background: #f0f0f0; color: #333; }
+    .btn-secondary:hover { background: #e0e0e0; }
+
+    /* コレクション選択 */
+    .collection-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .collection-chip {
+      padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer;
+      border: 1px solid #ddd; background: #f5f5f5; color: #555; user-select: none;
+    }
+    .collection-chip.selected { background: #1a73e8; color: #fff; border-color: #1a73e8; }
+
+    /* オーバーレイ */
+    #overlay {
+      position: fixed; inset: 0; background: rgba(255,255,255,0.95);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px; z-index: 100;
+    }
+    #overlay h2 { font-size: 18px; color: #333; }
+    #overlay p  { font-size: 14px; color: #666; }
+    #overlay.hidden { display: none; }
+    .spinner {
+      width: 36px; height: 36px; border: 4px solid #e0e0e0;
+      border-top-color: #1a73e8; border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state { color: #aaa; font-size: 13px; padding: 6px 0; }
+
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #333; color: #fff; padding: 10px 20px; border-radius: 8px;
+      font-size: 13px; z-index: 200; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    #toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><a href="/" style="color:inherit;text-decoration:none;">📍 Instagram お店マップ</a></h1>
+  <div class="header-spacer"></div>
+  <nav id="header-nav">
+    <a class="nav-link" href="/map">MAP</a>
+    <a class="nav-link" href="/list">店舗一覧</a>
+    <span class="nav-link-current">グループ管理</span>
+    <a class="nav-link" href="/settings">設定</a>
+  </nav>
+  <div id="user-info" style="display:none">
+    <img id="user-avatar" src="" alt="" />
+    <span id="user-name"></span>
+    <button id="logout-btn" onclick="logout()">ログアウト</button>
+  </div>
+  <div id="header-signin"></div>
+  <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
+</header>
+
+<div id="overlay">
+  <div class="spinner"></div>
+  <h2>読み込み中...</h2>
+</div>
+
+<div class="page" id="page" style="display:none">
+
+  <!-- グループ詳細パネル -->
+  <div id="detail-panel">
+    <div class="detail-title">
+      <span id="detail-name"></span>
+      <button class="close-btn" onclick="closeDetail()">✕</button>
+    </div>
+
+    <div class="sub-section">
+      <h3>メンバー</h3>
+      <div id="members-list"></div>
+    </div>
+
+    <div class="sub-section">
+      <h3>共有中のリスト（都道府県）</h3>
+      <div id="shared-lists-view"></div>
+      <div id="add-shared-section" style="margin-top:12px">
+        <div style="font-size:13px; color:#555; margin-bottom:6px">自分のリストを追加共有する:</div>
+        <div class="collection-list" id="my-collections"></div>
+        <button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="addSharedLists()">選択したリストを共有</button>
+      </div>
+    </div>
+
+    <div class="sub-section" id="invite-section" style="display:none">
+      <h3>招待リンク</h3>
+      <div class="invite-box">
+        <div id="invite-url-box"></div>
+        <button class="btn btn-secondary btn-sm" style="margin-top:8px" onclick="generateInvite()">新しい招待リンクを生成</button>
+      </div>
+    </div>
+
+    <div id="danger-section" style="display:none; margin-top:8px">
+      <button class="btn btn-danger btn-sm" onclick="deleteGroup()">グループを削除</button>
+    </div>
+  </div>
+
+  <!-- 新規作成 -->
+  <div class="create-card">
+    <h2>新しいグループを作成</h2>
+    <div class="form-row">
+      <input type="text" id="new-group-name" placeholder="グループ名を入力..." maxlength="50" />
+      <button class="btn btn-primary" onclick="createGroup()">作成</button>
+    </div>
+  </div>
+
+  <!-- グループ一覧 -->
+  <div class="section-title">参加中のグループ</div>
+  <div id="groups-list"></div>
+
+</div>
+
+<div id="toast"></div>
+
+<script src="/frontend/app.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+  // currentUser は app.js で宣言済み。ここでは再宣言しない。
+  let selectedGroupId = null;
+  let selectedCollections = new Set();
+  let myCollections = [];
+  let currentGroupData = null;
+
+  const waitForGIS = () => new Promise(res => {
+    if (window.google && google.accounts) { res(); return; }
+    const id = setInterval(() => { if (window.google && google.accounts) { clearInterval(id); res(); } }, 100);
+  });
+
+  async function init() {
+    await waitForGIS();
+    const user = await checkAuth();  // sets module-level currentUser in app.js
+    if (!user) {
+      showLoginOverlay();
+      return;
+    }
+    document.getElementById("user-info").style.display = "flex";
+    document.getElementById("user-name").textContent = user.name;
+    if (user.picture) document.getElementById("user-avatar").src = user.picture;
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+    document.getElementById("overlay").classList.add("hidden");
+    document.getElementById("page").style.display = "block";
+    await loadGroups();
+  }
+
+  function showLoginOverlay() {
+    const ov = document.getElementById("overlay");
+    ov.innerHTML = `
+      <h2>ログインが必要です</h2>
+      <p>Google アカウントでログインしてください</p>
+      <div id="overlay-signin"></div>`;
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+    google.accounts.id.renderButton(document.getElementById("overlay-signin"), { theme: "outline", size: "large", locale: "ja" });
+  }
+
+  async function loadGroups() {
+    const groups = await apiFetch("/api/groups");
+    const container = document.getElementById("groups-list");
+    if (!groups.length) {
+      container.innerHTML = '<div class="empty-state">まだグループがありません。下のフォームから作成してください。</div>';
+      return;
+    }
+    container.innerHTML = groups.map(g => `
+      <div class="group-card" onclick="openDetail(${g.id})">
+        <div class="group-card-header">
+          <span class="group-name">${escHtml(g.name)}</span>
+          ${g.is_owner ? '<span class="badge badge-owner">オーナー</span>' : '<span class="badge">メンバー</span>'}
+        </div>
+        <div class="group-meta">${g.member_count}人のメンバー・${g.shared_count}個の共有リスト</div>
+      </div>`).join("");
+  }
+
+  async function openDetail(groupId) {
+    selectedGroupId = groupId;
+    const panel = document.getElementById("detail-panel");
+    panel.classList.add("visible");
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    const g = await apiFetch(`/api/groups/${groupId}`);
+    currentGroupData = g;
+    document.getElementById("detail-name").textContent = g.name;
+
+    // メンバー
+    document.getElementById("members-list").innerHTML = g.members.length
+      ? g.members.map(m => `
+          <div class="member-item">
+            ${m.picture_url
+              ? `<img class="member-avatar" src="${escHtml(m.picture_url)}" alt="" />`
+              : '<div class="member-avatar"></div>'}
+            <span class="member-name">${escHtml(m.name)}</span>
+            <span class="member-role">${m.id === g.owner_id ? "オーナー" : "メンバー"}</span>
+          </div>`).join("")
+      : '<div class="empty-state">メンバーなし</div>';
+
+    // 共有リスト
+    renderSharedLists(g.shared_lists, g);
+
+    // オーナー専用 UI
+    document.getElementById("invite-section").style.display = g.is_owner ? "block" : "none";
+    document.getElementById("danger-section").style.display = g.is_owner ? "block" : "none";
+    document.getElementById("invite-url-box").innerHTML = '';
+
+    // 自分のコレクション
+    myCollections = await apiFetch("/api/my-collections");
+    selectedCollections = new Set((g.shared_lists || [])
+      .filter(l => l.owner_user_id === currentUser.id)
+      .map(l => l.collection_name));
+
+    document.getElementById("my-collections").innerHTML = myCollections.filter(c => c.name !== "__all__").length
+      ? myCollections
+          .filter(c => c.name !== "__all__")
+          .map(c => `
+            <div class="collection-chip ${selectedCollections.has(c.name) ? 'selected' : ''}"
+                 data-name="${escHtml(c.name)}"
+                 onclick="toggleCollection(this, '${escHtml(c.name)}')">
+              ${escHtml(c.label)} (${c.count}件)
+            </div>`).join("")
+      : '<div class="empty-state">共有できるリストがありません</div>';
+  }
+
+  function renderSharedLists(lists, g) {
+    document.getElementById("shared-lists-view").innerHTML = lists.length
+      ? lists.map(l => {
+          const canRemove = l.owner_user_id === currentUser.id || g.is_owner;
+          return `
+            <div class="shared-list-item">
+              <span class="shared-list-name">${escHtml(l.collection_name)}</span>
+              <span class="shared-list-owner">by ${escHtml(l.owner_name)}</span>
+              ${canRemove ? `<button class="btn btn-danger btn-sm" onclick="removeSharedList(${l.id})">解除</button>` : ''}
+            </div>`;
+        }).join("")
+      : '<div class="empty-state">共有中のリストはありません</div>';
+  }
+
+  function toggleCollection(el, name) {
+    el.classList.toggle("selected");
+    if (el.classList.contains("selected")) selectedCollections.add(name);
+    else selectedCollections.delete(name);
+  }
+
+  async function addSharedLists() {
+    for (const name of selectedCollections) {
+      await apiFetch(`/api/groups/${selectedGroupId}/shared-lists`, {
+        method: "POST",
+        body: JSON.stringify({ collection_name: name }),
+      }).catch(() => {});
+    }
+    toast("共有リストを更新しました");
+    openDetail(selectedGroupId);
+  }
+
+  async function removeSharedList(listId) {
+    if (!confirm("この共有を解除しますか？")) return;
+    await apiFetch(`/api/groups/${selectedGroupId}/shared-lists/${listId}`, { method: "DELETE" });
+    toast("共有を解除しました");
+    openDetail(selectedGroupId);
+  }
+
+  async function generateInvite() {
+    const data = await apiFetch(`/api/groups/${selectedGroupId}/invite`, { method: "POST" });
+    document.getElementById("invite-url-box").innerHTML = `
+      <div class="invite-url" id="invite-url-text">${escHtml(data.invite_url)}</div>
+      <div class="invite-expiry">有効期限: ${new Date(data.expires_at).toLocaleString("ja-JP")}</div>
+      <button class="btn btn-secondary btn-sm" style="margin-top:6px" onclick="copyInvite()">URLをコピー</button>`;
+  }
+
+  function copyInvite() {
+    const url = document.getElementById("invite-url-text").textContent;
+    navigator.clipboard.writeText(url).then(() => toast("招待URLをコピーしました"));
+  }
+
+  async function createGroup() {
+    const name = document.getElementById("new-group-name").value.trim();
+    if (!name) return;
+    await apiFetch("/api/groups", { method: "POST", body: JSON.stringify({ name }) });
+    document.getElementById("new-group-name").value = "";
+    toast(`グループ「${name}」を作成しました`);
+    await loadGroups();
+  }
+
+  async function deleteGroup() {
+    if (!confirm("グループを削除しますか？この操作は元に戻せません。")) return;
+    await apiFetch(`/api/groups/${selectedGroupId}`, { method: "DELETE" });
+    closeDetail();
+    toast("グループを削除しました");
+    await loadGroups();
+  }
+
+  function closeDetail() {
+    document.getElementById("detail-panel").classList.remove("visible");
+    selectedGroupId = null;
+    currentGroupData = null;
+  }
+
+  function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    setTimeout(() => el.classList.remove("show"), 2500);
+  }
+
+  function escHtml(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  window.addEventListener("load", init);
+</script>
+</body>
+</html>
