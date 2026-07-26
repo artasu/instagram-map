@@ -704,15 +704,11 @@ def api_auth_logout():
 @login_required
 def api_locations():
     user_id = session["user_id"]
-    print(f"[DEBUG locations] user_id={user_id!r} type={type(user_id).__name__}", flush=True)
     conn = get_db()
     try:
-        _dbg = conn.execute(
-            "SELECT COUNT(*) FROM locations l JOIN saved_posts p ON l.post_id = p.id"
-            " WHERE p.user_id = ? AND l.is_geocoded = 1",
-            (user_id,),
-        ).fetchone()
-        print(f"[DEBUG locations] COUNT={_dbg[0]!r}", flush=True)
+        if not conn.execute("SELECT 1 FROM users WHERE id = ?", (user_id,)).fetchone():
+            session.clear()
+            return jsonify({"error": "Unauthorized"}), 401
         own_rows = conn.execute(
             """
             SELECT l.id, p.instagram_url, l.shop_name, l.address, l.prefecture, l.city,
@@ -741,7 +737,6 @@ def api_locations():
             """,
             (user_id, user_id),
         ).fetchall()
-        print(f"[DEBUG locations] own_rows={len(own_rows)}", flush=True)
 
         shared_rows = conn.execute(
             """
