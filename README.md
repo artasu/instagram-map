@@ -147,3 +147,6 @@ instagram-map/
 
 - PlaywrightによるInstagramスクレイピングはInstagram利用規約に抵触する可能性があります。個人利用・自己責任での使用としてください。
 - Instagramのアカウントがブロックされるリスクを避けるため、バッチ間隔を短くしすぎないことを推奨します（1分以上を推奨）。
+=======
+# instagram-map
+インスタで保存済みの投稿をGoogleMapに表示
