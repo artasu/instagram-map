@@ -43,6 +43,76 @@ pg_conn = psycopg2.connect(DATABASE_URL)
 pg_cur = pg_conn.cursor()
 
 
+def create_schema():
+    """移行先 PostgreSQL にテーブルを作成する（既存テーブルはスキップ）。"""
+    ddls = [
+        """CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY, google_id TEXT UNIQUE NOT NULL,
+            email TEXT NOT NULL, name TEXT, picture_url TEXT,
+            created_at TIMESTAMPTZ DEFAULT NOW())""",
+        """CREATE TABLE IF NOT EXISTS user_groups (
+            id SERIAL PRIMARY KEY, name TEXT NOT NULL, owner_id INTEGER NOT NULL,
+            created_at TIMESTAMPTZ DEFAULT NOW(),
+            FOREIGN KEY (owner_id) REFERENCES users(id))""",
+        """CREATE TABLE IF NOT EXISTS group_members (
+            group_id INTEGER NOT NULL, user_id INTEGER NOT NULL,
+            joined_at TIMESTAMPTZ DEFAULT NOW(),
+            PRIMARY KEY (group_id, user_id))""",
+        """CREATE TABLE IF NOT EXISTS invite_links (
+            token TEXT PRIMARY KEY, group_id INTEGER NOT NULL,
+            created_by INTEGER NOT NULL, expires_at TEXT,
+            used_count INTEGER DEFAULT 0, created_at TIMESTAMPTZ DEFAULT NOW())""",
+        """CREATE TABLE IF NOT EXISTS shared_lists (
+            id SERIAL PRIMARY KEY, group_id INTEGER NOT NULL,
+            owner_user_id INTEGER NOT NULL, collection_name TEXT NOT NULL,
+            created_at TIMESTAMPTZ DEFAULT NOW(),
+            UNIQUE(group_id, owner_user_id, collection_name))""",
+        """CREATE TABLE IF NOT EXISTS saved_posts (
+            id SERIAL PRIMARY KEY, instagram_url TEXT UNIQUE NOT NULL,
+            instagram_shortcode TEXT, caption TEXT, shop_name TEXT,
+            address TEXT, prefecture TEXT, city TEXT, lat REAL, lng REAL,
+            address_found INTEGER DEFAULT 0, is_geocoded INTEGER DEFAULT 0,
+            ig_saved_at BIGINT, processed_at TEXT,
+            created_at TIMESTAMPTZ DEFAULT NOW(), user_id INTEGER)""",
+        """CREATE TABLE IF NOT EXISTS locations (
+            id SERIAL PRIMARY KEY, post_id INTEGER NOT NULL,
+            shop_name TEXT, address TEXT, prefecture TEXT, city TEXT,
+            lat REAL, lng REAL, is_geocoded INTEGER DEFAULT 0,
+            created_at TIMESTAMPTZ DEFAULT NOW(), user_id INTEGER,
+            genre TEXT, recommended_menus TEXT, google_place_id TEXT,
+            business_hours TEXT, google_rating REAL,
+            google_ratings_total INTEGER, payment_methods TEXT,
+            has_parking INTEGER, website_url TEXT,
+            official_twitter_url TEXT, official_instagram_url TEXT,
+            place_info_fetched INTEGER DEFAULT 0, place_info_fetched_at TEXT,
+            FOREIGN KEY (post_id) REFERENCES saved_posts(id))""",
+        """CREATE TABLE IF NOT EXISTS genres (
+            id TEXT PRIMARY KEY, name TEXT NOT NULL, icon TEXT NOT NULL,
+            color TEXT NOT NULL DEFAULT '#757575', size REAL NOT NULL DEFAULT 1.0,
+            keywords TEXT NOT NULL DEFAULT '[]', sort_order INTEGER NOT NULL DEFAULT 0)""",
+        """CREATE TABLE IF NOT EXISTS visits (
+            id SERIAL PRIMARY KEY, location_id INTEGER NOT NULL,
+            user_id INTEGER NOT NULL, user_name TEXT,
+            visited INTEGER DEFAULT 0, impression TEXT,
+            rating INTEGER DEFAULT 0, want_again INTEGER DEFAULT 0,
+            next_comment TEXT, visited_at TEXT,
+            updated_at TIMESTAMPTZ DEFAULT NOW())""",
+        """CREATE TABLE IF NOT EXISTS visit_images (
+            id SERIAL PRIMARY KEY, visit_id INTEGER,
+            location_id INTEGER NOT NULL, user_id INTEGER NOT NULL,
+            filename TEXT NOT NULL, image_data BYTEA,
+            created_at TIMESTAMPTZ DEFAULT NOW())""",
+        """CREATE TABLE IF NOT EXISTS batch_log (
+            id SERIAL PRIMARY KEY, run_at TIMESTAMPTZ DEFAULT NOW(),
+            total_saved INTEGER, new_posts INTEGER,
+            processed INTEGER, status TEXT, message TEXT)""",
+    ]
+    for ddl in ddls:
+        pg_cur.execute(ddl)
+    pg_conn.commit()
+    print("スキーマ作成完了\n")
+
+
 def migrate_table(name, rows, insert_sql, row_fn):
     count = 0
     for row in rows:
@@ -50,15 +120,20 @@ def migrate_table(name, rows, insert_sql, row_fn):
         if params is None:
             continue
         try:
+            pg_cur.execute("SAVEPOINT sp")
             pg_cur.execute(insert_sql, params)
             count += 1
         except Exception as e:
+            pg_cur.execute("ROLLBACK TO SAVEPOINT sp")
             print(f"  skip ({e})")
     pg_conn.commit()
     print(f"  {name}: {count} 件移行")
 
 
 print("=== SQLite → PostgreSQL 移行開始 ===\n")
+
+print("テーブルを作成中...")
+create_schema()
 
 # ── users ──────────────────────────────────────────────────────────────────
 print("users テーブルを移行中...")
@@ -166,6 +241,7 @@ for row in rows:
         print(f"  警告: ファイルが見つかりません: {filename} (NULL で登録)")
         image_data = None
     try:
+        pg_cur.execute("SAVEPOINT sp")
         pg_cur.execute(
             """INSERT INTO visit_images
                (id, visit_id, location_id, user_id, filename, image_data, created_at)
@@ -179,6 +255,7 @@ for row in rows:
         )
         count += 1
     except Exception as e:
+        pg_cur.execute("ROLLBACK TO SAVEPOINT sp")
         print(f"  skip ({e})")
 pg_conn.commit()
 print(f"  visit_images: {count} 件移行")
