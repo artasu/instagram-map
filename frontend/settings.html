@@ -295,12 +295,19 @@
   async function init() {
     await waitForGIS();
     const user = await checkAuth();
-    if (user) {
-      document.getElementById("user-info").style.display = "flex";
-      document.getElementById("user-name").textContent = user.name;
-      if (user.picture) document.getElementById("user-avatar").src = user.picture;
-      google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+    google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
+    if (!user) {
+      const ov = document.getElementById("overlay");
+      ov.innerHTML = `
+        <h2>ログインが必要です</h2>
+        <p>Google アカウントでログインしてください</p>
+        <div id="overlay-signin"></div>`;
+      google.accounts.id.renderButton(document.getElementById("overlay-signin"), { theme: "outline", size: "large", locale: "ja" });
+      return;
     }
+    document.getElementById("user-info").style.display = "flex";
+    document.getElementById("user-name").textContent = user.name;
+    if (user.picture) document.getElementById("user-avatar").src = user.picture;
     document.getElementById("overlay").classList.add("hidden");
     document.getElementById("page").style.display = "block";
     genres = await fetchGenres();

@@ -80,7 +80,7 @@ EXTRACT_TOOL = {
     },
 }
 
-BATCH_SIZE = 100
+BATCH_SIZE = 30
 
 
 def _extract_batch(client, posts):
@@ -113,7 +113,7 @@ def _extract_batch(client, posts):
 
     response = client.messages.create(
         model="claude-haiku-4-5-20251001",
-        max_tokens=8192,
+        max_tokens=16384,
         tools=[EXTRACT_TOOL],
         tool_choice={"type": "tool", "name": "save_address_results"},
         messages=[{"role": "user", "content": prompt}],
