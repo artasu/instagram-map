@@ -29,6 +29,9 @@ ROOT = Path(__file__).parent
 app = Flask(__name__, static_folder=None)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev-secret-change-me")
 
+# 許可メールリスト（カンマ区切り）。空の場合は全員許可。
+ALLOWED_EMAILS = {e.strip() for e in os.getenv("ALLOWED_EMAILS", "").split(",") if e.strip()}
+
 GOOGLE_CLIENT_ID  = os.getenv("GOOGLE_CLIENT_ID", "")
 GENRES_DIR        = ROOT / "data" / "genres"
 VISIT_IMAGES_DIR  = ROOT / "data" / "visit_images"
@@ -157,6 +160,10 @@ def auth_google():
         "name":    info.get("name", ""),
         "picture": info.get("picture", ""),
     }
+    if ALLOWED_EMAILS and user["email"] not in ALLOWED_EMAILS:
+        logger.warning(f"auth_google: unauthorized email {user['email']!r}")
+        return jsonify({"error": "このアカウントはアクセスが許可されていません。"}), 403
+
     session["user"] = user
 
     try:
