@@ -108,3 +108,74 @@ def get_saved_posts():
 
     logger.info(f"保存済み投稿: {len(posts)}件を取得（キャプション含む）")
     return posts
+
+
+def get_saved_posts_for_user(session_path: Path, username: str = "", password: str = ""):
+    """
+    ユーザーごとのセッションファイルと認証情報を使って保存済み投稿を取得する。
+    Web からのリクエスト経由で呼ばれる（.env に依存しない）。
+
+    Args:
+        session_path: ユーザーの ig_session.json パス
+        username:     Instagram ユーザー名（セッション更新時のみ使用）
+        password:     Instagram パスワード（セッション更新時のみ使用）
+
+    Returns:
+        list of {instagram_url, instagram_shortcode, caption, ig_saved_at}
+    """
+    from instagrapi import Client
+    from instagrapi.exceptions import LoginRequired
+
+    if not session_path.exists():
+        raise SessionError(
+            "Instagram セッションが存在しません。アプリからログインしてください。"
+        )
+
+    cl = Client()
+    try:
+        cl.load_settings(str(session_path))
+        if username and password:
+            cl.login(username, password)
+            cl.dump_settings(str(session_path))
+        else:
+            # セッションのみで再認証（トークンリフレッシュ）
+            cl.get_timeline_feed()
+        logger.info("ユーザーセッションでログイン成功")
+    except Exception as e:
+        raise SessionError(
+            f"Instagram セッションが無効です（{e}）。"
+            "アプリから再ログインしてください。"
+        )
+
+    try:
+        collections = cl.collections()
+        all_col = next(
+            (c for c in collections if c.id == "ALL_MEDIA_AUTO_COLLECTION"),
+            collections[0] if collections else None,
+        )
+        if all_col is None:
+            raise SessionError("保存済み投稿コレクションが見つかりませんでした。")
+
+        total = all_col.media_count or 2000
+        logger.info(f"保存済み投稿コレクション: {all_col.name} ({total}件)")
+        medias = cl.collection_medias(all_col.id, amount=total)
+    except LoginRequired:
+        raise SessionError(
+            "セッションが無効です。アプリから再ログインしてください。"
+        )
+    except SessionError:
+        raise
+    except Exception as e:
+        raise SessionError(f"保存済み投稿の取得に失敗しました: {e}")
+
+    posts = []
+    for media in medias:
+        posts.append({
+            "instagram_url":       f"https://www.instagram.com/p/{media.code}/",
+            "instagram_shortcode": media.code,
+            "caption":             media.caption_text or "",
+            "ig_saved_at":         int(media.taken_at.timestamp()) if media.taken_at else None,
+        })
+
+    logger.info(f"保存済み投稿: {len(posts)}件取得（ユーザーセッション使用）")
+    return posts

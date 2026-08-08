@@ -35,6 +35,7 @@ async function checkAuth() {
     const r = await fetch("/api/auth/me");
     if (r.ok) {
       currentUser = await r.json();
+      setTimeout(initIgButton, 0);
       return currentUser;
     }
   } catch (_) {}
@@ -73,8 +74,13 @@ function renderGoogleSignInButton(containerId) {
 
 // ── API: ロケーション取得（認証必須） ─────────────────────────────────────────
 async function loadLocations() {
-  const r = await fetch("/api/locations");
+  const mode = getViewMode();
+  const gid  = getViewGroupId();
+  if (mode === "group" && !gid) throw new Error("グループが選択されていません。");
+  const url  = (mode === "group" && gid) ? `/api/groups/${gid}/locations` : "/api/locations";
+  const r    = await fetch(url);
   if (r.status === 401) throw new Error("auth_required");
+  if (r.status === 403 && mode === "group") throw new Error("グループが選択されていません。");
   if (!r.ok) throw new Error("ロケーション取得に失敗しました");
   return r.json();
 }
@@ -198,11 +204,12 @@ let _genresCache = null;
 async function fetchGenres() {
   try {
     const data = await apiFetch("/api/genres");
-    _genresCache = data;
-    return data;
-  } catch (_) {
-    return JSON.parse(JSON.stringify(DEFAULT_GENRES));
-  }
+    if (Array.isArray(data) && data.length > 0) {
+      _genresCache = data;
+      return data;
+    }
+  } catch (_) {}
+  return JSON.parse(JSON.stringify(DEFAULT_GENRES));
 }
 
 async function saveGenres(genres) {
@@ -654,6 +661,495 @@ async function vmDeleteExistingImage(imageId) {
 function vmRemovePendingImage(index) {
   _vmPendingFiles.splice(index, 1);
   vmRenderImages();
+}
+
+// ── Instagram 連携 ─────────────────────────────────────────────────────────────
+
+const _IG_GRAD = 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)';
+
+function _injectIgStyles() {
+  if (document.getElementById('ig-modal-styles')) return;
+  const s = document.createElement('style');
+  s.id = 'ig-modal-styles';
+  s.textContent = `
+    .ig-nav-btn {
+      font-size:12px;padding:4px 10px;border-radius:6px;border:none;
+      cursor:pointer;display:flex;align-items:center;gap:5px;
+      white-space:nowrap;font-weight:600;transition:.15s;flex-shrink:0;
+    }
+    .ig-nav-btn--connect { background:${_IG_GRAD};color:#fff; }
+    .ig-nav-btn--connect:hover { opacity:.85; }
+    .ig-nav-btn--connected {
+      background:rgba(255,255,255,.12);color:#ddd;
+      border:1px solid rgba(255,255,255,.25);
+    }
+    .ig-nav-btn--connected:hover { background:rgba(255,255,255,.22); }
+    .ig-dot { width:7px;height:7px;border-radius:50%;flex-shrink:0; }
+    .ig-dot--on  { background:#4caf50;box-shadow:0 0 4px #4caf50; }
+    .ig-dot--off { background:#aaa; }
+    @media (max-width:640px) {
+      .ig-nav-btn-text { display:none; }
+      .ig-nav-btn { padding:4px 7px;font-size:14px; }
+    }
+    #ig-modal-overlay {
+      position:fixed;inset:0;background:rgba(0,0,0,.55);
+      display:none;align-items:center;justify-content:center;z-index:9000;
+    }
+    #ig-modal-overlay.active { display:flex; }
+    #ig-modal {
+      background:#fff;border-radius:16px;width:340px;max-width:94vw;
+      max-height:90vh;overflow-y:auto;
+      box-shadow:0 12px 40px rgba(0,0,0,.3);
+      animation:igIn .18s ease;
+    }
+    @keyframes igIn { from{transform:translateY(14px);opacity:0} to{transform:none;opacity:1} }
+    .ig-mhdr {
+      background:${_IG_GRAD};padding:18px 18px 14px;
+      border-radius:16px 16px 0 0;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .ig-mhdr-title {
+      color:#fff;font-size:15px;font-weight:700;
+      display:flex;align-items:center;gap:8px;
+    }
+    .ig-mhdr-close {
+      background:rgba(255,255,255,.25);border:none;color:#fff;
+      width:26px;height:26px;border-radius:50%;cursor:pointer;
+      font-size:14px;display:flex;align-items:center;justify-content:center;
+      padding:0;line-height:1;
+    }
+    .ig-mhdr-close:hover { background:rgba(255,255,255,.4); }
+    .ig-mbody { padding:20px 20px 16px; }
+    .ig-field { margin-bottom:14px; }
+    .ig-field label {
+      display:block;font-size:11px;font-weight:700;color:#666;
+      margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;
+    }
+    .ig-inp {
+      width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;
+      font-size:14px;box-sizing:border-box;transition:border-color .15s;
+    }
+    .ig-inp:focus { outline:none;border-color:#e1306c; }
+    .ig-pw-wrap { position:relative; }
+    .ig-pw-eye {
+      position:absolute;right:10px;top:50%;transform:translateY(-50%);
+      background:none;border:none;cursor:pointer;color:#aaa;
+      font-size:15px;padding:2px;line-height:1;
+    }
+    .ig-pw-eye:hover { color:#555; }
+    .ig-submit {
+      width:100%;padding:11px;border:none;border-radius:9px;
+      font-size:15px;font-weight:700;cursor:pointer;color:#fff;margin-top:2px;
+      background:${_IG_GRAD};transition:opacity .15s;
+    }
+    .ig-submit:hover { opacity:.88; }
+    .ig-submit:disabled { opacity:.5;cursor:not-allowed; }
+    .ig-err { color:#e53935;font-size:12px;margin-top:5px;min-height:16px;line-height:1.4; }
+    .ig-note {
+      font-size:12px;color:#888;line-height:1.5;margin-bottom:14px;
+      background:#fafafa;border-radius:8px;padding:9px 12px;
+    }
+    .ig-2fa-lead { text-align:center;font-size:13px;color:#333;margin-bottom:14px;line-height:1.6; }
+    .ig-sync-wrap {
+      display:flex;flex-direction:column;align-items:center;
+      padding:8px 0 4px;gap:14px;text-align:center;
+    }
+    .ig-spin {
+      width:42px;height:42px;border:4px solid #fce4ec;
+      border-top-color:#e91e63;border-radius:50%;
+      animation:igSpin .8s linear infinite;
+    }
+    @keyframes igSpin { to{transform:rotate(360deg)} }
+    .ig-sync-msg { font-size:14px;font-weight:600;color:#333; }
+    .ig-sync-sub { font-size:12px;color:#999; }
+    .ig-done-wrap {
+      display:flex;flex-direction:column;align-items:center;
+      padding:8px 0 4px;gap:12px;text-align:center;
+    }
+    .ig-done-icon { font-size:46px; }
+    .ig-done-msg  { font-size:15px;font-weight:700;color:#2e7d32; }
+    .ig-done-sub  { font-size:13px;color:#666; }
+    .ig-done-btn  {
+      padding:9px 24px;border:none;border-radius:8px;
+      background:#1a73e8;color:#fff;font-size:14px;font-weight:600;cursor:pointer;
+    }
+    .ig-done-btn:hover { background:#1558b0; }
+    .ig-choice-wrap { display:flex;flex-direction:column;gap:10px;padding:4px 0; }
+    .ig-choice-btn {
+      padding:10px 16px;border-radius:9px;border:1px solid #e0e0e0;
+      background:#fff;font-size:14px;cursor:pointer;text-align:left;
+      display:flex;align-items:center;gap:10px;transition:.15s;
+    }
+    .ig-choice-btn:hover { border-color:#1a73e8;background:#f0f5ff; }
+    .ig-choice-icon { font-size:20px;flex-shrink:0; }
+    .ig-choice-lbl { font-weight:600;display:block; }
+    .ig-choice-sub { font-size:12px;color:#888;display:block; }
+    .ig-choice-btn--danger { border-color:#ef9a9a;color:#c62828; }
+    .ig-choice-btn--danger:hover { background:#ffebee;border-color:#e53935; }
+  `;
+  document.head.appendChild(s);
+}
+
+function _ensureIgModal() {
+  if (document.getElementById('ig-modal-overlay')) return;
+  _injectIgStyles();
+  const el = document.createElement('div');
+  el.id = 'ig-modal-overlay';
+  el.addEventListener('click', e => { if (e.target === el) closeIgModal(); });
+  el.innerHTML = `
+<div id="ig-modal">
+  <div class="ig-mhdr">
+    <div class="ig-mhdr-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      Instagram 連携
+    </div>
+    <button class="ig-mhdr-close" onclick="closeIgModal()">✕</button>
+  </div>
+  <div class="ig-mbody">
+    <div id="ig-step-login">
+      <div class="ig-note">
+        📱 Instagram のユーザー名とパスワードを入力してください。<br>
+        入力した情報はこのサーバー内にのみ保存されます。
+      </div>
+      <div class="ig-field">
+        <label>ユーザー名 / メールアドレス</label>
+        <input id="ig-username" class="ig-inp" type="text" placeholder="username or email"
+          autocomplete="username"
+          onkeydown="if(event.key==='Enter')document.getElementById('ig-password').focus()" />
+      </div>
+      <div class="ig-field">
+        <label>パスワード</label>
+        <div class="ig-pw-wrap">
+          <input id="ig-password" class="ig-inp" type="password" placeholder="password"
+            autocomplete="current-password"
+            onkeydown="if(event.key==='Enter')igLoginSubmit()"
+            style="padding-right:38px" />
+          <button class="ig-pw-eye" type="button" onclick="_igTogglePw()" aria-label="表示切替">👁</button>
+        </div>
+      </div>
+      <div id="ig-login-err" class="ig-err"></div>
+      <button id="ig-login-btn" class="ig-submit" onclick="igLoginSubmit()">
+        ログインして保存済み投稿を取得
+      </button>
+    </div>
+    <div id="ig-step-2fa" style="display:none">
+      <div class="ig-2fa-lead">
+        📲 2段階認証コードを入力してください<br>
+        <span style="font-size:12px;color:#888">SMS またはアプリで受け取った 6 桁のコード</span>
+      </div>
+      <div class="ig-field">
+        <label>認証コード</label>
+        <input id="ig-2fa-code" class="ig-inp" type="text" placeholder="123456"
+          maxlength="6" inputmode="numeric" pattern="[0-9]*"
+          onkeydown="if(event.key==='Enter')ig2faSubmit()" />
+      </div>
+      <div id="ig-2fa-err" class="ig-err"></div>
+      <button id="ig-2fa-btn" class="ig-submit" onclick="ig2faSubmit()">確認</button>
+    </div>
+    <div id="ig-step-syncing" style="display:none">
+      <div class="ig-sync-wrap">
+        <div class="ig-spin"></div>
+        <div id="ig-sync-msg" class="ig-sync-msg">Instagram に接続中...</div>
+        <div id="ig-sync-sub" class="ig-sync-sub">保存済み投稿の取得に数分かかる場合があります</div>
+      </div>
+    </div>
+    <div id="ig-step-done" style="display:none">
+      <div class="ig-done-wrap">
+        <div class="ig-done-icon">🎉</div>
+        <div class="ig-done-msg">同期が完了しました！</div>
+        <div id="ig-done-sub" class="ig-done-sub">保存済み投稿を地図に反映しました</div>
+        <button class="ig-done-btn" onclick="closeIgModal();location.reload()">地図を確認する</button>
+      </div>
+    </div>
+    <div id="ig-step-choice" style="display:none">
+      <div class="ig-choice-wrap">
+        <button class="ig-choice-btn" onclick="_igShowStep('syncing');_startIgSync()">
+          <span class="ig-choice-icon">🔄</span>
+          <span>
+            <span class="ig-choice-lbl">今すぐ同期する</span>
+            <span class="ig-choice-sub">保存済み投稿を最新の状態に更新</span>
+          </span>
+        </button>
+        <button class="ig-choice-btn ig-choice-btn--danger" onclick="_igDisconnect()">
+          <span class="ig-choice-icon">🔓</span>
+          <span>
+            <span class="ig-choice-lbl">Instagram 連携を解除</span>
+            <span class="ig-choice-sub">ログアウトしてセッションを削除</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>`;
+  document.body.appendChild(el);
+}
+
+function _igShowStep(step) {
+  ['login', '2fa', 'syncing', 'done', 'choice'].forEach(s => {
+    const el = document.getElementById(`ig-step-${s}`);
+    if (el) el.style.display = s === step ? '' : 'none';
+  });
+}
+
+async function checkIgStatus() {
+  try {
+    const r = await fetch('/api/instagram/status');
+    if (r.ok) return (await r.json()).connected;
+  } catch (_) {}
+  return false;
+}
+
+async function initIgButton() {
+  const area = document.getElementById('ig-btn-area');
+  if (!area) return;
+  const connected = await checkIgStatus();
+  _renderIgNavBtn(area, connected);
+}
+
+function _renderIgNavBtn(area, connected) {
+  if (connected) {
+    area.innerHTML = `
+      <button class="ig-nav-btn ig-nav-btn--connected" onclick="showIgModal(true)">
+        <span class="ig-dot ig-dot--on"></span>
+        <span class="ig-nav-btn-text">Instagram</span>
+      </button>`;
+  } else {
+    area.innerHTML = `
+      <button class="ig-nav-btn ig-nav-btn--connect" onclick="showIgModal(false)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="ig-nav-btn-text">Instagram 連携</span>
+      </button>`;
+  }
+}
+
+function showIgModal(connected = false) {
+  _ensureIgModal();
+  document.getElementById('ig-modal-overlay').classList.add('active');
+  _igShowStep(connected ? 'choice' : 'login');
+  if (!connected) setTimeout(() => document.getElementById('ig-username')?.focus(), 120);
+}
+
+function closeIgModal() {
+  const el = document.getElementById('ig-modal-overlay');
+  if (el) el.classList.remove('active');
+}
+
+function _igTogglePw() {
+  const inp = document.getElementById('ig-password');
+  const btn = document.querySelector('.ig-pw-eye');
+  if (!inp) return;
+  if (inp.type === 'password') { inp.type = 'text'; if (btn) btn.textContent = '🙈'; }
+  else { inp.type = 'password'; if (btn) btn.textContent = '👁'; }
+}
+
+async function igLoginSubmit() {
+  const username = (document.getElementById('ig-username')?.value || '').trim();
+  const password  = document.getElementById('ig-password')?.value || '';
+  const errEl    = document.getElementById('ig-login-err');
+  const btn      = document.getElementById('ig-login-btn');
+  if (!username || !password) {
+    if (errEl) errEl.textContent = 'ユーザー名とパスワードを入力してください';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = 'ログイン中...';
+  if (errEl) errEl.textContent = '';
+  try {
+    const r    = await fetch('/api/instagram/login', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({username, password}),
+    });
+    const data = await r.json();
+    if (r.status === 202 && data.two_factor_required) {
+      _igShowStep('2fa');
+      setTimeout(() => document.getElementById('ig-2fa-code')?.focus(), 100);
+    } else if (r.ok) {
+      _igShowStep('syncing');
+      await _startIgSync();
+    } else {
+      if (errEl) errEl.textContent = data.error || 'ログインに失敗しました';
+    }
+  } catch (e) {
+    if (errEl) errEl.textContent = 'ネットワークエラーが発生しました';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'ログインして保存済み投稿を取得';
+  }
+}
+
+async function ig2faSubmit() {
+  const code  = (document.getElementById('ig-2fa-code')?.value || '').trim();
+  const errEl = document.getElementById('ig-2fa-err');
+  const btn   = document.getElementById('ig-2fa-btn');
+  if (!code) { if (errEl) errEl.textContent = '認証コードを入力してください'; return; }
+  btn.disabled = true;
+  btn.textContent = '確認中...';
+  if (errEl) errEl.textContent = '';
+  try {
+    const r    = await fetch('/api/instagram/login/2fa', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({code}),
+    });
+    const data = await r.json();
+    if (r.ok) {
+      _igShowStep('syncing');
+      await _startIgSync();
+    } else {
+      if (errEl) errEl.textContent = data.error || '認証コードが正しくありません';
+    }
+  } catch (e) {
+    if (errEl) errEl.textContent = 'ネットワークエラーが発生しました';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '確認';
+  }
+}
+
+async function _startIgSync() {
+  const msgEl = document.getElementById('ig-sync-msg');
+  const subEl = document.getElementById('ig-sync-sub');
+  try {
+    const r    = await fetch('/api/sync', {method: 'POST'});
+    const data = await r.json();
+    if (!r.ok) {
+      if (msgEl) msgEl.textContent = data.error || '同期の開始に失敗しました';
+      if (subEl) subEl.textContent = '';
+      return;
+    }
+    await _pollIgSync(msgEl, subEl);
+  } catch (e) {
+    if (msgEl) msgEl.textContent = 'エラーが発生しました';
+    if (subEl) subEl.textContent = e.message;
+  }
+}
+
+async function _pollIgSync(msgEl, subEl) {
+  const msgs = [
+    'Instagram に接続中...',
+    '保存済み投稿を取得中...',
+    '住所・店舗情報を抽出中...',
+    'ジオコーディング中...',
+    'データベースを更新中...',
+  ];
+  let idx = 0;
+  return new Promise(resolve => {
+    const timer = setInterval(async () => {
+      if (msgEl && idx < msgs.length) msgEl.textContent = msgs[idx++];
+      try {
+        const r      = await fetch('/api/sync/status');
+        const status = await r.json();
+        if (!status.running) {
+          clearInterval(timer);
+          if (status.error) {
+            if (msgEl) msgEl.textContent = '同期に失敗しました';
+            if (subEl) subEl.textContent = status.error;
+          } else {
+            const doneSubEl = document.getElementById('ig-done-sub');
+            if (doneSubEl) doneSubEl.textContent = '新しい保存済み投稿が地図に追加されました';
+            _igShowStep('done');
+            const area = document.getElementById('ig-btn-area');
+            if (area) _renderIgNavBtn(area, true);
+          }
+          resolve();
+        }
+      } catch (_) {}
+    }, 3500);
+  });
+}
+
+async function _igDisconnect() {
+  if (!confirm('Instagram の連携を解除しますか？\n保存済みデータは削除されません。')) return;
+  try { await fetch('/api/instagram/disconnect', {method: 'POST'}); } catch (_) {}
+  closeIgModal();
+  const area = document.getElementById('ig-btn-area');
+  if (area) _renderIgNavBtn(area, false);
+}
+
+// ── ビューモード（個人/グループ切替） ─────────────────────────────────────────
+const _VM_KEY = "ig_view_mode";
+const _VG_KEY = "ig_view_group_id";
+
+function getViewMode()       { return localStorage.getItem(_VM_KEY) || "personal"; }
+function getViewGroupId()    { return parseInt(localStorage.getItem(_VG_KEY) || "0") || null; }
+function _setViewMode(m)     { localStorage.setItem(_VM_KEY, m); }
+function _setViewGroupId(id) { id ? localStorage.setItem(_VG_KEY, String(id)) : localStorage.removeItem(_VG_KEY); }
+
+function _escHtml(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function _injectViewToggleStyles() {
+  if (document.getElementById("_vt-styles")) return;
+  const s = document.createElement("style");
+  s.id = "_vt-styles";
+  s.textContent = `
+    #view-toggle-area { display:flex; align-items:center; margin-left:12px; flex-shrink:0; }
+    .vt-group { display:flex; border:1px solid rgba(255,255,255,0.35); border-radius:16px; overflow:hidden; }
+    .vt-btn { padding:3px 12px; background:transparent; color:rgba(255,255,255,0.55);
+              border:none; cursor:pointer; font-size:12px; font-weight:600;
+              transition:all 0.15s; white-space:nowrap; }
+    .vt-btn.active { background:rgba(255,255,255,0.22); color:#fff; }
+    .vt-select { margin-left:8px; padding:3px 8px; border-radius:12px;
+                 border:1px solid rgba(255,255,255,0.35); font-size:12px;
+                 background:rgba(255,255,255,0.12); color:#fff; max-width:150px; cursor:pointer; }
+    .vt-select option { background:#1a1a2e; color:#fff; }
+  `;
+  document.head.appendChild(s);
+}
+
+async function initViewToggle(onChangeCallback) {
+  const area = document.getElementById("view-toggle-area");
+  if (!area) return;
+  _injectViewToggleStyles();
+
+  let groups = [];
+  try { groups = await apiFetch("/api/groups"); } catch (_) {}
+
+  const mode    = getViewMode();
+  const groupId = getViewGroupId();
+
+  const selectHtml =
+    `<select id="vt-group-select" class="vt-select"` +
+    ` style="display:${mode === "group" ? "inline-block" : "none"}"` +
+    ` onchange="_vtGroupChange(this.value)">` +
+    `<option value="">グループを選択…</option>` +
+    groups.map(g =>
+      `<option value="${g.id}"${groupId === g.id ? " selected" : ""}>${_escHtml(g.name)}</option>`
+    ).join("") +
+    `</select>`;
+
+  area.innerHTML =
+    `<div class="vt-group">` +
+    `<button class="vt-btn${mode === "personal" ? " active" : ""}" data-mode="personal" onclick="_vtToggle('personal')">個人</button>` +
+    `<button class="vt-btn${mode === "group"    ? " active" : ""}" data-mode="group"    onclick="_vtToggle('group')">グループ</button>` +
+    `</div>` + selectHtml;
+
+  window._vtCallback = onChangeCallback;
+}
+
+function _vtToggle(mode) {
+  _setViewMode(mode);
+  document.querySelectorAll(".vt-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.mode === mode)
+  );
+  const sel = document.getElementById("vt-group-select");
+  if (sel) sel.style.display = mode === "group" ? "inline-block" : "none";
+  // 同期的にデータクリアを通知してから非同期リロードを起動
+  window.dispatchEvent(new CustomEvent("vtModeChange", { detail: { mode } }));
+  if (window._vtCallback) window._vtCallback();
+}
+
+function _vtGroupChange(val) {
+  _setViewGroupId(parseInt(val) || null);
+  if (window._vtCallback) window._vtCallback();
 }
 
 // ── モバイルナビ ──────────────────────────────────────────────────────────────

@@ -363,12 +363,13 @@
 
 <header>
   <h1><a href="/" style="color:inherit;text-decoration:none;">📍 Instagram お店マップ</a></h1>
+  <div id="view-toggle-area"></div>
   <div class="header-spacer"></div>
   <nav id="header-nav">
     <a class="nav-link" href="/map">MAP</a>
     <span class="nav-link-current">店舗一覧</span>
     <a class="nav-link" href="/groups">グループ管理</a>
-    <a class="nav-link" href="/settings">設定</a>
+    <a class="nav-link" href="/settings">カテゴリ設定</a>
   </nav>
   <div id="auth-area">
     <div id="user-info" style="display:none">
@@ -376,6 +377,7 @@
       <span id="user-name"></span>
       <button id="logout-btn" onclick="logout()">ログアウト</button>
     </div>
+    <div id="ig-btn-area"></div>
     <div id="header-signin"></div>
   </div>
   <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
@@ -458,23 +460,44 @@
 <script>
   let allLocations = [];
 
+  // グループ切替時に旧データを即時クリア（非同期リロードより先に実行）
+  window.addEventListener("vtModeChange", function({ detail }) {
+    if (detail.mode === "group") {
+      allLocations = [];
+      const container = document.getElementById("main-content");
+      if (container) container.innerHTML = '<div id="empty-msg">グループを選択してください</div>';
+      const totalLabel = document.getElementById("total-label");
+      if (totalLabel) totalLabel.textContent = "0件";
+    }
+  });
+
   const IG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`;
 
   async function init() {
-    // 認証確認（GIS ライブラリ読み込み後に実施）
+    // 認証確認（GIS ライブラリ読み込み後に実施、最大10秒待機）
     const waitForGIS = () => new Promise(res => {
       if (window.google && google.accounts) { res(); return; }
-      const id = setInterval(() => { if (window.google && google.accounts) { clearInterval(id); res(); } }, 100);
+      let elapsed = 0;
+      const id = setInterval(() => {
+        elapsed += 100;
+        if ((window.google && google.accounts) || elapsed >= 10000) { clearInterval(id); res(); }
+      }, 100);
     });
     await waitForGIS();
 
     const user = await checkAuth();
     if (!user) {
-      showLoginOverlay();
+      if (window.google && window.google.accounts) {
+        showLoginOverlay();
+      } else {
+        document.getElementById("overlay").innerHTML =
+          "<h2>ログインが必要です</h2><p>ページを再読み込みしてください。</p>";
+      }
       return;
     }
     showUserInfo(user);
     document.getElementById("overlay").classList.add("hidden");
+    await initViewToggle(reloadListData);
     await loadData();
   }
 
@@ -495,29 +518,53 @@
     google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
   }
 
+  /* ── ビュー切替後のリロード ── */
+  async function reloadListData() {
+    allLocations = [];
+    const _c = document.getElementById("main-content");
+    if (_c) _c.innerHTML = '<div id="empty-msg"></div>';
+    const _t = document.getElementById("total-label");
+    if (_t) _t.textContent = "0件";
+    const ov = document.getElementById("overlay");
+    ov.classList.remove("hidden");
+    ov.innerHTML = '<div class="spinner"></div><h2>データ読み込み中...</h2>';
+    try {
+      await loadData();
+    } catch (_) {}
+    ov.classList.add("hidden");
+  }
+
+  let _listenersAttached = false;
   async function loadData() {
     try {
       allLocations = await loadLocations();
+      // 各ロケーションにジャンル情報をキャッシュ
+      const genreSettings = await fetchGenres();
+      allLocations.forEach(l => {
+        l._genreConf  = resolveGenre(l, genreSettings);
+        l._genreLabel = l.genre || l._genreConf.name;
+      });
+      populatePrefFilter();
+      populateGenreFilter();
+      renderList(allLocations);
     } catch (e) {
-      document.getElementById("empty-msg").textContent = "ロケーションの取得に失敗しました: " + e.message;
+      console.error("loadData error:", e);
+      const _c = document.getElementById("main-content");
+      if (_c) _c.innerHTML = `<div id="empty-msg">${e.message}</div>`;
+      const _t = document.getElementById("total-label");
+      if (_t) _t.textContent = "0件";
       return;
     }
-    // 各ロケーションにジャンル情報をキャッシュ
-    const genreSettings = await fetchGenres();
-    allLocations.forEach(l => {
-      l._genreConf  = resolveGenre(l, genreSettings);
-      l._genreLabel = l.genre || l._genreConf.name;
-    });
-    populatePrefFilter();
-    populateGenreFilter();
-    renderList(allLocations);
-    document.getElementById("search-input").addEventListener("input", applyFilters);
-    document.getElementById("pref-filter").addEventListener("change", applyFilters);
-    document.getElementById("genre-filter").addEventListener("change", applyFilters);
-    document.getElementById("google-rating-filter").addEventListener("change", applyFilters);
-    document.getElementById("open-filter").addEventListener("change", applyFilters);
-    document.getElementById("payment-filter").addEventListener("change", applyFilters);
-    document.getElementById("parking-filter").addEventListener("change", applyFilters);
+    if (!_listenersAttached) {
+      _listenersAttached = true;
+      document.getElementById("search-input").addEventListener("input", applyFilters);
+      document.getElementById("pref-filter").addEventListener("change", applyFilters);
+      document.getElementById("genre-filter").addEventListener("change", applyFilters);
+      document.getElementById("google-rating-filter").addEventListener("change", applyFilters);
+      document.getElementById("open-filter").addEventListener("change", applyFilters);
+      document.getElementById("payment-filter").addEventListener("change", applyFilters);
+      document.getElementById("parking-filter").addEventListener("change", applyFilters);
+    }
 
     // URLパラメータ ?open=<locId> でスレッドを自動展開
     const openId = parseInt(new URLSearchParams(location.search).get("open") || "");
@@ -540,6 +587,7 @@
     const prefs = [...new Set(allLocations.map(l => l.prefecture).filter(Boolean))]
       .sort((a, b) => prefOrder(a) - prefOrder(b));
     const sel = document.getElementById("pref-filter");
+    sel.innerHTML = '<option value="">都道府県（すべて）</option>';
     prefs.forEach(p => {
       const opt = document.createElement("option");
       opt.value = p; opt.textContent = p;
@@ -550,6 +598,7 @@
   function populateGenreFilter() {
     const labels = [...new Set(allLocations.map(l => l._genreLabel).filter(Boolean))].sort();
     const sel = document.getElementById("genre-filter");
+    sel.innerHTML = '<option value="">ジャンル（すべて）</option>';
     labels.forEach(g => {
       const opt = document.createElement("option");
       opt.value = g; opt.textContent = g;

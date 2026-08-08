@@ -72,7 +72,7 @@
 <script src="/frontend/app.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-  const token = location.pathname.split("/").pop();
+  const token = new URLSearchParams(location.search).get("token") || "";
   let groupInfo = null;
   let loggedInUser = null;
 
@@ -85,10 +85,12 @@
     await waitForGIS();
     google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID", callback: handleGoogleSignIn });
 
+    if (!token) { showError("招待トークンが見つかりません。"); return; }
+
     // 招待情報取得（認証不要）
     let info;
     try {
-      const r = await fetch(`/api/invite/${token}`);
+      const r = await fetch(`/api/invite-info?token=${encodeURIComponent(token)}`);
       if (!r.ok) { showError(r.status === 404 ? "この招待リンクは無効か期限切れです。" : "招待情報の取得に失敗しました。"); return; }
       info = await r.json();
     } catch (e) {
@@ -163,7 +165,7 @@
     btn.innerHTML = '<span class="spinner"></span>参加中...';
     const st = document.getElementById("status");
     try {
-      await apiFetch(`/api/invite/${token}/accept`, { method: "POST" });
+      await apiFetch("/api/join", { method: "POST", body: JSON.stringify({ token }) });
       st.className = "status-msg status-ok";
       st.textContent = "グループに参加しました！";
       btn.textContent = "参加済み";
