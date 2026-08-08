@@ -13,7 +13,7 @@
       background: #1a1a2e; color: #fff;
       padding: 0 16px; height: 48px;
       display: flex; align-items: center; gap: 12px;
-      flex-shrink: 0; z-index: 20;
+      flex-shrink: 0; z-index: 110;
     }
     #top-header h1 { font-size: 14px; font-weight: 700; white-space: nowrap; }
     .header-spacer { flex: 1; }
@@ -196,12 +196,13 @@
 
 <div id="top-header">
   <h1><a href="/" style="color:inherit;text-decoration:none;">📍 Instagram お店マップ</a></h1>
+  <div id="view-toggle-area"></div>
   <div class="header-spacer"></div>
   <nav id="header-nav">
     <span class="nav-link-current">MAP</span>
     <a class="nav-link" href="/list">店舗一覧</a>
     <a class="nav-link" href="/groups">グループ管理</a>
-    <a class="nav-link" href="/settings">設定</a>
+    <a class="nav-link" href="/settings">カテゴリ設定</a>
   </nav>
   <div id="auth-area">
     <div id="user-info" style="display:none">
@@ -209,6 +210,7 @@
       <span id="user-name"></span>
       <button id="logout-btn" onclick="logout()">ログアウト</button>
     </div>
+    <div id="ig-btn-area"></div>
     <div id="header-signin"></div>
   </div>
   <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
@@ -306,6 +308,16 @@
 <script src="/frontend/app.js"></script>
 <script>
   let map, allMarkers = [], allLocations = [], infoWindow;
+  let _AME = null; // AdvancedMarkerElement（initMap で保存）
+
+  // グループ切替時に旧マーカーを即時クリア（非同期リロードより先に実行）
+  window.addEventListener("vtModeChange", function({ detail }) {
+    if (detail.mode === "group") {
+      allMarkers.forEach(m => { m.map = null; });
+      allMarkers   = [];
+      allLocations = [];
+    }
+  });
   let activePref    = null;
   let activeCountry = null;
   let currentTab    = "japan";
@@ -557,6 +569,7 @@
   async function initMap() {
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    _AME = AdvancedMarkerElement;
     geocoder = new google.maps.Geocoder();
 
     map = new Map(document.getElementById("map"), {
@@ -569,12 +582,13 @@
     const user = await checkAuth();
     if (!user) { showLoginOverlay(); return; }
     showUserInfo(user);
+    await initViewToggle(reloadMapData);
 
     document.getElementById("overlay").innerHTML = '<div class="spinner"></div><h2>データ読み込み中...</h2>';
     try {
       allLocations = await loadLocations();
     } catch (e) {
-      document.getElementById("overlay").innerHTML = `<h2>エラー</h2><p>${e.message}</p>`;
+      document.getElementById("overlay").innerHTML = `<p>${e.message}</p>`;
       return;
     }
 
@@ -603,6 +617,34 @@
         map.setZoom(16);
       }
     }
+  }
+
+  /* ── ビュー切替後のリロード ── */
+  async function reloadMapData() {
+    if (!_AME) return;
+    const ov = document.getElementById("overlay");
+    ov.classList.remove("hidden");
+    ov.innerHTML = '<div class="spinner"></div><h2>データ読み込み中...</h2>';
+    try {
+      allLocations = await loadLocations();
+    } catch (e) {
+      ov.innerHTML = `<p>${e.message}</p>`;
+      return;
+    }
+    ov.classList.add("hidden");
+
+    // フィルタ再構築
+    const prefSel  = document.getElementById("map-pref-filter");
+    const genreSel = document.getElementById("map-genre-filter");
+    prefSel.innerHTML  = '<option value="">都道府県（すべて）</option>';
+    genreSel.innerHTML = '<option value="">ジャンル（すべて）</option>';
+    activePref = null;
+    populateMapFilters();
+
+    renderMarkers(allLocations, _AME);
+    const japanLocs = allLocations.filter(isJapanLoc);
+    renderSidebar(japanLocs);
+    applyMarkerFilter();
   }
 
   /* ── ログイン UI ── */

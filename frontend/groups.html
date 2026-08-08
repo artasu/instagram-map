@@ -182,13 +182,14 @@
     <a class="nav-link" href="/map">MAP</a>
     <a class="nav-link" href="/list">店舗一覧</a>
     <span class="nav-link-current">グループ管理</span>
-    <a class="nav-link" href="/settings">設定</a>
+    <a class="nav-link" href="/settings">カテゴリ設定</a>
   </nav>
   <div id="user-info" style="display:none">
     <img id="user-avatar" src="" alt="" />
     <span id="user-name"></span>
     <button id="logout-btn" onclick="logout()">ログアウト</button>
   </div>
+  <div id="ig-btn-area"></div>
   <div id="header-signin"></div>
   <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
 </header>
@@ -223,15 +224,27 @@
     </div>
 
     <div class="sub-section" id="invite-section" style="display:none">
-      <h3>招待リンク</h3>
+      <h3>メンバーを招待</h3>
       <div class="invite-box">
-        <div id="invite-url-box"></div>
-        <button class="btn btn-secondary btn-sm" style="margin-top:8px" onclick="generateInvite()">新しい招待リンクを生成</button>
+        <div style="font-size:13px; color:#555; margin-bottom:8px">Gmail アドレスに招待メールを送信します:</div>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+          <input type="email" id="invite-email" placeholder="example@gmail.com"
+                 style="flex:1; min-width:180px; padding:8px 10px; border:1px solid #ddd; border-radius:6px; font-size:13px;" />
+          <select id="invite-role" style="padding:8px 10px; border:1px solid #ddd; border-radius:6px; font-size:13px; background:#fff;">
+            <option value="guest">ゲスト</option>
+            <option value="admin">管理者</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="sendInviteEmail()">招待を送る</button>
+        </div>
+        <div id="invite-result" style="margin-top:8px; font-size:12px;"></div>
       </div>
     </div>
 
     <div id="danger-section" style="display:none; margin-top:8px">
       <button class="btn btn-danger btn-sm" onclick="deleteGroup()">グループを削除</button>
+    </div>
+    <div id="leave-section" style="display:none; margin-top:8px">
+      <button class="btn btn-danger btn-sm" onclick="leaveGroup()">グループから退会</button>
     </div>
   </div>
 
@@ -260,6 +273,7 @@
   let selectedCollections = new Set();
   let myCollections = [];
   let currentGroupData = null;
+  let isCurrentUserAdmin = false;
 
   const waitForGIS = () => new Promise(res => {
     if (window.google && google.accounts) { res(); return; }
@@ -296,7 +310,7 @@
     const groups = await apiFetch("/api/groups");
     const container = document.getElementById("groups-list");
     if (!groups.length) {
-      container.innerHTML = '<div class="empty-state">まだグループがありません。下のフォームから作成してください。</div>';
+      container.innerHTML = '<div class="empty-state">まだグループがありません。上のフォームからグループ名を入力し、「作成」ボタンを押下して作成してください。</div>';
       return;
     }
     container.innerHTML = groups.map(g => `
@@ -319,25 +333,37 @@
     currentGroupData = g;
     document.getElementById("detail-name").textContent = g.name;
 
-    // メンバー
+    // 現在ユーザーの管理者判定（オーナー or group_members で admin ロール）
+    const currentMember = g.members.find(m => m.id === currentUser.id);
+    isCurrentUserAdmin = g.is_owner || (currentMember && currentMember.role === "admin");
+
+    // メンバー（role バッジ・削除ボタン付き）
     document.getElementById("members-list").innerHTML = g.members.length
-      ? g.members.map(m => `
-          <div class="member-item">
-            ${m.picture_url
-              ? `<img class="member-avatar" src="${escHtml(m.picture_url)}" alt="" />`
-              : '<div class="member-avatar"></div>'}
-            <span class="member-name">${escHtml(m.name)}</span>
-            <span class="member-role">${m.id === g.owner_id ? "オーナー" : "メンバー"}</span>
-          </div>`).join("")
+      ? g.members.map(m => {
+          const isOwner   = m.id === g.owner_id;
+          const isSelf    = m.id === currentUser.id;
+          const roleLabel = isOwner ? "オーナー" : (m.role === "admin" ? "管理者" : "ゲスト");
+          const canRemove = !isOwner && !isSelf && isCurrentUserAdmin;
+          return `
+            <div class="member-item">
+              ${m.picture_url
+                ? `<img class="member-avatar" src="${escHtml(m.picture_url)}" alt="" />`
+                : '<div class="member-avatar"></div>'}
+              <span class="member-name">${escHtml(m.name)}</span>
+              <span class="member-role">${roleLabel}</span>
+              ${canRemove ? `<button class="btn btn-danger btn-sm" onclick="removeMember('${escHtml(m.id)}')">削除</button>` : ''}
+            </div>`;
+        }).join("")
       : '<div class="empty-state">メンバーなし</div>';
 
     // 共有リスト
     renderSharedLists(g.shared_lists, g);
 
-    // オーナー専用 UI
-    document.getElementById("invite-section").style.display = g.is_owner ? "block" : "none";
+    // セクション表示制御
+    document.getElementById("invite-section").style.display = isCurrentUserAdmin ? "block" : "none";
     document.getElementById("danger-section").style.display = g.is_owner ? "block" : "none";
-    document.getElementById("invite-url-box").innerHTML = '';
+    document.getElementById("leave-section").style.display  = !g.is_owner ? "block" : "none";
+    document.getElementById("invite-result").textContent = "";
 
     // 自分のコレクション
     myCollections = await apiFetch("/api/my-collections");
@@ -395,17 +421,45 @@
     openDetail(selectedGroupId);
   }
 
-  async function generateInvite() {
-    const data = await apiFetch(`/api/groups/${selectedGroupId}/invite`, { method: "POST" });
-    document.getElementById("invite-url-box").innerHTML = `
-      <div class="invite-url" id="invite-url-text">${escHtml(data.invite_url)}</div>
-      <div class="invite-expiry">有効期限: ${new Date(data.expires_at).toLocaleString("ja-JP")}</div>
-      <button class="btn btn-secondary btn-sm" style="margin-top:6px" onclick="copyInvite()">URLをコピー</button>`;
+  async function sendInviteEmail() {
+    const email    = (document.getElementById("invite-email").value || "").trim();
+    const role     = document.getElementById("invite-role").value;
+    const resultEl = document.getElementById("invite-result");
+    if (!email) {
+      resultEl.style.color = "#c62828";
+      resultEl.textContent = "メールアドレスを入力してください";
+      return;
+    }
+    resultEl.style.color = "#888";
+    resultEl.textContent = "送信中...";
+    try {
+      await apiFetch(`/api/groups/${selectedGroupId}/invite`, {
+        method: "POST",
+        body: JSON.stringify({ email, role }),
+      });
+      const roleLabel = role === "admin" ? "管理者" : "ゲスト";
+      resultEl.style.color = "#2e7d32";
+      resultEl.textContent = `${email} に招待メールを送信しました（権限: ${roleLabel}）`;
+      document.getElementById("invite-email").value = "";
+    } catch (e) {
+      resultEl.style.color = "#c62828";
+      resultEl.textContent = e.message || "送信に失敗しました";
+    }
   }
 
-  function copyInvite() {
-    const url = document.getElementById("invite-url-text").textContent;
-    navigator.clipboard.writeText(url).then(() => toast("招待URLをコピーしました"));
+  async function removeMember(targetUserId) {
+    if (!confirm("このメンバーをグループから削除しますか？")) return;
+    await apiFetch(`/api/groups/${selectedGroupId}/members/${targetUserId}`, { method: "DELETE" });
+    toast("メンバーを削除しました");
+    openDetail(selectedGroupId);
+  }
+
+  async function leaveGroup() {
+    if (!confirm("グループから退会しますか？この操作は元に戻せません。")) return;
+    await apiFetch(`/api/groups/${selectedGroupId}/leave`, { method: "POST" });
+    closeDetail();
+    toast("グループから退会しました");
+    await loadGroups();
   }
 
   async function createGroup() {

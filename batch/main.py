@@ -108,6 +108,90 @@ def run_batch():
         log_batch(total_saved, new_count, processed_count, "error", str(e))
 
 
+def run_batch_for_user(user_id: str, session_path, username: str = "", password: str = ""):
+    """
+    Webアプリから呼ばれるユーザーごとのバッチ処理。
+    .env の認証情報ではなく、ユーザーのセッションファイルを使う。
+
+    Args:
+        user_id:      Google ユーザー ID
+        session_path: ig_session.json のパス (Path オブジェクト)
+        username:     Instagram ユーザー名（省略可）
+        password:     Instagram パスワード（省略可）
+    """
+    from pathlib import Path
+    from scraper import get_saved_posts_for_user
+
+    logger.info("=" * 50)
+    logger.info(f"ユーザーバッチ開始 user_id={user_id}")
+
+    total_saved = 0
+    new_count   = 0
+    processed_count = 0
+
+    try:
+        # Step 1: 保存済み投稿を取得（ユーザーセッション使用）
+        logger.info("Step 1: Instagram から保存済み投稿を収集中...")
+        all_posts   = get_saved_posts_for_user(Path(session_path), username, password)
+        total_saved = len(all_posts)
+        logger.info(f"  収集: {total_saved}件")
+
+        # Step 2: 新規投稿のみ抽出
+        known_urls = get_known_urls(user_id)
+        new_posts  = [p for p in all_posts if p["instagram_url"] not in known_urls]
+        new_count  = len(new_posts)
+        logger.info(f"Step 2: 新規投稿: {new_count}件")
+
+        if new_count > 0:
+            insert_new_posts(new_posts, user_id)
+
+        # Step 3: 未処理投稿
+        unprocessed = get_unprocessed_posts(user_id)
+        if not unprocessed:
+            logger.info("未処理投稿なし → スキップ")
+            log_batch(total_saved, new_count, 0, "skipped")
+            return
+
+        # Step 4: Claude API で住所抽出
+        logger.info(f"Step 4: Claude API で住所抽出中（{len(unprocessed)}件）...")
+        extraction_results = extract_addresses(unprocessed)
+        result_map = {r["id"]: r for r in extraction_results}
+
+        for post in unprocessed:
+            r          = result_map.get(post["id"], {"shops": []})
+            shops      = r.get("shops", [])
+            found_shops = [s for s in shops if s.get("address")]
+            update_processed(post["id"], found=len(found_shops) > 0)
+            if found_shops:
+                insert_locations(post["id"], found_shops)
+
+        # Step 5: Geocoding
+        logger.info("Step 5: Geocoding 実行中...")
+        for loc in get_ungeocoded_locations():
+            coords = geocode(loc["address"])
+            if coords:
+                update_location_geocoded(loc["id"], coords[0], coords[1])
+                processed_count += 1
+
+        # Step 6: 重複店舗の正規化（同名・同住所を1件に統合）
+        from database import normalize_duplicate_locations
+        merged = normalize_duplicate_locations(user_id)
+        if merged > 0:
+            logger.info(f"Step 6: 重複店舗 {merged} 件を統合しました")
+
+        log_batch(total_saved, new_count, processed_count, "success")
+        logger.info(f"ユーザーバッチ完了: 新規{new_count}件 / ピン追加{processed_count}件")
+
+    except SessionError as e:
+        logger.error(f"セッションエラー: {e}")
+        log_batch(total_saved, new_count, processed_count, "error", str(e))
+        raise
+    except Exception as e:
+        logger.error(f"バッチエラー: {e}", exc_info=True)
+        log_batch(total_saved, new_count, processed_count, "error", str(e))
+        raise
+
+
 def main():
     logger.info("Instagram Map バッチスケジューラー起動")
     init_db()
