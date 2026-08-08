@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理者画面</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; background: #f5f5f5; color: #333; min-height: 100vh; }
+
+    /* ── ヘッダー ── */
+    header {
+      background: #1a1a2e; color: #fff;
+      padding: 0 24px; height: 52px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    header h1 { font-size: 16px; font-weight: 700; }
+    .header-spacer { flex: 1; }
+    .nav-link {
+      font-size: 13px; color: #ccc; text-decoration: none;
+      padding: 4px 8px; border-radius: 4px; white-space: nowrap;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .nav-link-current {
+      font-size: 13px; color: #666; text-decoration: none;
+      white-space: nowrap; padding: 4px 8px; border-radius: 4px;
+      pointer-events: none; cursor: default;
+    }
+    #user-info { display: flex; align-items: center; gap: 8px; }
+    #user-avatar { width: 26px; height: 26px; border-radius: 50%; }
+    #user-name  { font-size: 13px; color: #ddd; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #logout-btn {
+      font-size: 12px; color: #aaa; background: none; border: 1px solid #444;
+      border-radius: 4px; cursor: pointer; padding: 3px 8px;
+    }
+    #logout-btn:hover { border-color: #aaa; color: #fff; }
+
+    /* ── ハンバーガーメニュー ── */
+    header { position: relative; }
+    #hamburger-btn {
+      display: none; background: none; border: none;
+      color: #fff; font-size: 22px; cursor: pointer;
+      padding: 4px 6px; line-height: 1; flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      header { padding: 0 12px; }
+      #header-nav {
+        display: none; position: absolute; top: 52px; left: 0; right: 0;
+        background: #1a1a2e; flex-direction: column;
+        z-index: 30; border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+      #header-nav.open { display: flex; }
+      #header-nav .nav-link, #header-nav .nav-link-current {
+        padding: 12px 16px; border-radius: 0; font-size: 14px; color: #ddd;
+        border-bottom: 1px solid rgba(255,255,255,0.06); display: block;
+      }
+      #hamburger-btn { display: block; }
+      #user-name { display: none; }
+      #logout-btn { font-size: 11px; padding: 3px 6px; }
+    }
+
+    /* ── オーバーレイ ── */
+    #overlay {
+      position: fixed; inset: 0; background: rgba(255,255,255,0.85);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+    }
+    #overlay.hidden { display: none; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 4px solid #e0e0e0; border-top-color: #1a73e8;
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── 本文 ── */
+    .page { max-width: 700px; margin: 0 auto; padding: 28px 16px 60px; }
+    .page-header { margin-bottom: 24px; }
+    .page-header h2 { font-size: 20px; font-weight: 700; }
+    .page-header p  { font-size: 13px; color: #888; margin-top: 4px; line-height: 1.6; }
+
+    /* ── スーパーユーザー注記 ── */
+    .super-note {
+      background: #fff8e1; border: 1px solid #ffe082; border-radius: 10px;
+      padding: 12px 16px; margin-bottom: 20px; font-size: 13px; color: #7b5800;
+      line-height: 1.6;
+    }
+    .super-note strong { font-weight: 700; }
+
+    /* ── 追加フォーム ── */
+    .add-form {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      padding: 20px; margin-bottom: 24px;
+    }
+    .add-form h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+    .add-row { display: flex; gap: 10px; }
+    .add-input {
+      flex: 1; padding: 9px 12px; border: 1px solid #ddd; border-radius: 8px;
+      font-size: 14px;
+    }
+    .add-input:focus { outline: 2px solid #1a73e8; border-color: transparent; }
+    .add-btn {
+      padding: 9px 20px; background: #1a73e8; color: #fff; border: none;
+      border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+      white-space: nowrap;
+    }
+    .add-btn:hover { background: #1558b0; }
+    .add-btn:disabled { background: #aaa; cursor: not-allowed; }
+    .form-msg { font-size: 12px; margin-top: 8px; min-height: 18px; }
+    .form-msg.ok  { color: #2e7d32; }
+    .form-msg.err { color: #c62828; }
+
+    /* ── メールリスト ── */
+    .list-card {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .list-card h3 {
+      font-size: 14px; font-weight: 700;
+      padding: 14px 20px 10px; border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .count-badge {
+      font-size: 12px; font-weight: 600; color: #fff;
+      background: #1a73e8; border-radius: 20px; padding: 1px 8px;
+    }
+    .email-list { list-style: none; }
+    .email-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 20px; border-bottom: 1px solid #f5f5f5;
+    }
+    .email-item:last-child { border-bottom: none; }
+    .email-addr { flex: 1; font-size: 14px; font-family: monospace; word-break: break-all; }
+    .email-meta { font-size: 11px; color: #aaa; white-space: nowrap; }
+    .del-btn {
+      font-size: 12px; color: #c62828; background: none;
+      border: 1px solid #e0e0e0; border-radius: 6px;
+      cursor: pointer; padding: 3px 10px; white-space: nowrap; flex-shrink: 0;
+    }
+    .del-btn:hover { background: #fce4e4; border-color: #c62828; }
+    .empty-msg { padding: 20px; text-align: center; color: #aaa; font-size: 14px; }
+    .open-note {
+      padding: 14px 20px; font-size: 13px; color: #555;
+      background: #f0f7ff; border-top: 1px solid #cce4ff;
+    }
+  </style>
+  <script src="/frontend/app.js"></script>
+</head>
+<body>
+
+<header id="top-header">
+  <h1><a href="/" style="color:inherit;text-decoration:none;">📍 Instagram お店マップ</a></h1>
+  <div class="header-spacer"></div>
+  <nav id="header-nav">
+    <a class="nav-link" href="/map">MAP</a>
+    <a class="nav-link" href="/list">店舗一覧</a>
+    <a class="nav-link" href="/groups">グループ管理</a>
+    <a class="nav-link" href="/settings">カテゴリ設定</a>
+  </nav>
+  <div id="user-info" style="display:none">
+    <img id="user-avatar" src="" alt="" />
+    <span id="user-name"></span>
+    <button id="logout-btn" onclick="logout()">ログアウト</button>
+  </div>
+  <div id="ig-btn-area"></div>
+  <button id="hamburger-btn" onclick="toggleNav()" aria-label="メニュー">☰</button>
+  <div id="header-signin"></div>
+</header>
+
+<div id="overlay"><div class="spinner"></div></div>
+
+<div class="page" id="page" style="display:none">
+  <div class="page-header">
+    <h2>管理者画面</h2>
+    <p>ログインを許可するユーザーのメールアドレスを管理します。<br>
+       リストが空の場合は全員がログイン可能です。1件以上登録すると登録済みのみ許可されます。</p>
+  </div>
+
+  <div class="super-note">
+    <strong>スーパーユーザー</strong>（araiprog.11py@gmail.com / tasmusic.sakana21.1@gmail.com）は
+    このリストに関わらず常にログイン可能です。
+  </div>
+
+  <div class="add-form">
+    <h3>メールアドレスを追加</h3>
+    <div class="add-row">
+      <input id="email-input" class="add-input" type="email"
+             placeholder="example@gmail.com" autocomplete="off" />
+      <button id="add-btn" class="add-btn" onclick="addEmail()">追加</button>
+    </div>
+    <div id="form-msg" class="form-msg"></div>
+  </div>
+
+  <div class="list-card">
+    <h3>
+      許可リスト
+      <span id="count-badge" class="count-badge">0</span>
+    </h3>
+    <ul id="email-list" class="email-list">
+      <li class="empty-msg" id="empty-msg">読み込み中...</li>
+    </ul>
+    <div class="open-note" id="open-note" style="display:none">
+      リストが空のため、現在は全員がログイン可能な状態です。
+    </div>
+  </div>
+</div>
+
+<script>
+async function init() {
+  const user = await checkAuth();
+  if (!user || !user.is_super_user) {
+    location.href = "/";
+    return;
+  }
+  // checkAuth() が注入した管理者画面リンクを「現在のページ」に変更
+  const nav = document.getElementById("header-nav");
+  const adminLink = nav && nav.querySelector("[data-admin-link]");
+  if (adminLink) {
+    adminLink.className = "nav-link-current";
+    adminLink.removeAttribute("href");
+  }
+  await loadEmails();
+  document.getElementById("page").style.display = "";
+  document.getElementById("overlay").classList.add("hidden");
+}
+
+async function loadEmails() {
+  const r = await fetch("/api/admin/allowed-emails");
+  if (!r.ok) return;
+  const list = await r.json();
+  renderList(list);
+}
+
+function renderList(list) {
+  const ul = document.getElementById("email-list");
+  const badge = document.getElementById("count-badge");
+  const openNote = document.getElementById("open-note");
+  badge.textContent = list.length;
+  openNote.style.display = list.length === 0 ? "" : "none";
+  if (list.length === 0) {
+    ul.innerHTML = '<li class="empty-msg">登録されているメールアドレスはありません。</li>';
+    return;
+  }
+  ul.innerHTML = list.map(item => `
+    <li class="email-item">
+      <span class="email-addr">${escHtml(item.email)}</span>
+      <span class="email-meta">${escHtml(item.added_by || "")}</span>
+      <button class="del-btn" onclick="removeEmail('${escHtml(item.email)}')">削除</button>
+    </li>
+  `).join("");
+}
+
+async function addEmail() {
+  const input = document.getElementById("email-input");
+  const msg   = document.getElementById("form-msg");
+  const btn   = document.getElementById("add-btn");
+  const email = input.value.trim();
+  if (!email) {
+    showMsg("メールアドレスを入力してください。", false);
+    return;
+  }
+  btn.disabled = true;
+  msg.textContent = "";
+  const r = await fetch("/api/admin/allowed-emails", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+  btn.disabled = false;
+  if (r.ok) {
+    input.value = "";
+    showMsg("追加しました。", true);
+    await loadEmails();
+  } else {
+    const d = await r.json().catch(() => ({}));
+    showMsg(d.error || "追加に失敗しました。", false);
+  }
+}
+
+async function removeEmail(email) {
+  if (!confirm(`${email} を許可リストから削除しますか？`)) return;
+  const r = await fetch(`/api/admin/allowed-emails/${encodeURIComponent(email)}`, {
+    method: "DELETE",
+  });
+  if (r.ok) {
+    await loadEmails();
+  } else {
+    alert("削除に失敗しました。");
+  }
+}
+
+function showMsg(text, ok) {
+  const el = document.getElementById("form-msg");
+  el.textContent = text;
+  el.className = "form-msg " + (ok ? "ok" : "err");
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+document.getElementById("email-input").addEventListener("keydown", e => {
+  if (e.key === "Enter") addEmail();
+});
+
+init();
+</script>
+</body>
+</html>

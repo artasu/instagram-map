@@ -29,8 +29,7 @@ ROOT = Path(__file__).parent
 app = Flask(__name__, static_folder=None)
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev-secret-change-me")
 
-# 許可メールリスト（カンマ区切り）。空の場合は全員許可。
-ALLOWED_EMAILS = {e.strip() for e in os.getenv("ALLOWED_EMAILS", "").split(",") if e.strip()}
+SUPER_USER_EMAILS = {"araiprog.11py@gmail.com", "tasmusic.sakana21.1@gmail.com"}
 
 GOOGLE_CLIENT_ID  = os.getenv("GOOGLE_CLIENT_ID", "")
 GENRES_DIR        = ROOT / "data" / "genres"
@@ -67,6 +66,19 @@ def _require_auth():
     user = session.get("user")
     if not user:
         return None, (jsonify({"error": "Unauthorized"}), 401)
+    return user, None
+
+
+def _is_super_user(user: dict) -> bool:
+    return user.get("email", "") in SUPER_USER_EMAILS
+
+
+def _require_super_user():
+    user, err = _require_auth()
+    if err:
+        return None, err
+    if not _is_super_user(user):
+        return None, (jsonify({"error": "Forbidden"}), 403)
     return user, None
 
 
@@ -117,6 +129,15 @@ def settings_page():
 def join_page():
     return _serve_html("join.html")
 
+@app.route("/admin")
+def admin_page():
+    user, err = _require_auth()
+    if err:
+        return _serve_html("top.html")
+    if not _is_super_user(user):
+        abort(403)
+    return _serve_html("admin.html")
+
 @app.route("/frontend/<path:filename>")
 def frontend_static(filename):
     path = ROOT / "frontend" / filename
@@ -133,7 +154,7 @@ def auth_me():
     user = session.get("user")
     if not user:
         return jsonify({"error": "Unauthorized"}), 401
-    return jsonify(user)
+    return jsonify({**user, "is_super_user": _is_super_user(user)})
 
 
 @app.route("/api/auth/google", methods=["POST"])
@@ -160,9 +181,11 @@ def auth_google():
         "name":    info.get("name", ""),
         "picture": info.get("picture", ""),
     }
-    if ALLOWED_EMAILS and user["email"] not in ALLOWED_EMAILS:
-        logger.warning(f"auth_google: unauthorized email {user['email']!r}")
-        return jsonify({"error": "このアカウントはアクセスが許可されていません。"}), 403
+    if user["email"] not in SUPER_USER_EMAILS:
+        from batch.database import is_email_allowed
+        if not is_email_allowed(user["email"]):
+            logger.warning(f"auth_google: unauthorized email {user['email']!r}")
+            return jsonify({"error": "このアカウントはアクセスが許可されていません。"}), 403
 
     session["user"] = user
 
@@ -179,6 +202,42 @@ def auth_google():
 def auth_logout():
     session.clear()
     return jsonify({"ok": True})
+
+
+# ── 管理者 API ─────────────────────────────────────────────────────────────────
+
+@app.route("/api/admin/allowed-emails", methods=["GET"])
+def admin_get_allowed_emails():
+    _, err = _require_super_user()
+    if err:
+        return err
+    from batch.database import get_allowed_emails
+    return jsonify(get_allowed_emails())
+
+
+@app.route("/api/admin/allowed-emails", methods=["POST"])
+def admin_add_allowed_email():
+    user, err = _require_super_user()
+    if err:
+        return err
+    email = (request.json or {}).get("email", "").strip()
+    if not email:
+        return jsonify({"error": "email required"}), 400
+    from batch.database import add_allowed_email
+    if add_allowed_email(email, user["email"]):
+        return jsonify({"ok": True})
+    return jsonify({"error": "追加に失敗しました"}), 500
+
+
+@app.route("/api/admin/allowed-emails/<email>", methods=["DELETE"])
+def admin_remove_allowed_email(email):
+    _, err = _require_super_user()
+    if err:
+        return err
+    from batch.database import remove_allowed_email
+    if remove_allowed_email(email):
+        return jsonify({"ok": True})
+    return jsonify({"error": "削除に失敗しました"}), 404
 
 
 # ── Instagram 認証 API ─────────────────────────────────────────────────────────

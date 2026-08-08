@@ -36,6 +36,17 @@ async function checkAuth() {
     if (r.ok) {
       currentUser = await r.json();
       setTimeout(initIgButton, 0);
+      if (currentUser.is_super_user) {
+        const nav = document.getElementById("header-nav");
+        if (nav && !nav.querySelector("[data-admin-link]")) {
+          const a = document.createElement("a");
+          a.className = "nav-link";
+          a.href = "/admin";
+          a.textContent = "管理者画面";
+          a.dataset.adminLink = "1";
+          nav.appendChild(a);
+        }
+      }
       return currentUser;
     }
   } catch (_) {}
