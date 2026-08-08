@@ -217,6 +217,27 @@ Google OAuth でログインしたユーザー情報。
 
 ---
 
+## allowed_emails
+
+アプリへのログインを許可するメールアドレスのリスト。スーパーユーザーはこのテーブルに関わらず常に許可される。テーブルが空の場合は全員許可（制限なし）。
+
+| カラム名 | 型 | NOT NULL | デフォルト | 説明 |
+|---|---|---|---|---|
+| `id` | INTEGER / SERIAL | ✅ | AUTO | 主キー |
+| `email` | TEXT | ✅ | — | メールアドレス（UNIQUE・小文字正規化） |
+| `added_by` | TEXT | ✅ | — | 追加者のメールアドレス（または `'env'`） |
+| `added_at` | TEXT / TIMESTAMPTZ | — | CURRENT_TIMESTAMP | 追加日時 |
+
+**インデックス / 制約**
+- `email` UNIQUE
+
+**備考**
+- スーパーユーザー（`araiprog.11py@gmail.com`, `tasmusic.sakana21.1@gmail.com`）は常に許可（このテーブルを参照しない）。
+- `ALLOWED_EMAILS` 環境変数が設定されている場合、初回起動時にこのテーブルへシードされる。
+- 管理者画面（`/admin`）からスーパーユーザーのみ追加・削除可能。
+
+---
+
 ## batch_log
 
 Instagram 保存済み投稿の同期バッチ実行結果ログ。

@@ -196,6 +196,14 @@ def init_db():
             _add_column_if_missing(cur, "saved_posts",   "user_id TEXT")
             _add_column_if_missing(cur, "group_members", "role TEXT DEFAULT 'guest'")
             _add_column_if_missing(cur, "group_invites", "role TEXT DEFAULT 'guest'")
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS allowed_emails (
+                    id SERIAL PRIMARY KEY,
+                    email TEXT UNIQUE NOT NULL,
+                    added_by TEXT NOT NULL,
+                    added_at TIMESTAMPTZ DEFAULT NOW()
+                )
+            """)
         else:
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS saved_posts (
@@ -350,6 +358,15 @@ def init_db():
             ]:
                 _add_column_if_missing(cur, col[0], col[1])
 
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS allowed_emails (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    email TEXT UNIQUE NOT NULL,
+                    added_by TEXT NOT NULL,
+                    added_at TEXT DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
             # visits テーブルのスキーマ移行
             # 旧バージョンは location_id カラムを使用、新バージョンは loc_id を使用
             try:
@@ -465,6 +482,17 @@ def init_db():
             except Exception as mig_err:
                 import logging as _log
                 _log.getLogger(__name__).warning(f"saved_posts スキーマ移行失敗: {mig_err}")
+
+        # env var から許可メールをシード（テーブルが空のときのみ）
+        _env_emails = [e.strip().lower() for e in os.getenv("ALLOWED_EMAILS", "").split(",") if e.strip()]
+        if _env_emails:
+            _cnt = _execute(conn, "SELECT COUNT(*) FROM allowed_emails").fetchone()[0]
+            if _cnt == 0:
+                for _em in _env_emails:
+                    try:
+                        _execute(conn, "INSERT OR IGNORE INTO allowed_emails (email, added_by) VALUES (?, ?)", (_em, "env"))
+                    except Exception:
+                        pass
 
         conn.commit()
     finally:
@@ -1422,5 +1450,54 @@ def redeem_invite(token: str, user_id: str):
         g = cur.fetchone()
         conn.commit()
         return {"id": g[0], "name": g[1]} if g else None
+    finally:
+        conn.close()
+
+
+# ── 許可メールアドレス管理 ─────────────────────────────────────────────────────
+
+def get_allowed_emails() -> list:
+    conn = _get_conn()
+    try:
+        cur = _execute(conn, "SELECT email, added_by, added_at FROM allowed_emails ORDER BY added_at")
+        return [{"email": r[0], "added_by": r[1], "added_at": r[2]} for r in cur.fetchall()]
+    finally:
+        conn.close()
+
+
+def is_email_allowed(email: str) -> bool:
+    """テーブルが空なら制限なし（全員許可）。空でなければ登録済みのみ許可。"""
+    conn = _get_conn()
+    try:
+        cur = _execute(conn, "SELECT COUNT(*) FROM allowed_emails")
+        if cur.fetchone()[0] == 0:
+            return True
+        cur = _execute(conn, "SELECT 1 FROM allowed_emails WHERE email = ?", (email.lower(),))
+        return cur.fetchone() is not None
+    finally:
+        conn.close()
+
+
+def add_allowed_email(email: str, added_by: str) -> bool:
+    conn = _get_conn()
+    try:
+        _execute(conn, "INSERT OR IGNORE INTO allowed_emails (email, added_by) VALUES (?, ?)",
+                 (email.strip().lower(), added_by))
+        conn.commit()
+        return True
+    except Exception:
+        return False
+    finally:
+        conn.close()
+
+
+def remove_allowed_email(email: str) -> bool:
+    conn = _get_conn()
+    try:
+        cur = _execute(conn, "DELETE FROM allowed_emails WHERE email = ?", (email.lower(),))
+        conn.commit()
+        return cur.rowcount > 0
+    except Exception:
+        return False
     finally:
         conn.close()

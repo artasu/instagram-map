@@ -2,6 +2,34 @@
 
 ---
 
+## v2.0.0 — 2026-08-09
+
+### 管理者画面・アクセス制限 DB 管理
+
+#### 変更内容
+
+| ファイル | 変更概要 |
+|---|---|
+| `batch/database.py` | `allowed_emails` テーブルを追加（PG / SQLite 両対応）。`ALLOWED_EMAILS` 環境変数からの初回シード処理を追加。`get_allowed_emails()` / `is_email_allowed()` / `add_allowed_email()` / `remove_allowed_email()` を新規追加。 |
+| `app.py` | `ALLOWED_EMAILS` 環境変数による静的セットを廃止し、DB ベースのチェックに変更。`SUPER_USER_EMAILS` 定数（ハードコード2名）を追加。`_is_super_user()` / `_require_super_user()` ヘルパーを追加。`auth_me()` レスポンスに `is_super_user` フラグを追加。`GET/POST /api/admin/allowed-emails` および `DELETE /api/admin/allowed-emails/<email>` エンドポイントを追加。`/admin` ルートを追加（スーパーユーザーのみアクセス可）。 |
+| `frontend/app.js` | `checkAuth()` にスーパーユーザー判定を追加。`is_super_user = true` の場合、ヘッダーナビに「管理者画面」リンクを動的注入。 |
+| `frontend/admin.html` | 管理者画面を新規作成。許可メールアドレスの一覧表示・追加・削除 UI を実装。リスト空時の「全員許可」注記、スーパーユーザー説明文を表示。 |
+| `document/TABLE_MODEL.md` | `allowed_emails` テーブル定義を追加。 |
+
+#### 機能仕様
+
+| 操作 | 動作 |
+|---|---|
+| スーパーユーザーでログイン | ヘッダーに「管理者画面」リンクが表示される |
+| 一般ユーザーでログイン | 「管理者画面」リンクは表示されない |
+| `/admin` に直接アクセス（非スーパーユーザー） | 403 エラー |
+| 許可リストが空 | 全員がログイン可能 |
+| 許可リストに1件以上登録 | 登録済みアドレスのみログイン可能 |
+| スーパーユーザー | 常にログイン可能（リストを参照しない） |
+| `ALLOWED_EMAILS` 環境変数 | 初回起動時のみ DB へシード（以降は DB で管理） |
+
+---
+
 ## v1.9.0 — 2026-08-09
 
 ### ドキュメント追加
